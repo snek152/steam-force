@@ -2,14 +2,15 @@ import '../styles/globals.css'
 import { useEffect } from 'react'
 import { auth } from '../components/clientApp'
 import { onAuthStateChanged } from '@firebase/auth'
+import nookies from "nookies"
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("logged in")
+        nookies.set(undefined, "uid", user.uid, { path: "/" })
       } else {
-        console.log("Not logged in")
+        nookies.set(undefined, "uid", "", { path: "/" })
       }
     })
   })
