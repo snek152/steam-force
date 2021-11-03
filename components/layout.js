@@ -1,7 +1,7 @@
 import Head from "next/head"
 import Link from "next/link"
 
-export default function Layout({ children }) {
+export default function Layout({ children, title }) {
     return (
         <div>
             <Head>
@@ -16,7 +16,8 @@ export default function Layout({ children }) {
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:title" content="The STEAM Force" />
                 <meta name="twitter:description" content="An open-source initiative to provide accessible and interactive learning for underprivileged kids through a web app." />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+                <title>The STEAM Force | {title || "404"}</title>
             </Head>
             {children}
         </div>
