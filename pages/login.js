@@ -23,8 +23,8 @@ export default function Login() {
     }
     const [e, setError] = useState(null)
     return (
-        <Layout title="Signup">
-            <div>Sign in</div>
+        <Layout title="Login">
+            <div>Login</div>
             <form onSubmit={() => formSubmit(event)}>
                 <input ref={email} placeholder="Email" type="text" />
                 <br />
@@ -38,4 +38,21 @@ export default function Login() {
         </Layout>
     )
 
+}
+
+export async function getServerSideProps(ctx) {
+    if (eval(nookies.get(ctx).logged_in)) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/account"
+            }
+        }
+    }
+
+    return {
+        props: {
+
+        }
+    }
 }

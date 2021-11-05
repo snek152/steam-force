@@ -1,11 +1,10 @@
 import Head from "next/head"
-import Link from "next/link"
 
 export default function Layout({ children, title }) {
     return (
         <div>
             <Head>
-                <meta charset="UTF-8" />
+                <meta charSet="UTF-8" />
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 <meta name="description" content="An open-source initiative to provide accessible and interactive learning for underprivileged kids through a web app." />
                 <meta name="robots" content="index, follow" />

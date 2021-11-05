@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth"
 import db, { auth } from "../components/clientApp"
 import { doc, setDoc } from "@firebase/firestore"
 import Router from "next/router"
+import nookies from "nookies"
 
 export default function Signup() {
     const email = useRef(null)
@@ -46,4 +47,21 @@ export default function Signup() {
         </Layout>
     )
 
+}
+
+export async function getServerSideProps(ctx) {
+    if (eval(nookies.get(ctx).logged_in)) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/account"
+            }
+        }
+    }
+
+    return {
+        props: {
+
+        }
+    }
 }
