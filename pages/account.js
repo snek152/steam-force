@@ -3,6 +3,7 @@ import { useState } from "react"
 import { signOut } from "@firebase/auth"
 import { auth } from "../components/clientApp"
 import Router from "next/router"
+import app from "../components/admin"
 export default function Account({ user }) {
     const [e, setError] = useState(null)
     const formSubmit = () => {
@@ -28,18 +29,23 @@ export default function Account({ user }) {
 }
 
 export async function getServerSideProps(ctx) {
-    const uid = nookies.get(ctx, "uid").uid
-    if (!nookies.get(ctx, "logged_in").logged_in) {
+    try {
+        const cookies = nookies.get(ctx)
+        const token = await app.auth().verifyIdToken(cookies.token)
+        const { uid, email } = token
+        const userDb = await app.firestore().collection("users").doc(uid).get()
+        return {
+            props: {
+                user: userDb.data()
+            }
+        }
+    }
+    catch (err) {
         return {
             redirect: {
                 permanent: false,
                 destination: "/login"
             }
-        }
-    }
-    return {
-        props: {
-            user: JSON.parse(uid)
         }
     }
 }
