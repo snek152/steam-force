@@ -1,5 +1,4 @@
 import Layout from "../components/layout"
-import nookies from "nookies"
 import { useAuth } from "../components/userContext"
 
 export default function Home() {

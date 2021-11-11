@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../components/clientApp"
 import Router from "next/router"
 import nookies from "nookies"
+import { useAuth } from "../components/userContext"
 
 export default function Login() {
     const email = useRef(null)
@@ -25,7 +26,7 @@ export default function Login() {
     return (
         <Layout title="Login">
             <div>Login</div>
-            <form onSubmit={() => formSubmit(event)}>
+            <form onSubmit={(event) => formSubmit(event)}>
                 <input ref={email} placeholder="Email" type="text" />
                 <br />
                 <input ref={password} placeholder="Password" type="password" />
@@ -41,7 +42,7 @@ export default function Login() {
 }
 
 export async function getServerSideProps(ctx) {
-    if (eval(nookies.get(ctx).logged_in)) {
+    if (nookies.get(ctx).token != "") {
         return {
             redirect: {
                 permanent: false,

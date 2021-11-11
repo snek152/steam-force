@@ -16,8 +16,6 @@ export default function Signup() {
             .then(async (userCredential) => {
                 setError(null)
                 await setDoc(doc(db, "users", userCredential.user.uid), {
-                    id: userCredential.user.uid,
-                    email: userCredential.user.email,
                     username: username.current.value
                 })
                 Router.push("/account")
@@ -32,7 +30,7 @@ export default function Signup() {
     return (
         <Layout title="Signup">
             <div>Sign up</div>
-            <form onSubmit={() => formSubmit(event)}>
+            <form onSubmit={(event) => formSubmit(event)}>
                 <input ref={username} placeholder="Username" type="text" />
                 <br />
                 <input ref={email} placeholder="Email" type="text" />
@@ -50,7 +48,7 @@ export default function Signup() {
 }
 
 export async function getServerSideProps(ctx) {
-    if (eval(nookies.get(ctx).logged_in)) {
+    if (nookies.get(ctx).token != "") {
         return {
             redirect: {
                 permanent: false,

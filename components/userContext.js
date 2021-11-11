@@ -16,10 +16,10 @@ export default function AuthProvider({ children }) {
                 setUser(null)
                 nookies.set(undefined, "token", "", { path: "/" })
             } else {
-                const token = await user.getIdToken()
                 const userDb = await getDoc(doc(db, "users", user.uid))
                 const userData = userDb.data()
                 setUser(userData)
+                const token = await user.getIdToken()
                 nookies.set(undefined, "token", token, { path: "/" })
             }
         })
