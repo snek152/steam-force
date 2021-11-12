@@ -4,7 +4,6 @@ import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../components/clientApp"
 import Router from "next/router"
 import nookies from "nookies"
-import { useAuth } from "../components/userContext"
 
 export default function Login() {
     const email = useRef(null)
@@ -42,7 +41,7 @@ export default function Login() {
 }
 
 export async function getServerSideProps(ctx) {
-    if (nookies.get(ctx).token != "") {
+    if (nookies.get(ctx).token != "" && !eval(nookies.get(ctx).anonymous)) {
         return {
             redirect: {
                 permanent: false,

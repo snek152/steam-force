@@ -48,7 +48,7 @@ export default function Signup() {
 }
 
 export async function getServerSideProps(ctx) {
-    if (nookies.get(ctx).token != "") {
+    if (nookies.get(ctx).token != "" && !eval(nookies.get(ctx).anonymous)) {
         return {
             redirect: {
                 permanent: false,

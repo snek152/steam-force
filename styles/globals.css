@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+nav a {
+    @apply inline-block;
+}
+
+.collapse.nav-collapse {
+    @apply hidden;
+}
+
+.collapse.show.nav-collapse {
+    @apply block sm:hidden;
+}
+
+.collapse {
+    @apply hidden;
+}
+
+.collapse.show {
+    @apply block;
+}
+
+.nav-link:not(.mobile-nav) {
+    @apply px-3 py-2 rounded-md text-sm font-medium;
+}
+
+.nav-link.mobile-nav {
+    @apply block px-3 py-2 rounded-md text-base font-medium;
+}
+
+.inactive {
+    @apply text-gray-300 hover:bg-gray-700 hover:text-white;
+}
+
+.active {
+    @apply bg-gray-900 text-white;
+}

@@ -11,7 +11,7 @@ export default function Account({ user }) {
         signOut(auth)
             .then(() => {
                 setError(null)
-                Router.push("/")
+                Router.push("/signup")
             })
             .catch((error) => {
                 let code = error.code.substring(5).replace(/-/g, ' ')
@@ -20,10 +20,10 @@ export default function Account({ user }) {
             })
     }
     return (
-        <Layout title="Account">
-            <h1>Account page</h1>
-            <p>Hello {user.username}</p>
-            <button onClick={formSubmit}>Sign out</button>
+        <Layout title="Free Trial">
+            <h1>Free Trial</h1>
+            <p>Hello! Continue free trial below</p>
+            <button onClick={formSubmit}>Create Account</button>
             <p style={{ color: "red" }}>{e}</p>
         </Layout>
     )
@@ -34,11 +34,12 @@ export async function getServerSideProps(ctx) {
         const cookies = nookies.get(ctx)
         const token = await app.auth().verifyIdToken(cookies.token)
         const { uid, email } = token
-        if (!email) return { redirect: { permanent: false, destination: "/login" } }
-        const userDb = await app.firestore().collection("users").doc(uid).get()
         return {
             props: {
-                user: userDb.data()
+                user: {
+                    anonymous: true,
+                    uid: uid
+                }
             }
         }
     }
@@ -46,7 +47,7 @@ export async function getServerSideProps(ctx) {
         return {
             redirect: {
                 permanent: false,
-                destination: "/login"
+                destination: "/"
             }
         }
     }
