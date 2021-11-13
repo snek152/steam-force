@@ -8,7 +8,7 @@ import { useEffect } from "react"
 
 export default function Layout({ children, title }) {
     return (
-        <div>
+        <div className="h-full bg-gray-50">
             <Head>
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -25,19 +25,7 @@ export default function Layout({ children, title }) {
                 <title>The STEAM Force | {title || "404"}</title>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
             </Head>
-            {/* <nav className="bg-blue rounded-lg shadow-md flex text-black font-sans">
-                <div>
-                    <Link href="/">
-                        <a >The Steam Force</a>
-                    </Link>
-                </div>
-                <div className="flex-grow">
-                </div>
-                <div>
-                    <RightNavLinks />
-                </div>
-            </nav> */}
-            <nav className="bg-gray-800">
+            <nav className="bg-gray-800 fixed w-screen">
                 <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                     <div className="relative flex items-center justify-between h-16">
                         <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -83,6 +71,9 @@ export default function Layout({ children, title }) {
                     </div>
                 </div>
             </nav>
+            <nav className="bg-gray-800 w-screen">
+                <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 h-16"></div>
+            </nav>
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">{children}</div>
         </div>
     )
@@ -116,7 +107,7 @@ function LoggedOutUser({ router }) {
             <Link href="/signup">
                 <a className={router.pathname === "/signup" ? "active nav-link" : "inactive nav-link"}>Signup</a>
             </Link>
-            <a className={router.pathname === "/trial" ? "active nav-link cursor-pointer" : "inactive nav-link cursor-pointer"} onClick={freeTrial}>Free Trial</a>
+            <a className={router.pathname === "/trial" ? "inactive nav-link cursor-pointer hover:bg-[#6366f1] bg-[#6366f1]" : "inactive nav-link cursor-pointer bg-[#6366f1] hover:bg-[#6366f1]"} onClick={freeTrial}>Free Trial</a>
         </div>
     </>)
 }
