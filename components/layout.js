@@ -4,7 +4,6 @@ import { useAuth } from "./userContext"
 import { signInAnonymously, signOut } from "firebase/auth"
 import { auth } from "./clientApp"
 import Router, { useRouter } from "next/router"
-import { useEffect } from "react"
 
 export default function Layout({ children, title }) {
     return (
@@ -25,7 +24,7 @@ export default function Layout({ children, title }) {
                 <title>The STEAM Force | {title || "404"}</title>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
             </Head>
-            <nav className="bg-gray-800 fixed w-screen">
+            <nav className="bg-black fixed w-screen">
                 <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                     <div className="relative flex items-center justify-between h-16">
                         <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -39,7 +38,7 @@ export default function Layout({ children, title }) {
                         <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                             <div className="flex-shrink-0 flex items-center">
                                 <Link href="/">
-                                    <a className="cursor-pointer">
+                                    <a>
                                         <img className="block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow" />
                                     </a>
                                 </Link>
@@ -71,7 +70,7 @@ export default function Layout({ children, title }) {
                     </div>
                 </div>
             </nav>
-            <nav className="bg-gray-800 w-screen">
+            <nav className="bg-black w-screen">
                 <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 h-16"></div>
             </nav>
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">{children}</div>
@@ -107,7 +106,7 @@ function LoggedOutUser({ router }) {
             <Link href="/signup">
                 <a className={router.pathname === "/signup" ? "active nav-link" : "inactive nav-link"}>Signup</a>
             </Link>
-            <a className={router.pathname === "/trial" ? "inactive nav-link cursor-pointer hover:bg-[#6366f1] bg-[#6366f1]" : "inactive nav-link cursor-pointer bg-[#6366f1] hover:bg-[#6366f1]"} onClick={freeTrial}>Free Trial</a>
+            <a className={router.pathname === "/trial" ? "inactive nav-link cursor-pointer hover:bg-red bg-red" : "inactive nav-link cursor-pointer bg-green-600 hover:bg-green-600"} onClick={freeTrial}>Free Trial</a>
         </div>
     </>)
 }
@@ -120,7 +119,7 @@ function LoggedInUser() {
     }
     return (
         <>
-            <button type="button" className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+            <button type="button" className="bg-black p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                 <span className="sr-only">View notifications</span>
                 <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
@@ -129,16 +128,20 @@ function LoggedInUser() {
 
             <div className="ml-3 relative">
                 <div>
-                    <button type="button" data-bs-toggle="collapse" data-bs-target="#user-dropdown" className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                    <button type="button" data-bs-toggle="collapse" data-bs-target="#user-dropdown" className="bg-gray-50 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                         <span className="sr-only">Open user menu</span>
-                        <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                        <img className="h-8 w-8 rounded-full" src="/avatar.svg" alt="" />
                     </button>
                 </div>
 
                 <div className="collapse origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" id="user-dropdown" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-0">Your Profile</a>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-1">Settings</a>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-2" onClick={formSubmit}>Sign out</a>
+                    <Link href="/account">
+                        <a className="block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-0">Courses</a>
+                    </Link>
+                    <Link href="/account/edit">
+                        <a className="block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-1">Edit Profile</a>
+                    </Link>
+                    <a className="cursor-pointer block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-2" onClick={formSubmit}>Sign out</a>
                 </div>
             </div>
         </>

@@ -25,17 +25,6 @@ export default function Login() {
     const [e, setError] = useState(null)
     return (
         <Layout title="Login">
-            {/* <div>Login</div>
-            <form onSubmit={(event) => formSubmit(event)}>
-                <input ref={email} placeholder="Email" type="text" />
-                <br />
-                <input ref={password} placeholder="Password" type="password" />
-                <br />
-                <button type="submit">Submit</button>
-                <p style={{ color: "red" }}>
-                    {e}
-                </p>
-            </form> */}
             <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-md w-full space-y-8">
                     <div>
@@ -72,8 +61,8 @@ export default function Login() {
                         </div>
 
                         <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                                <p className="text-red-500">{e}</p>
+                            <div className="text-sm">
+                                <p className="text-red-500 font-medium">{e}</p>
                             </div>
 
                             <div className="text-sm">

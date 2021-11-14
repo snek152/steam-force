@@ -1,10 +1,10 @@
 import nookies from "nookies"
 import { useState } from "react"
 import { signOut } from "@firebase/auth"
-import { auth } from "../components/clientApp"
+import { auth } from "../../components/clientApp"
 import Router from "next/router"
-import app from "../components/admin"
-import Layout from "../components/layout"
+import app from "../../components/admin"
+import Layout from "../../components/layout"
 export default function Account({ user }) {
     const [e, setError] = useState(null)
     const formSubmit = () => {

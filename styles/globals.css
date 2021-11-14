@@ -33,9 +33,9 @@ nav a {
 }
 
 .inactive {
-    @apply text-gray-300 hover:bg-gray-700 hover:text-white;
+    @apply text-gray-300 hover:bg-gray-900 hover:text-white;
 }
 
 .active {
-    @apply bg-gray-900 text-white;
+    @apply bg-gray-700 text-white;
 }
