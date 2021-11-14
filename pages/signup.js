@@ -2,7 +2,7 @@ import { useRef, useState } from "react"
 import Layout from "../components/layout"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import db, { auth } from "../components/clientApp"
-import { doc, setDoc } from "@firebase/firestore"
+import { collection, doc, getDocs, query, setDoc, where } from "@firebase/firestore"
 import Router from "next/router"
 import nookies from "nookies"
 
@@ -10,21 +10,27 @@ export default function Signup() {
     const email = useRef(null)
     const password = useRef(null)
     const username = useRef(null)
-    const formSubmit = (event) => {
+    const formSubmit = async (event) => {
         event.preventDefault()
-        createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
-            .then(async (userCredential) => {
-                setError(null)
-                await setDoc(doc(db, "users", userCredential.user.uid), {
-                    username: username.current.value
+        const usernameData = await getDocs(query(collection(db, "users"), where("username", "==", username.current.value)))
+        if (!usernameData.empty) {
+            setError("Username already exists")
+        } else {
+            createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+                .then(async (userCredential) => {
+                    setError(null)
+                    await setDoc(doc(db, "users", userCredential.user.uid), {
+                        username: username.current.value
+                    })
+                    Router.push("/account")
                 })
-                Router.push("/account")
-            })
-            .catch((error) => {
-                let code = error.code.substring(5).replace(/-/g, ' ')
-                code = code.charAt(0).toUpperCase() + code.slice(1)
-                setError(code)
-            })
+                .catch((error) => {
+                    let code = error.code.substring(5).replace(/-/g, ' ')
+                    code = code.charAt(0).toUpperCase() + code.slice(1)
+                    setError(code)
+                })
+        }
+
     }
     const [e, setError] = useState(null)
     return (
