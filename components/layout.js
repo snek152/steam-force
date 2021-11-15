@@ -89,7 +89,7 @@ function RightNavLinks() {
         if (user.anonymous) {
             return <LoggedOutUser router={router} />
         } else {
-            return <LoggedInUser />
+            return <LoggedInUser user={user} />
         }
     } else {
         return <LoggedOutUser router={router} />
@@ -115,7 +115,7 @@ function LoggedOutUser({ router }) {
     </>)
 }
 
-function LoggedInUser() {
+function LoggedInUser({ user }) {
     const formSubmit = () => {
         signOut(auth).then(() => {
             Router.push("/")
@@ -138,14 +138,19 @@ function LoggedInUser() {
                     </button>
                 </div>
 
-                <div className="collapse origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" id="user-dropdown" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
-                    <Link href="/account">
-                        <a className="block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-0">Courses</a>
-                    </Link>
-                    <Link href="/account/edit">
-                        <a className="block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-1">Edit Profile</a>
-                    </Link>
-                    <a className="cursor-pointer block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-2" onClick={formSubmit}>Sign out</a>
+                <div className="divide-y divide-gray-200 collapse origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" id="user-dropdown" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
+                    <div className="py-0.5">
+                        <p className="block px-4 py-2 text-sm text-gray-700 dropdown-item" tabIndex="-1" role="menuitem">Signed in as <span className="font-bold">{user?.username}</span></p>
+                    </div>
+                    <div className="py-0.5">
+                        <Link href="/account">
+                            <a className="block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-0">Courses</a>
+                        </Link>
+                        <Link href="/account/edit">
+                            <a className="block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-1">Edit Profile</a>
+                        </Link>
+                        <a className="cursor-pointer block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-2" onClick={formSubmit}>Sign out</a>
+                    </div>
                 </div>
             </div>
         </>
