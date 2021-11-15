@@ -39,3 +39,22 @@ nav a {
 .active {
     @apply bg-gray-700 text-white;
 }
+
+.nav-toggler {
+    &:not(.collapsed) {
+        svg:nth-child(2) {
+            @apply hidden;
+        }
+        svg:nth-child(3) {
+            @apply block;
+        }
+    }
+    &.collapsed {
+        svg:nth-child(2) {
+            @apply block;
+        }
+        svg:nth-child(3) {
+            @apply hidden;
+        }
+    }
+}

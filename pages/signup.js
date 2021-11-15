@@ -7,6 +7,7 @@ import Router from "next/router"
 import nookies from "nookies"
 import Link from "next/link"
 
+
 export default function Signup() {
     const email = useRef(null)
     const password = useRef(null)

@@ -4,6 +4,7 @@ import { useAuth } from "./userContext"
 import { signInAnonymously, signOut } from "firebase/auth"
 import { auth } from "./clientApp"
 import Router, { useRouter } from "next/router"
+import { useEffect } from "react"
 
 export default function Layout({ children, title }) {
     return (
@@ -22,20 +23,23 @@ export default function Layout({ children, title }) {
                 <meta name="twitter:description" content="An open-source initiative to provide accessible and interactive learning for underprivileged kids through a web app." />
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <title>The STEAM Force | {title || "404"}</title>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossOrigin="anonymous" defer></script>
             </Head>
             <nav className="bg-black fixed w-screen">
                 <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                     <div className="relative flex items-center justify-between h-16">
                         <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                            <button type="button" data-bs-toggle="collapse" data-bs-target="#mobile-menu" className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                            <button type="button" data-bs-toggle="collapse" data-bs-target="#mobile-menu" className="collapsed inline-flex items-center justify-center p-2 nav-toggler rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
                                 <span className="sr-only">Open main menu</span>
-                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                                </svg>
+                                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
                         </div>
-                        <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                        <div className="flex-1 flex items-center pl-10 xs:items-center xs:p-0 xs:justify-start sm:items-stretch sm:justify-start">
                             <div className="flex-shrink-0 flex items-center">
                                 <Link href="/">
                                     <a>
