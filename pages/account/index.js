@@ -1,30 +1,17 @@
 import nookies from "nookies"
-import { useState } from "react"
-import { signOut } from "@firebase/auth"
-import { auth } from "../../components/clientApp"
-import Router from "next/router"
 import app from "../../components/admin"
 import Layout from "../../components/layout"
 export default function Account({ user }) {
-    const [e, setError] = useState(null)
-    const formSubmit = () => {
-        signOut(auth)
-            .then(() => {
-                setError(null)
-                Router.push("/")
-            })
-            .catch((error) => {
-                let code = error.code.substring(5).replace(/-/g, ' ')
-                code = code.charAt(0).toUpperCase() + code.slice(1)
-                setError(code)
-            })
-    }
     return (
         <Layout title="Account">
-            <h1>Account page</h1>
-            <p>Hello {user.username}</p>
-            <button onClick={formSubmit}>Sign out</button>
-            <p style={{ color: "red" }}>{e}</p>
+            <header className="bg-white shadow">
+                <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <h1 className="text-3xl font-bold text-gray-900">
+                        Account
+                        Welcome {user.username}
+                    </h1>
+                </div>
+            </header>
         </Layout>
     )
 }

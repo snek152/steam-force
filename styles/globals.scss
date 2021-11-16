@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
+html, body {
+    @apply h-full bg-gray-50;
+}
 
 nav a {
     @apply inline-block;

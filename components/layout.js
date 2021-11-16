@@ -4,11 +4,10 @@ import { useAuth } from "./userContext"
 import { signInAnonymously, signOut } from "firebase/auth"
 import { auth } from "./clientApp"
 import Router, { useRouter } from "next/router"
-import { useEffect } from "react"
 
 export default function Layout({ children, title }) {
     return (
-        <div className="h-full bg-gray-50">
+        <div>
             <Head>
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
