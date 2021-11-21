@@ -89,20 +89,3 @@ export default function Login() {
     )
 
 }
-
-export async function getServerSideProps(ctx) {
-    if (nookies.get(ctx).token != "" && !eval(nookies.get(ctx).anonymous)) {
-        return {
-            redirect: {
-                permanent: false,
-                destination: "/account"
-            }
-        }
-    }
-
-    return {
-        props: {
-
-        }
-    }
-}

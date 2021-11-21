@@ -22,7 +22,8 @@ export default function Signup() {
                 .then(async (userCredential) => {
                     setError(null)
                     await setDoc(doc(db, "users", userCredential.user.uid), {
-                        username: username.current.value
+                        username: username.current.value,
+                        profileUrl: null,
                     })
                     Router.push("/account")
                 })
@@ -104,21 +105,4 @@ export default function Signup() {
         </Layout>
     )
 
-}
-
-export async function getServerSideProps(ctx) {
-    if (nookies.get(ctx).token != "" && !eval(nookies.get(ctx).anonymous)) {
-        return {
-            redirect: {
-                permanent: false,
-                destination: "/account"
-            }
-        }
-    }
-
-    return {
-        props: {
-
-        }
-    }
 }

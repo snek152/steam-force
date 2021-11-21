@@ -4,8 +4,21 @@ import { useAuth } from "./userContext"
 import { signInAnonymously, signOut } from "firebase/auth"
 import { auth } from "./clientApp"
 import Router, { useRouter } from "next/router"
+import { useEffect } from "react"
 
-export default function Layout({ children, title }) {
+export default function Layout({ children, title, container }) {
+    const user = useAuth()
+    const router = useRouter()
+    useEffect(() => {
+        if ((router.pathname == "/login" || router.pathname == "/signup") && user.loading && !user.uid && !user.anonymous) {
+            console.log(user)
+            Router.push("/account")
+        } else if (router.pathname == "/account" && user.uid && user.loading) {
+            Router.push("/")
+        } else if (router.pathname == "/trial" && user.uid && !user.loading && !user.anonymous) {
+            Router.push("/account")
+        }
+    }, [router.pathname])
     return (
         <div>
             <Head>
@@ -24,7 +37,7 @@ export default function Layout({ children, title }) {
                 <title>The STEAM Force | {title || "404"}</title>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossOrigin="anonymous" defer></script>
             </Head>
-            <nav className="bg-black fixed w-screen">
+            <nav className="bg-black fixed w-screen z-50">
                 <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                     <div className="relative flex items-center justify-between h-16">
                         <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -76,7 +89,7 @@ export default function Layout({ children, title }) {
             <nav className="bg-black w-screen">
                 <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 h-16"></div>
             </nav>
-            <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">{children}</div>
+            <div className={container === false ? "" : "max-w-7xl mx-auto px-2 sm:px-6 lg:px-8"}>{children}</div>
         </div>
     )
 }
@@ -84,7 +97,7 @@ export default function Layout({ children, title }) {
 function RightNavLinks() {
     const router = useRouter()
     const user = useAuth()
-    if (user) {
+    if (user.uid) {
         if (user.anonymous) {
             return <LoggedOutUser router={router} />
         } else {
@@ -133,7 +146,7 @@ function LoggedInUser({ user }) {
                 <div>
                     <button type="button" data-bs-toggle="collapse" data-bs-target="#user-dropdown" className="bg-gray-50 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                         <span className="sr-only">Open user menu</span>
-                        <img className="h-8 w-8 rounded-full" src="/avatar.svg" alt="" />
+                        {user.profileUrl ? <img className="h-8 w-8 rounded-full" src={user.profileUrl} alt="" /> : <img className="h-8 w-8 rounded-full" src="/avatar.svg" alt="" />}
                     </button>
                 </div>
 

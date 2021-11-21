@@ -1,11 +1,11 @@
-import nookies from "nookies"
 import { useState } from "react"
 import { signOut } from "@firebase/auth"
 import { auth } from "../components/clientApp"
 import Router from "next/router"
-import app from "../components/admin"
 import Layout from "../components/layout"
-export default function Account({ user }) {
+import { useAuth } from "../components/userContext"
+export default function Account() {
+    const user = useAuth()
     const [e, setError] = useState(null)
     const formSubmit = () => {
         signOut(auth)
@@ -27,28 +27,4 @@ export default function Account({ user }) {
             <p style={{ color: "red" }}>{e}</p>
         </Layout>
     )
-}
-
-export async function getServerSideProps(ctx) {
-    try {
-        const cookies = nookies.get(ctx)
-        const token = await app.auth().verifyIdToken(cookies.token)
-        const { uid, email } = token
-        return {
-            props: {
-                user: {
-                    anonymous: true,
-                    uid: uid
-                }
-            }
-        }
-    }
-    catch (err) {
-        return {
-            redirect: {
-                permanent: false,
-                destination: "/"
-            }
-        }
-    }
 }
