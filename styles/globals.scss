@@ -2,61 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-    @apply h-full bg-gray-50;
+html,
+body {
+  @apply h-full bg-gray-50;
 }
 
 nav a {
-    @apply inline-block;
+  @apply inline-block;
 }
 
 .collapse.nav-collapse {
-    @apply hidden;
+  @apply hidden;
 }
 
 .collapse.show.nav-collapse {
-    @apply block sm:hidden;
+  @apply block sm:hidden;
 }
 
 .collapse {
-    @apply hidden;
+  @apply hidden;
 }
 
 .collapse.show {
-    @apply block;
+  @apply block;
 }
 
 .nav-link:not(.mobile-nav) {
-    @apply px-3 py-2 rounded-md text-sm font-medium;
+  @apply px-3 py-2 rounded-md text-sm font-medium;
 }
 
 .nav-link.mobile-nav {
-    @apply block px-3 py-2 rounded-md text-base font-medium;
+  @apply block px-3 py-2 rounded-md text-base font-medium;
 }
 
 .inactive {
-    @apply text-gray-300 hover:bg-gray-900 hover:text-white;
+  @apply text-gray-300 hover:bg-gray-900 hover:text-white;
 }
 
 .active {
-    @apply bg-gray-700 text-white;
+  @apply bg-gray-700 text-white;
 }
 
 .nav-toggler {
-    &:not(.collapsed) {
-        svg:nth-child(2) {
-            @apply hidden;
-        }
-        svg:nth-child(3) {
-            @apply block;
-        }
+  &:not(.collapsed) {
+    svg:nth-child(2) {
+      @apply hidden;
     }
-    &.collapsed {
-        svg:nth-child(2) {
-            @apply block;
-        }
-        svg:nth-child(3) {
-            @apply hidden;
-        }
+    svg:nth-child(3) {
+      @apply block;
     }
+  }
+  &.collapsed {
+    svg:nth-child(2) {
+      @apply block;
+    }
+    svg:nth-child(3) {
+      @apply hidden;
+    }
+  }
 }
