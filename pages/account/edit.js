@@ -44,16 +44,14 @@ export default function EditAccount() {
             await auth.currentUser.getIdToken(true)
         }
         if (email.current.value !== auth.currentUser.email && email.current.value !== "" && !email.current.value.includes(" ")) {
-            updateEmail(auth.currentUser, email.current.value).then(() => {
-                console.log("testing updated!!!!!")
+            updateEmail(auth.currentUser, email.current.value).then(async () => {
+                await auth.currentUser.getIdToken(true)
             })
-            await auth.currentUser.getIdToken(true)
         }
         if (password.current.value !== "" && !password.current.value.includes(" ")) {
-            updatePassword(auth.currentUser, password.current.value).then(() => {
-                console.log("password updated!!!!!")
+            updatePassword(auth.currentUser, password.current.value).then(async () => {
+                await auth.currentUser.getIdToken(true)
             })
-            await auth.currentUser.getIdToken(true)
         }
         location.reload()
     }
