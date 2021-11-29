@@ -2,23 +2,44 @@ import Head from "next/head"
 import Link from "next/link"
 import { useAuth } from "./userContext"
 import { signInAnonymously, signOut } from "firebase/auth"
-import { auth } from "./clientApp"
+import db, { auth, storage } from "./clientApp"
 import Router, { useRouter } from "next/router"
 import { useEffect } from "react"
+import { getDownloadURL, ref } from "@firebase/storage"
+import { doc, updateDoc } from "@firebase/firestore"
 
 export default function Layout({ children, title, container }) {
     const user = useAuth()
     const router = useRouter()
     useEffect(() => {
-        if ((router.pathname == "/login" || router.pathname == "/signup") && user.loading && !user.uid && !user.anonymous) {
-            console.log(user)
+        if ((router.pathname == "/login" || router.pathname == "/signup") && user.loading === undefined && user.uid !== null && !user.anonymous) {
             Router.push("/account")
-        } else if (router.pathname == "/account" && user.uid && user.loading) {
+        } else if (router.pathname == "/account" && user.uid === null && user.loading === false) {
             Router.push("/")
+        } else if (router.pathname == "/account" && user.anonymous === true) {
+            Router.push("/trial")
         } else if (router.pathname == "/trial" && user.uid && !user.loading && !user.anonymous) {
             Router.push("/account")
         }
-    }, [router.pathname])
+    }, [router.pathname, user])
+    useEffect(() => {
+        if (!user.anonymous && !user.loading && user.uid !== null) {
+            const storageRef = ref(storage, `images/${user.username}`)
+            getDownloadURL(storageRef)
+                .then(async (url) => {
+                    await updateDoc(doc(db, "users", user.uid), {
+                        profileUrl: url
+                    })
+                    await auth.currentUser.getIdToken(true)
+                })
+                .catch(async (err) => {
+                    await updateDoc(doc(db, "users", user.uid), {
+                        profileUrl: null
+                    })
+                    await auth.currentUser.getIdToken(true)
+                })
+        }
+    })
     return (
         <div>
             <Head>
