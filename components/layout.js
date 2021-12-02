@@ -7,6 +7,13 @@ import Router, { useRouter } from "next/router"
 import { useEffect } from "react"
 import { getDownloadURL, ref } from "@firebase/storage"
 import { doc, updateDoc } from "@firebase/firestore"
+import { Menu, Transition } from "@headlessui/react"
+import { Fragment } from "react"
+import Image from "next/image"
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
 
 export default function Layout({ children, title, container }) {
     const user = useAuth()
@@ -148,6 +155,13 @@ function LoggedOutUser({ router }) {
     </>)
 }
 
+function DropdownLink(props) {
+    let { href, children, ...rest } = props
+    return <Link href={href}>
+        <a {...rest}>{children}</a>
+    </Link>
+}
+
 function LoggedInUser({ user }) {
     const formSubmit = () => {
         signOut(auth).then(() => {
@@ -162,8 +176,62 @@ function LoggedInUser({ user }) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                 </svg>
             </button>
-
-            <div className="ml-3 relative">
+            <Menu as="div" className="ml-3 relative">
+                <div>
+                    <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <span className="sr-only">Open user menu</span>
+                        {user.profileUrl ? <Image className="rounded-full" height={32} width={32} src={user.profileUrl} alt="" /> : <Image className="rounded-full" height={32} width={32} src="/avatar.svg" alt="" />}
+                    </Menu.Button>
+                </div>
+                <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                >
+                    <Menu.Items className="divide-gray-200 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <p className="block px-4 py-2 text-sm text-gray-700 dropdown-item" tabIndex="-1" role="menuitem">Signed in as <span className="font-bold">{user?.username}</span></p>
+                        <hr />
+                        <Menu.Item>
+                            {({ active }) => (
+                                <DropdownLink
+                                    href="/account"
+                                    style={{ textDecoration: null }}
+                                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                >
+                                    Account
+                                </DropdownLink>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <DropdownLink
+                                    href="/account/edit"
+                                    style={{ textDecoration: null }}
+                                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                >
+                                    Edit Profile
+                                </DropdownLink>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                                <DropdownLink
+                                    href="/account"
+                                    style={{ textDecoration: null }}
+                                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                >
+                                    Your Profile
+                                </DropdownLink>
+                            )}
+                        </Menu.Item>
+                    </Menu.Items>
+                </Transition>
+            </Menu>
+            {/* <div className="ml-3 relative">
                 <div>
                     <button type="button" data-bs-toggle="collapse" data-bs-target="#user-dropdown" className="bg-gray-50 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                         <span className="sr-only">Open user menu</span>
@@ -185,7 +253,7 @@ function LoggedInUser({ user }) {
                         <a className="cursor-pointer block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-2" onClick={formSubmit}>Sign out</a>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }

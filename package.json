@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.4.2",
     "firebase": "^9.2.0",
     "firebase-admin": "^10.0.0",
     "jquery": "^3.6.0",
