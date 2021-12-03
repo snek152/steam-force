@@ -15,6 +15,14 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
+function LeftNavLinks({ mobile }) {
+    const router = useRouter()
+    return <>
+        <a className={`nav-link ${mobile ? "mobile-nav" : ""} ${router.pathname == "/" ? "active" : "inactive"}`}>Home</a>
+        <a className={`nav-link ${mobile ? "mobile-nav" : ""} ${router.pathname == "/about" ? "active" : "inactive"}`}>About</a>
+    </>
+}
+
 export default function Layout({ children, title, container }) {
     const user = useAuth()
     const router = useRouter()
@@ -68,7 +76,7 @@ export default function Layout({ children, title, container }) {
             <nav className="bg-black fixed w-screen z-50">
                 <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                     <div className="relative flex items-center justify-between h-16">
-                        <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                        <div className="inset-y-0 left-0 flex items-center sm:hidden">
                             <button type="button" data-bs-toggle="collapse" data-bs-target="#mobile-menu" className="collapsed inline-flex items-center justify-center p-2 nav-toggler rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
                                 <span className="sr-only">Open main menu</span>
                                 <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -89,10 +97,7 @@ export default function Layout({ children, title, container }) {
                             </div>
                             <div className="hidden sm:block sm:ml-6">
                                 <div className="flex space-x-4">
-                                    <a href="#" className="nav-link active">Dashboard</a>
-                                    <a href="#" className="nav-link inactive">Team</a>
-                                    <a href="#" className="nav-link inactive">Projects</a>
-                                    <a href="#" className="nav-link inactive">Calendar</a>
+                                    <LeftNavLinks />
                                 </div>
                             </div>
                         </div>
@@ -104,13 +109,7 @@ export default function Layout({ children, title, container }) {
 
                 <div className="collapse nav-collapse" id="mobile-menu">
                     <div className="px-2 pt-2 pb-3 space-y-1">
-                        <a href="#" className="nav-link mobile-nav active">Dashboard</a>
-
-                        <a href="#" className="nav-link mobile-nav inactive">Team</a>
-
-                        <a href="#" className="nav-link mobile-nav inactive">Projects</a>
-
-                        <a href="#" className="nav-link mobile-nav inactive">Calendar</a>
+                        <LeftNavLinks mobile={true} />
                     </div>
                 </div>
             </nav>
@@ -125,14 +124,21 @@ export default function Layout({ children, title, container }) {
 function RightNavLinks() {
     const router = useRouter()
     const user = useAuth()
-    if (user.uid) {
-        if (user.anonymous) {
-            return <LoggedOutUser router={router} />
+    if (user.loading === undefined || user.loading == false) {
+        if (user.uid) {
+            if (user.anonymous) {
+                return <LoggedOutUser router={router} />
+            } else {
+                return <LoggedInUser user={user} />
+            }
         } else {
-            return <LoggedInUser user={user} />
+            return <LoggedOutUser router={router} />
         }
     } else {
-        return <LoggedOutUser router={router} />
+        return <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
     }
 }
 
@@ -180,7 +186,7 @@ function LoggedInUser({ user }) {
                 <div>
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                         <span className="sr-only">Open user menu</span>
-                        {user.profileUrl ? <Image className="rounded-full" height={32} width={32} src={user.profileUrl} alt="" /> : <Image className="rounded-full" height={32} width={32} src="/avatar.svg" alt="" />}
+                        {user.profileUrl ? <Image className="rounded-full" height={32} width={32} loading="eager" src={user.profileUrl} alt="" /> : <Image className="rounded-full" height={32} width={32} loading="eager" src="/avatar.svg" alt="" />}
                     </Menu.Button>
                 </div>
                 <Transition
@@ -192,68 +198,46 @@ function LoggedInUser({ user }) {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                 >
-                    <Menu.Items className="divide-gray-200 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <p className="block px-4 py-2 text-sm text-gray-700 dropdown-item" tabIndex="-1" role="menuitem">Signed in as <span className="font-bold">{user?.username}</span></p>
-                        <hr />
-                        <Menu.Item>
-                            {({ active }) => (
-                                <DropdownLink
-                                    href="/account"
-                                    style={{ textDecoration: null }}
-                                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                >
-                                    Account
-                                </DropdownLink>
-                            )}
-                        </Menu.Item>
-                        <Menu.Item>
-                            {({ active }) => (
-                                <DropdownLink
-                                    href="/account/edit"
-                                    style={{ textDecoration: null }}
-                                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                >
-                                    Edit Profile
-                                </DropdownLink>
-                            )}
-                        </Menu.Item>
-                        <Menu.Item>
-                            {({ active }) => (
-                                <DropdownLink
-                                    href="/account"
-                                    style={{ textDecoration: null }}
-                                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                >
-                                    Your Profile
-                                </DropdownLink>
-                            )}
-                        </Menu.Item>
+                    <Menu.Items className="divide-gray-200 divide-y origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div className="py-1">
+                            <p className="block px-4 py-1 text-sm text-gray-700 dropdown-item" tabIndex="-1" role="menuitem">Signed in as <span className="font-bold">{user?.username}</span></p>
+                        </div>
+                        <div className="py-1">
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <DropdownLink
+                                        href="/account"
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                    >
+                                        Account
+                                    </DropdownLink>
+                                )}
+                            </Menu.Item>
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <DropdownLink
+                                        href="/account/edit"
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                    >
+                                        Edit Profile
+                                    </DropdownLink>
+                                )}
+                            </Menu.Item>
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <a
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 cursor-pointer')}
+                                        onClick={formSubmit}
+
+                                    >
+                                        Sign Out
+                                    </a>
+                                )}
+                            </Menu.Item>
+                        </div>
                     </Menu.Items>
                 </Transition>
             </Menu>
-            {/* <div className="ml-3 relative">
-                <div>
-                    <button type="button" data-bs-toggle="collapse" data-bs-target="#user-dropdown" className="bg-gray-50 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                        <span className="sr-only">Open user menu</span>
-                        {user.profileUrl ? <img className="h-8 w-8 rounded-full" src={user.profileUrl} alt="" /> : <img className="h-8 w-8 rounded-full" src="/avatar.svg" alt="" />}
-                    </button>
-                </div>
-
-                <div className="divide-y divide-gray-200 collapse origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" id="user-dropdown" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
-                    <div className="py-0.5">
-                        <p className="block px-4 py-2 text-sm text-gray-700 dropdown-item" tabIndex="-1" role="menuitem">Signed in as <span className="font-bold">{user?.username}</span></p>
-                    </div>
-                    <div className="py-0.5">
-                        <Link href="/account">
-                            <a className="block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-0">Courses</a>
-                        </Link>
-                        <Link href="/account/edit">
-                            <a className="block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-1">Edit Profile</a>
-                        </Link>
-                        <a className="cursor-pointer block px-4 py-2 text-sm text-gray-700 dropdown-item hover:bg-gray-100" role="menuitem" tabIndex="-1" id="user-menu-item-2" onClick={formSubmit}>Sign out</a>
-                    </div>
-                </div>
-            </div> */}
         </>
     )
 }
