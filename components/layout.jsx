@@ -23,7 +23,7 @@ function LeftNavLinks({ mobile }) {
     </>
 }
 
-export default function Layout({ children, title, container }) {
+export default function Layout({ children, title, container, noNav }) {
     const user = useAuth()
     const router = useRouter()
     useEffect(() => {
@@ -113,9 +113,9 @@ export default function Layout({ children, title, container }) {
                     </div>
                 </div>
             </nav>
-            <nav className="bg-black w-screen">
+            {!noNav && <nav className="bg-black w-screen">
                 <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 h-16"></div>
-            </nav>
+            </nav>}
             <div className={container === false ? "" : "max-w-7xl mx-auto px-2 sm:px-6 lg:px-8"}>{children}</div>
         </div>
     )
