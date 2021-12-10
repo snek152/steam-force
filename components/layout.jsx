@@ -10,6 +10,7 @@ import { doc, updateDoc } from "@firebase/firestore"
 import { Menu, Transition } from "@headlessui/react"
 import { Fragment } from "react"
 import Image from "next/image"
+import logo from "../public/logo.svg"
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -71,9 +72,13 @@ export default function Layout({ children, title, container, noNav }) {
                 <meta name="twitter:description" content="An open-source initiative to provide accessible and interactive learning for underprivileged kids through a web app." />
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <title>The STEAM Force | {title || "404"}</title>
+                <link rel="apple-touch-icon" sizes="64x64" href="/apple-touch-icon.png" />
+                <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+                <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+                <link rel="shortcut icon" href="/favicon.ico" />
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossOrigin="anonymous" defer></script>
             </Head>
-            <nav className="bg-black fixed w-screen z-50">
+            <nav className="bg-black fixed w-screen z-[1000]">
                 <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                     <div className="relative flex items-center justify-between h-16">
                         <div className="inset-y-0 left-0 flex items-center sm:hidden">
@@ -90,8 +95,8 @@ export default function Layout({ children, title, container, noNav }) {
                         <div className="flex-1 flex items-center pl-1 xs:items-center sm:p-0 xs:justify-start sm:items-stretch sm:justify-start">
                             <div className="flex-shrink-0 flex items-center">
                                 <Link href="/">
-                                    <a>
-                                        <img className="block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow" />
+                                    <a style={{ filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))", borderRadius: 15 }}>
+                                        <img className="block h-8 w-auto" src="/logo.svg" alt="Workflow" />
                                     </a>
                                 </Link>
                             </div>
