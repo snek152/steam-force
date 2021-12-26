@@ -24,6 +24,12 @@ export default function Signup() {
                     await setDoc(doc(db, "users", userCredential.user.uid), {
                         username: username.current.value,
                         profileUrl: null,
+                        courses: {
+                            math: null,
+                            science: null,
+                            cs: null
+                        },
+                        points: 0
                     })
                     Router.push("/account")
                 })
