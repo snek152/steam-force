@@ -1,10 +1,25 @@
 import { useAuth } from "./userContext"
 import { Disclosure, Transition } from "@headlessui/react"
 import Link from "next/link"
+import { useRouter } from "next/router"
+import { useEffect } from "react"
+import $ from "jquery"
 
 export default function Sidebar({ lessons, type }) {
     const user = useAuth()
-    return <div className="w-3/12 inline-block relative">
+    const router = useRouter()
+    useEffect(() => {
+        if (router.asPath.includes("science")) {
+            $(".science").trigger("click")
+        }
+        if (router.asPath.includes("cs")) {
+            $(".cs").trigger("click")
+        }
+        if (router.asPath.includes("math")) {
+            $(".math").trigger("click")
+        }
+    }, [])
+    return <div className="w-3/12 inline-block relative mr-2">
         <div className="sticky top-[88px] p-2">
             <h1 className="font-semibold text-center text-lg">Courses</h1>
             <p className="text-center">Points: <strong>{user.points}</strong></p>
@@ -12,7 +27,7 @@ export default function Sidebar({ lessons, type }) {
                 <Disclosure>
                     {({ open }) => (
                         <>
-                            <Disclosure.Button className="my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-green-100 rounded-lg hover:bg-green-200 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-75">
+                            <Disclosure.Button className="science my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-green-100 rounded-lg hover:bg-green-200 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-75">
                                 <span>
                                     <img src="/science.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" />
                                     <h1 className="inline-block">Science</h1>
@@ -29,11 +44,10 @@ export default function Sidebar({ lessons, type }) {
                                 leaveFrom="transform scale-100 opacity-100"
                                 leaveTo="transform scale-95 opacity-0"
                             >
-                                <Disclosure.Panel className="px-2 pt-2 pb-1 text-sm text-gray-600 relative">
-                                    <div className="border bg-gray-600 absolute h-full border-gray-600 left-[11.9px]"></div>
+                                <Disclosure.Panel className="px-2 pt-1 pb-1 text-sm text-gray-600 relative">
                                     <ul className="list-outside text-left ml-4 list-disc">
                                         {lessons.science.map(lesson => (
-                                            <li key={lesson.slug} className="p-1">
+                                            <li key={lesson.slug} className={`p-1 hover:underline ${router.asPath.includes(lesson.slug) && "font-bold"}`}>
                                                 <Link href={`/lessons/${type}/${lesson.slug}`}>
                                                     <a>
                                                         {lesson.title}
@@ -50,7 +64,7 @@ export default function Sidebar({ lessons, type }) {
                 <Disclosure>
                     {({ open }) => (
                         <>
-                            <Disclosure.Button className="my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-blue-100 rounded-lg hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
+                            <Disclosure.Button className="cs my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-blue-100 rounded-lg hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
                                 <span>
                                     <img src="/cs.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" />
                                     <h1 className="inline-block">Engineering</h1>
@@ -67,11 +81,10 @@ export default function Sidebar({ lessons, type }) {
                                 leaveFrom="transform scale-100 opacity-100"
                                 leaveTo="transform scale-95 opacity-0"
                             >
-                                <Disclosure.Panel className="px-2 pt-2 pb-1 text-sm text-gray-600 relative">
-                                    <div className="border bg-gray-600 absolute h-full border-gray-600 left-[11.9px]"></div>
+                                <Disclosure.Panel className="px-2 pt-1 pb-1 text-sm text-gray-600 relative">
                                     <ul className="list-outside text-left ml-4 list-disc">
                                         {lessons.cs.map(lesson => (
-                                            <li key={lesson.slug} className="p-1">
+                                            <li key={lesson.slug} className={`p-1 hover:underline ${router.asPath.includes(lesson.slug) && "font-bold"}`}>
                                                 <Link href={`/lessons/${type}/${lesson.slug}`}>
                                                     <a>
                                                         {lesson.title}
@@ -88,7 +101,7 @@ export default function Sidebar({ lessons, type }) {
                 <Disclosure>
                     {({ open }) => (
                         <>
-                            <Disclosure.Button className="my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-red-100 rounded-lg hover:bg-red-200 focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75">
+                            <Disclosure.Button className="math my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-red-100 rounded-lg hover:bg-red-200 focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75">
                                 <span>
                                     <img src="/math.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" />
                                     <h1 className="inline-block">Math</h1>
@@ -105,11 +118,10 @@ export default function Sidebar({ lessons, type }) {
                                 leaveFrom="transform scale-100 opacity-100"
                                 leaveTo="transform scale-95 opacity-0"
                             >
-                                <Disclosure.Panel className="px-2 pt-2 pb-1 text-sm text-gray-600 relative">
-                                    <div className="border bg-gray-600 absolute h-full border-gray-600 left-[11.9px]"></div>
+                                <Disclosure.Panel className="px-2 pt-1 pb-1 text-sm text-gray-600 relative">
                                     <ul className="list-outside text-left ml-4 list-disc">
                                         {lessons.math.map(lesson => (
-                                            <li key={lesson.slug} className="p-1">
+                                            <li key={lesson.slug} className={`p-1 hover:underline ${router.asPath.includes(lesson.slug) && "font-bold"}`}>
                                                 <Link href={`/lessons/${type}/${lesson.slug}`}>
                                                     <a>
                                                         {lesson.title}

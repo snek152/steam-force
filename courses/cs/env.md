@@ -5,6 +5,7 @@ question: "What's the difference between compiler and interpreter?"
 answerchoices: ["Compiler is instant and interpreter isn't", "Compiler is slower", "Interpreter is line by line and compiler is all at once", "Compiler is line by line and interpreter is all at once"]
 heading: "Computer Programming - Environment"
 lesson: 2
+prev: "intro-cp"
 ---
 
 Though Environment Setup is not an element of any Programming Language, it is the first step to be followed before setting on to write a program.

@@ -5,16 +5,47 @@ import Sidebar from "../../../components/sidebar"
 import fs from "fs"
 import { join } from "path"
 import AccountHeader from "../../../components/accountHeader"
+import Link from "next/link"
+import { useEffect } from "react"
+import { useRouter } from "next/router"
+import { doc, updateDoc } from "firebase/firestore"
+import { useAuth } from "../../../components/userContext"
+import db from "../../../components/clientApp"
 
 
 export default function CSLesson({ data, content, lessons }) {
+    const router = useRouter()
+    const user = useAuth()
+    useEffect(() => {
+        const fn = async () => {
+            try {
+                await updateDoc(doc(db, "users", user.uid), {
+                    current: router.asPath
+                })
+            }
+            catch { }
+        }
+        fn()
+    }, [router.asPath])
     return <Layout title={data.title} container={false}>
         <AccountHeader />
         <div className="flex max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 relative flex-grow">
             <Sidebar lessons={lessons} type="cs" />
-            <div className="inline-block prose">
+            <div className="inline-block prose prose-h2:border-t-2 prose-h2:pt-5 border p-3 shadow-lg rounded-lg bg-white">
                 <h1>{data.heading}</h1>
-                <div dangerouslySetInnerHTML={{ __html: content }} ></div>
+                <div dangerouslySetInnerHTML={{ __html: content }}></div>
+                <div className="flex justify-between">
+                    <Link href={`/lessons/cs/${data.prev}`}>
+                        <a className={`bg-gray-300 rounded-md shadow-md no-underline p-2 px-3 font-light ${data.prev ? "" : "pointer-events-none bg-gray-200 text-gray-400"}`}>
+                            Previous
+                        </a>
+                    </Link>
+                    <Link href={`/lessons/cs/${data.next}`}>
+                        <a className={`bg-blue-500 rounded-md shadow-md no-underline text-white p-2 px-3 font-light ${data.next ? "" : "pointer-events-none bg-blue-300 text-gray-100"}`}>
+                            Next
+                        </a>
+                    </Link>
+                </div>
             </div>
         </div>
     </Layout>

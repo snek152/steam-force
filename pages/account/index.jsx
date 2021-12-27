@@ -10,16 +10,19 @@ import db from "../../components/clientApp"
 
 export default function Account() {
     const user = useAuth()
-    useEffect(async () => {
-        if (user.courses) {
-            if (!user.courses.cs) {
-                await updateDoc(doc(db, "users", user.uid), {
-                    courses: {
-                        cs: "intro-cp"
-                    }
-                })
+    useEffect(() => {
+        const fn = async () => {
+            if (user.courses) {
+                if (!user.courses.cs) {
+                    await updateDoc(doc(db, "users", user.uid), {
+                        courses: {
+                            cs: "intro-cp"
+                        }
+                    })
+                }
             }
         }
+        fn()
     })
     return (
         <Layout title="Account" container={false}>

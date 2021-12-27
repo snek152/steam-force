@@ -29,7 +29,8 @@ export default function Signup() {
                             science: null,
                             cs: null
                         },
-                        points: 0
+                        points: 0,
+                        current: null
                     })
                     Router.push("/account")
                 })
