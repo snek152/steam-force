@@ -23,7 +23,8 @@ export function getAllPosts(type) {
         return {
             title: data.title,
             lesson: data.lesson,
-            slug: data.slug
+            slug: data.slug,
+            unit: data.unit
         }
     }).sort((a, b) => {
         return a.lesson - b.lesson

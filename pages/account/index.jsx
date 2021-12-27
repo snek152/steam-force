@@ -3,27 +3,36 @@ import { useAuth } from "../../components/userContext"
 import Image from "next/image"
 import Link from "next/link"
 import AccountHeader from "../../components/accountHeader"
-import { doc, updateDoc } from "firebase/firestore"
-import { useEffect } from "react"
-import db from "../../components/clientApp"
+import { doc, getDoc, updateDoc } from "firebase/firestore"
+import { useEffect, useState } from "react"
+import db, { auth } from "../../components/clientApp"
 
 
 export default function Account() {
     const user = useAuth()
+    const [courses, setCourses] = useState({
+        cs: null,
+        math: null,
+        science: null
+    })
     useEffect(() => {
         const fn = async () => {
-            if (user.courses) {
-                if (!user.courses.cs) {
-                    await updateDoc(doc(db, "users", user.uid), {
-                        courses: {
-                            cs: "intro-cp"
-                        }
-                    })
-                }
-            }
+            const data = await getDoc(doc(db, "users", user.uid))
+            setCourses(data.data().courses)
+            // try { await auth.currentUser.getIdToken(true) }
+            // catch { }
+            // if (user.courses) {
+            //     if (user.courses.cs == null) {
+            //         await updateDoc(doc(db, "users", user.uid), {
+            //             courses: {
+            //                 cs: "intro-cp"
+            //             }
+            //         })
+            //     }
+            // }
         }
         fn()
-    })
+    }, [])
     return (
         <Layout title="Account" container={false}>
             <AccountHeader />
@@ -32,9 +41,9 @@ export default function Account() {
                 <div className="flex items-center justify-center gap-4">
                     <div className="border border-gray-200 border-opacity-50 h-64 w-64 rounded-md bg-green-200 shadow-xl flex flex-col justify-center cursor-pointer">
                         <h1 className="text-3xl text-center">Science</h1>
-                        <Image src="/science.svg" height={150} width={150} className="m-auto select-none" />
+                        <Image src="/science.svg" height={150} width={150} priority className="m-auto select-none" />
                     </div>
-                    <Link href={`/lessons/cs/${user.courses ? user.courses.cs : "intro-cp"}`}>
+                    <Link href={`/lessons/cs/${courses.cs ? courses.cs : "intro-cp"}`}>
                         <div className="border border-gray-200 border-opacity-50 h-64 w-64 rounded-md bg-blue-200 shadow-xl flex flex-col justify-center cursor-pointer">
                             <h1 className="text-3xl text-center">Engineering</h1>
                             <Image src="/cs.svg" height={150} width={150} className="m-auto select-none" />

@@ -6,6 +6,9 @@ answerchoices: ["Compiler is instant and interpreter isn't", "Compiler is slower
 heading: "Computer Programming - Environment"
 lesson: 2
 prev: "intro-cp"
+next: "envtest"
+desc: "learn about the environment needed to start coding"
+unit: "Computer Programming"
 ---
 
 Though Environment Setup is not an element of any Programming Language, it is the first step to be followed before setting on to write a program.

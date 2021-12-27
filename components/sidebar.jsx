@@ -5,17 +5,24 @@ import { useRouter } from "next/router"
 import { useEffect } from "react"
 import $ from "jquery"
 
+const units = {
+    cs: {
+        cp: "Computer Programming",
+        cs: "Computer Science"
+    }
+}
+
 export default function Sidebar({ lessons, type }) {
     const user = useAuth()
     const router = useRouter()
     useEffect(() => {
-        if (router.asPath.includes("science")) {
+        if (router.pathname.includes("science")) {
             $(".science").trigger("click")
         }
-        if (router.asPath.includes("cs")) {
+        if (router.pathname.includes("cs")) {
             $(".cs").trigger("click")
         }
-        if (router.asPath.includes("math")) {
+        if (router.pathname.includes("math")) {
             $(".math").trigger("click")
         }
     }, [])
@@ -47,7 +54,7 @@ export default function Sidebar({ lessons, type }) {
                                 <Disclosure.Panel className="px-2 pt-1 pb-1 text-sm text-gray-600 relative">
                                     <ul className="list-outside text-left ml-4 list-disc">
                                         {lessons.science.map(lesson => (
-                                            <li key={lesson.slug} className={`p-1 hover:underline ${router.asPath.includes(lesson.slug) && "font-bold"}`}>
+                                            <li key={lesson.slug} className={`p-1 hover:underline ${router.query.slug == lesson.slug && "font-bold"}`}>
                                                 <Link href={`/lessons/${type}/${lesson.slug}`}>
                                                     <a>
                                                         {lesson.title}
@@ -82,17 +89,39 @@ export default function Sidebar({ lessons, type }) {
                                 leaveTo="transform scale-95 opacity-0"
                             >
                                 <Disclosure.Panel className="px-2 pt-1 pb-1 text-sm text-gray-600 relative">
-                                    <ul className="list-outside text-left ml-4 list-disc">
-                                        {lessons.cs.map(lesson => (
-                                            <li key={lesson.slug} className={`p-1 hover:underline ${router.asPath.includes(lesson.slug) && "font-bold"}`}>
-                                                <Link href={`/lessons/${type}/${lesson.slug}`}>
-                                                    <a>
-                                                        {lesson.title}
-                                                    </a>
-                                                </Link>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    {Object.keys(units.cs).map(key => (
+                                        <Disclosure>
+                                            <Disclosure.Button className="rounded-lg border w-full border-gray-200 p-1 mb-2 bg-gray-200">
+                                                <h1 className="text-sm inline-block">{units.cs[key]}</h1>
+                                                <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+                                                </svg>
+                                            </Disclosure.Button>
+                                            <Transition
+                                                enter="transition duration-100 ease-out"
+                                                enterFrom="transform scale-95 opacity-0"
+                                                enterTo="transform scale-100 opacity-100"
+                                                leave="transition duration-75 ease-out"
+                                                leaveFrom="transform scale-100 opacity-100"
+                                                leaveTo="transform scale-95 opacity-0"
+                                            >
+                                                <Disclosure.Panel>
+                                                    <ul className="list-outside text-left ml-4 mb-2 list-disc">
+                                                        {lessons.cs.map(lesson => lesson.unit == units.cs[key] && (
+                                                            <li key={lesson.slug} className={`p-1 text-sm hover:underline ${router.query.slug == lesson.slug && "font-bold"}`}>
+                                                                <Link href={`/lessons/${type}/${lesson.slug}`}>
+                                                                    <a>
+                                                                        {lesson.title}
+                                                                    </a>
+                                                                </Link>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </Disclosure.Panel>
+                                            </Transition>
+                                        </Disclosure>
+                                    ))}
+
                                 </Disclosure.Panel>
                             </Transition>
                         </>
@@ -121,7 +150,7 @@ export default function Sidebar({ lessons, type }) {
                                 <Disclosure.Panel className="px-2 pt-1 pb-1 text-sm text-gray-600 relative">
                                     <ul className="list-outside text-left ml-4 list-disc">
                                         {lessons.math.map(lesson => (
-                                            <li key={lesson.slug} className={`p-1 hover:underline ${router.asPath.includes(lesson.slug) && "font-bold"}`}>
+                                            <li key={lesson.slug} className={`p-1 hover:underline ${router.query.slug == lesson.slug && "font-bold"}`}>
                                                 <Link href={`/lessons/${type}/${lesson.slug}`}>
                                                     <a>
                                                         {lesson.title}
