@@ -1,10 +1,129 @@
 import { useAuth } from "./userContext"
+import { Disclosure, Transition } from "@headlessui/react"
+import Link from "next/link"
 
-export default function Sidebar() {
+export default function Sidebar({ lessons, type }) {
     const user = useAuth()
     return <div className="w-3/12 inline-block relative">
-        <div className="sticky top-[88px]">
-            Points: <strong>{user.points}</strong>
+        <div className="sticky top-[88px] p-2">
+            <h1 className="font-semibold text-center text-lg">Courses</h1>
+            <p className="text-center">Points: <strong>{user.points}</strong></p>
+            <div className="max-w-md py-2 mr-2 rounded-2xl">
+                <Disclosure>
+                    {({ open }) => (
+                        <>
+                            <Disclosure.Button className="my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-green-100 rounded-lg hover:bg-green-200 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-75">
+                                <span>
+                                    <img src="/science.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" />
+                                    <h1 className="inline-block">Science</h1>
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
+                                    <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+                                </svg>
+                            </Disclosure.Button>
+                            <Transition
+                                enter="transition duration-100 ease-out"
+                                enterFrom="transform scale-95 opacity-0"
+                                enterTo="transform scale-100 opacity-100"
+                                leave="transition duration-75 ease-out"
+                                leaveFrom="transform scale-100 opacity-100"
+                                leaveTo="transform scale-95 opacity-0"
+                            >
+                                <Disclosure.Panel className="px-2 pt-2 pb-1 text-sm text-gray-600 relative">
+                                    <div className="border bg-gray-600 absolute h-full border-gray-600 left-[11.9px]"></div>
+                                    <ul className="list-outside text-left ml-4 list-disc">
+                                        {lessons.science.map(lesson => (
+                                            <li key={lesson.slug} className="p-1">
+                                                <Link href={`/lessons/${type}/${lesson.slug}`}>
+                                                    <a>
+                                                        {lesson.title}
+                                                    </a>
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </Disclosure.Panel>
+                            </Transition>
+                        </>
+                    )}
+                </Disclosure>
+                <Disclosure>
+                    {({ open }) => (
+                        <>
+                            <Disclosure.Button className="my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-blue-100 rounded-lg hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
+                                <span>
+                                    <img src="/cs.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" />
+                                    <h1 className="inline-block">Engineering</h1>
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
+                                    <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+                                </svg>
+                            </Disclosure.Button>
+                            <Transition
+                                enter="transition duration-100 ease-out"
+                                enterFrom="transform scale-95 opacity-0"
+                                enterTo="transform scale-100 opacity-100"
+                                leave="transition duration-75 ease-out"
+                                leaveFrom="transform scale-100 opacity-100"
+                                leaveTo="transform scale-95 opacity-0"
+                            >
+                                <Disclosure.Panel className="px-2 pt-2 pb-1 text-sm text-gray-600 relative">
+                                    <div className="border bg-gray-600 absolute h-full border-gray-600 left-[11.9px]"></div>
+                                    <ul className="list-outside text-left ml-4 list-disc">
+                                        {lessons.cs.map(lesson => (
+                                            <li key={lesson.slug} className="p-1">
+                                                <Link href={`/lessons/${type}/${lesson.slug}`}>
+                                                    <a>
+                                                        {lesson.title}
+                                                    </a>
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </Disclosure.Panel>
+                            </Transition>
+                        </>
+                    )}
+                </Disclosure>
+                <Disclosure>
+                    {({ open }) => (
+                        <>
+                            <Disclosure.Button className="my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-red-100 rounded-lg hover:bg-red-200 focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75">
+                                <span>
+                                    <img src="/math.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" />
+                                    <h1 className="inline-block">Math</h1>
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
+                                    <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+                                </svg>
+                            </Disclosure.Button>
+                            <Transition
+                                enter="transition duration-100 ease-out"
+                                enterFrom="transform scale-95 opacity-0"
+                                enterTo="transform scale-100 opacity-100"
+                                leave="transition duration-75 ease-out"
+                                leaveFrom="transform scale-100 opacity-100"
+                                leaveTo="transform scale-95 opacity-0"
+                            >
+                                <Disclosure.Panel className="px-2 pt-2 pb-1 text-sm text-gray-600 relative">
+                                    <div className="border bg-gray-600 absolute h-full border-gray-600 left-[11.9px]"></div>
+                                    <ul className="list-outside text-left ml-4 list-disc">
+                                        {lessons.math.map(lesson => (
+                                            <li key={lesson.slug} className="p-1">
+                                                <Link href={`/lessons/${type}/${lesson.slug}`}>
+                                                    <a>
+                                                        {lesson.title}
+                                                    </a>
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </Disclosure.Panel>
+                            </Transition>
+                        </>
+                    )}
+                </Disclosure>
+            </div>
         </div>
     </div>
 }

@@ -3,9 +3,10 @@ title: "Intro to Computer Programming"
 slug: "intro-cp"
 question: "What is a computer program?"
 answerchoices: ["Sequence of instructions", "A writing tool", "Computer programming language", "Hardware"]
+heading: "Introduction to Computer Programming"
+lesson: 1
 ---
 
-# Introduction to Computer Programming
 
 ## What is a Computer Program?
 Before getting into computer programming, let us first understand computer programs and what they do.
@@ -89,3 +90,36 @@ Thus, a computer programmer lists down all the steps required to resolve a probl
 8. Else repeat same process starting from step 3
 
 The above algorithm has been written in a crude way to help beginners understand the concept. You will come across more standardized ways of writing computer algorithms as you move on to advanced levels of computer programming.
+
+## What's next?
+
+We assume you are well aware of English Language, which is a well-known Human Interface Language. English has a predefined grammar, which needs to be followed to write English statements in a correct way. Likewise, most of the Human Interface Languages (Hindi, English, Spanish, French, etc.) are made of several elements like verbs, nouns, adjectives, adverbs, propositions, and conjunctions, etc.
+
+Similar to Human Interface Languages, Computer Programming Languages are also made of several elements. We will take you through the basics of those elements and make you comfortable to use them in various programming languages. These basic elements include −
+
+* Programming Environment
+* Basic Syntax
+* Data Types
+* Variables
+* Keywords
+* Basic Operators
+* Decision Making
+* Loops
+* Numbers
+* Characters
+* Arrays
+* Strings
+* Functions
+* File I/O
+
+
+We will explain all these elements in subsequent chapters with examples using different programming languages. First, we will try to understand the meaning of all these terms in general and then, we will see how these terms can be used in different programming languages.
+
+This tutorial has been designed to give you an idea about the following most popular programming languages −
+
+* C Programming
+* Java Programming
+* Python Programming
+
+
+A major part of the tutorial has been explained by taking C as programming language and then we have shown how similar concepts work in Java and Python. So after completion of this tutorial, you will be quite familiar with these popular programming languages.
