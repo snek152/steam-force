@@ -14,7 +14,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="z-50">
-                    <Image layout="fill" src={home} priority onLoadStart={() => console.log("kajsflkds")} loading="eager" quality="85" className="object-cover bg-center absolute z-50" />
+                    <Image layout="fill" src={home} priority loading="eager" quality="85" className="object-cover bg-center absolute z-50" />
                 </div>
             </div>
         </Layout>

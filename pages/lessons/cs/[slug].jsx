@@ -8,9 +8,9 @@ import AccountHeader from "../../../components/accountHeader"
 import Link from "next/link"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
-import { doc, updateDoc } from "firebase/firestore"
+import { arrayUnion, doc, increment, updateDoc } from "firebase/firestore"
 import { useAuth } from "../../../components/userContext"
-import db from "../../../components/clientApp"
+import db, { auth } from "../../../components/clientApp"
 import $ from "jquery"
 
 export default function CSLesson({ data, content, lessons }) {
@@ -19,17 +19,39 @@ export default function CSLesson({ data, content, lessons }) {
     const formSubmit = async (e) => {
         e.preventDefault()
         const val = $(`input[name=${data.slug}-question]:checked + label`).html()
-        $(`:has(> input[name=${data.slug}-question]:checked)`).addClass("bggreen")
+        if (val == data.correct) {
+            $(`:has(> input[name=${data.slug}-question]:checked)`).addClass("bggreen")
+            await updateDoc(doc(db, "users", user.uid), {
+                points: increment(10)
+            })
+        } else {
+            $(`:has(> input[name=${data.slug}-question]:checked)`).addClass("bgred")
+            $(`input[name=${data.slug}-question] + label`).each((index, element) => {
+                if (element.innerText == data.correct) {
+                    $(element.parentElement).addClass("bggreen")
+                }
+            })
+            await updateDoc(doc(db, "users", user.uid), {
+                points: increment(1)
+            })
+        }
+        await updateDoc(doc(db, "users", user.uid), {
+            completed: arrayUnion(data.slug)
+        })
+        router.reload()
     }
     useEffect(() => {
         const fn = async () => {
             try {
                 await updateDoc(doc(db, "users", user.uid), {
-                    current: router.asPath
+                    current: router.asPath,
+                    currentTitle: data.heading
                 })
                 await updateDoc(doc(db, "users", user.uid), {
                     courses: {
-                        cs: data.slug
+                        cs: data.slug,
+                        math: user.courses.math,
+                        science: user.courses.science
                     }
                 })
             }
@@ -45,16 +67,16 @@ export default function CSLesson({ data, content, lessons }) {
                 <h1>{data.heading}</h1>
                 <p className="mb-0">In this section you will {data.desc}.</p>
                 <div dangerouslySetInnerHTML={{ __html: content }}></div>
-                <div className="bg-gray-50 shadow-md rounded-md p-3 mb-5">
+                <div className={`bg-gray-50 shadow-md rounded-md p-3 mb-5 ${user.completed?.includes(data.slug) ? "bg-white text-gray-400 pointer-events-none" : ""}`}>
                     <span className="font-semibold text-lg">Review: {data.question}</span>
                     <form onSubmit={formSubmit}>
                         {data.answerchoices.map(choice => (
-                            <span className="flex flex-row flex-grow m-1 p-1 rounded-lg">
+                            <span className={`flex flex-row flex-grow m-1 p-1 rounded-lg ${user.completed?.includes(data.slug) && choice == data.correct ? "bggreen" : ""}`} key={choice}>
                                 <input type="radio" id={choice} name={`${data.slug}-question`} className="h-4 w-4 focus:outline-none focus:ring-transparent align-middle mt-[6px] mr-2" />
                                 <label className="not-prose inline-block align-baseline" htmlFor={choice}>{choice}</label>
                             </span>
                         ))}
-                        <button type="submit" className="bg-blue-500 text-white py-1 px-2 rounded-md shadow-lg">Submit</button>
+                        <button type="submit" className={`text-white py-1 px-2 rounded-md shadow-lg ${user.completed?.includes(data.slug) ? "bg-blue-200" : "bg-blue-500"}`}>Submit</button>
                     </form>
                 </div>
                 <div className="flex justify-between h-10">

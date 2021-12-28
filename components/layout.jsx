@@ -30,7 +30,7 @@ export default function Layout({ children, title, container, noNav }) {
     useEffect(() => {
         if ((router.pathname == "/login" || router.pathname == "/signup") && user.loading === undefined && user.uid !== null && !user.anonymous) {
             Router.push("/account")
-        } else if (router.pathname == "/account" && user.uid === null && user.loading === false) {
+        } else if ((router.pathname == "/account" || router.pathname.includes("/lessons")) && user.uid === null && user.loading === false) {
             Router.push("/")
         } else if (router.pathname == "/account" && user.anonymous === true) {
             Router.push("/trial")

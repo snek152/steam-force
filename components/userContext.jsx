@@ -1,28 +1,30 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import db, { auth } from "./clientApp"
 import { doc, getDoc } from "@firebase/firestore"
+import { useAuthState } from "./hooks"
 
 const AuthContext = createContext()
 
 export default function AuthProvider({ children }) {
     const [user, setUser] = useState({ uid: null, loading: true })
-
-    useEffect(() => {
-        return auth.onAuthStateChanged(async (user) => {
-            if (!user) {
+    const [u, loading, error] = useAuthState(auth)
+    useEffect(async () => {
+        if (!loading) {
+            if (!u) {
                 setUser({ uid: null, loading: false })
             } else {
-                setUser({ uid: null, loading: true })
-                const userDb = await getDoc(doc(db, "users", user.uid))
+                setUser(user)
+                const userDb = await getDoc(doc(db, "users", u.uid))
                 const userData = userDb.data()
                 if (!userData) {
-                    setUser({ anonymous: true, uid: user.uid, profileUrl: null })
+                    setUser({ anonymous: true, uid: u.uid, profileUrl: null })
                 } else {
-                    setUser({ ...userData, anonymous: false, uid: user.uid })
+                    setUser({ ...userData, anonymous: false, uid: u.uid })
                 }
             }
-        })
-    }, [])
+        }
+    }, [u])
+
 
     return (
         <AuthContext.Provider value={user}>{children}</AuthContext.Provider>

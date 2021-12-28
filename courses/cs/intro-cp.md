@@ -3,6 +3,7 @@ title: "Intro to Computer Programming"
 slug: "intro-cp"
 question: "What is a computer program?"
 answerchoices: ["Sequence of instructions", "A writing tool", "Computer programming language", "Hardware"]
+correct: "Sequence of instructions"
 heading: "Introduction to Computer Programming"
 lesson: 1
 next: "env"

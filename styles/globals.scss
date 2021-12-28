@@ -29,6 +29,9 @@ nav a {
 .bggreen {
   @apply bg-green-300;
 }
+.bgred {
+  @apply bg-red-300;
+}
 .nav-link:not(.mobile-nav) {
   @apply px-3 py-2 rounded-md text-sm font-medium;
 }

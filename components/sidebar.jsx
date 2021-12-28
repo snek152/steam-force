@@ -51,8 +51,8 @@ export default function Sidebar({ lessons, type }) {
                                 leaveFrom="transform scale-100 opacity-100"
                                 leaveTo="transform scale-95 opacity-0"
                             >
-                                <Disclosure.Panel className="px-2 pt-1 pb-1 text-sm text-gray-600 relative">
-                                    <ul className="list-outside text-left ml-4 list-disc">
+                                <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
+                                    <ul className="list-outside text-left ml-4">
                                         {lessons.science.map(lesson => (
                                             <li key={lesson.slug} className={`p-1 hover:underline ${router.query.slug == lesson.slug && "font-bold"}`}>
                                                 <Link href={`/lessons/${type}/${lesson.slug}`}>
@@ -88,7 +88,7 @@ export default function Sidebar({ lessons, type }) {
                                 leaveFrom="transform scale-100 opacity-100"
                                 leaveTo="transform scale-95 opacity-0"
                             >
-                                <Disclosure.Panel className="px-2 pt-1 pb-1 text-sm text-gray-600 relative">
+                                <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
                                     {Object.keys(units.cs).map(key => (
                                         <Disclosure>
                                             <Disclosure.Button className="rounded-lg border w-full border-gray-200 p-1 mb-2 bg-gray-200">
@@ -106,7 +106,7 @@ export default function Sidebar({ lessons, type }) {
                                                 leaveTo="transform scale-95 opacity-0"
                                             >
                                                 <Disclosure.Panel>
-                                                    <ul className="list-outside text-left ml-4 mb-2 list-disc">
+                                                    <ul className="list-outside text-left ml-4 mb-2 ">
                                                         {lessons.cs.map(lesson => lesson.unit == units.cs[key] && (
                                                             <li key={lesson.slug} className={`p-1 text-sm hover:underline ${router.query.slug == lesson.slug && "font-bold"}`}>
                                                                 <Link href={`/lessons/${type}/${lesson.slug}`}>
@@ -147,8 +147,8 @@ export default function Sidebar({ lessons, type }) {
                                 leaveFrom="transform scale-100 opacity-100"
                                 leaveTo="transform scale-95 opacity-0"
                             >
-                                <Disclosure.Panel className="px-2 pt-1 pb-1 text-sm text-gray-600 relative">
-                                    <ul className="list-outside text-left ml-4 list-disc">
+                                <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
+                                    <ul className="list-outside text-left ml-4 ">
                                         {lessons.math.map(lesson => (
                                             <li key={lesson.slug} className={`p-1 hover:underline ${router.query.slug == lesson.slug && "font-bold"}`}>
                                                 <Link href={`/lessons/${type}/${lesson.slug}`}>

@@ -15,10 +15,21 @@ export default function Account() {
         math: null,
         science: null
     })
+
+    const [latest, setLatest] = useState({
+        current: "",
+        currentTitle: ""
+    })
     useEffect(() => {
         const fn = async () => {
-            const data = await getDoc(doc(db, "users", user.uid))
-            setCourses(data.data().courses)
+            try {
+                const data = await getDoc(doc(db, "users", user.uid))
+                setCourses(data.data().courses)
+                setLatest({
+                    current: data.data().current,
+                    currentTitle: data.data().currentTitle
+                })
+            } catch { }
             // try { await auth.currentUser.getIdToken(true) }
             // catch { }
             // if (user.courses) {
@@ -32,11 +43,19 @@ export default function Account() {
             // }
         }
         fn()
-    }, [])
+    }, [user])
     return (
         <Layout title="Account" container={false}>
             <AccountHeader />
             <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div className="bg-gradient-to-r from-gray-200 to-gray-100 border border-gray-200 shadow rounded-lg p-3 m-2 mb-10">
+                    <h1 className="font-medium text-lg">Continue where you left off</h1>
+                    <Link href={latest.current ? latest.current : ""}>
+                        <a className="font-semibold text-xl hover:underline">
+                            {latest.currentTitle ? latest.currentTitle : ""}
+                        </a>
+                    </Link>
+                </div>
                 <h1 className="font-semibold text-center text-4xl pb-5">Courses</h1>
                 <div className="flex items-center justify-center gap-4">
                     <div className="border border-gray-200 border-opacity-50 h-64 w-64 rounded-md bg-green-200 shadow-xl flex flex-col justify-center cursor-pointer">

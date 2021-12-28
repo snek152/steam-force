@@ -3,10 +3,10 @@ title: "Environment - Computer Programming"
 slug: "env"
 question: "What's the difference between compiler and interpreter?"
 answerchoices: ["Compiler is instant and interpreter isn't", "Compiler is slower", "Interpreter is line by line and compiler is all at once", "Compiler is line by line and interpreter is all at once"]
+correct: "Interpreter is line by line and compiler is all at once"
 heading: "Computer Programming - Environment"
 lesson: 2
 prev: "intro-cp"
-next: "envtest"
 desc: "learn about the environment needed to start coding"
 unit: "Computer Programming"
 ---
