@@ -7,6 +7,7 @@ correct: "Interpreter is line by line and compiler is all at once"
 heading: "Computer Programming - Environment"
 lesson: 2
 prev: "intro-cp"
+next: "syntax"
 desc: "learn about the environment needed to start coding"
 unit: "Computer Programming"
 ---

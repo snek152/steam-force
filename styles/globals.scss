@@ -2,9 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
   @apply bg-gray-50;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-700 rounded-md;
+}
+
+html {
+  @apply bg-gray-50;
+}
+
+body {
+  @apply max-w-full overflow-x-hidden;
 }
 
 nav a {

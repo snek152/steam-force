@@ -26,7 +26,7 @@ export default function Sidebar({ lessons, type }) {
             $(".math").trigger("click")
         }
     }, [])
-    return <div className="w-3/12 inline-block relative mr-2">
+    return <div className="w-3/12 inline-block relative">
         <div className="sticky top-[88px] p-2">
             <h1 className="font-semibold text-center text-lg">Courses</h1>
             <p className="text-center">Points: <strong>{user.points}</strong></p>
@@ -90,7 +90,7 @@ export default function Sidebar({ lessons, type }) {
                             >
                                 <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
                                     {Object.keys(units.cs).map(key => (
-                                        <Disclosure>
+                                        <Disclosure key={key}>
                                             <Disclosure.Button className="rounded-lg border w-full border-gray-200 p-1 mb-2 bg-gray-200">
                                                 <h1 className="text-sm inline-block">{units.cs[key]}</h1>
                                                 <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
