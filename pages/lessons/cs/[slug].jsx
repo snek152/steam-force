@@ -17,6 +17,16 @@ import hljs from "highlight.js"
 export default function CSLesson({ data, content, lessons }) {
     const router = useRouter()
     const user = useAuth()
+    const answerchoices = [...data.answerchoices]
+    const shuffleArray = array => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+    }
+    shuffleArray(answerchoices)
     const formSubmit = async (e) => {
         e.preventDefault()
         const val = $(`input[name=${data.slug}-question]:checked + label`).html()
@@ -72,7 +82,7 @@ export default function CSLesson({ data, content, lessons }) {
                 <div className={`bg-gray-50 shadow-md rounded-md p-3 mb-5 ${user.completed?.includes(data.slug) ? "bg-white text-gray-400 pointer-events-none" : ""}`}>
                     <span className="font-semibold text-lg">Review: {data.question}</span>
                     <form onSubmit={formSubmit}>
-                        {data.answerchoices.map(choice => (
+                        {answerchoices.map(choice => (
                             <span className={`flex flex-row flex-grow m-1 p-1 rounded-lg ${user.completed?.includes(data.slug) && choice == data.correct ? "bggreen" : ""}`} key={choice}>
                                 <input type="radio" id={choice} name={`${data.slug}-question`} className="h-4 w-4 focus:outline-none focus:ring-transparent align-middle mt-[6px] mr-2" />
                                 <label className="not-prose inline-block align-baseline" htmlFor={choice}>{choice}</label>

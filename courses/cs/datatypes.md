@@ -7,7 +7,7 @@ correct: "char"
 heading: "Computer Programming - Data Types"
 lesson: 4
 prev: "syntax"
-next: "datatypes"
+next: "variables"
 desc: "learn about common primitive data types"
 unit: "Computer Programming"
 ---
