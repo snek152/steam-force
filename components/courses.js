@@ -7,7 +7,6 @@ import remarkGfm from "remark-gfm"
 
 export async function markdownToHtml(markdown) {
     const result = await remark().use(html).use(remarkGfm).process(markdown)
-    // const htmlContent = hljs.highlightAll(result.toString()).value
     return result.toString()
 }
 
