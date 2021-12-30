@@ -5,7 +5,7 @@ question: "What is a syntax error?"
 answerchoices: ["A mistake in the language", "An error in the compiler", "An error in your code", "An error on your computer"]
 correct: "An error in your code"
 heading: "Computer Programming - Basic Syntax"
-lesson: 2
+lesson: 3
 prev: "env"
 next: "datatypes"
 desc: "learn about the basic syntax of a C program"
