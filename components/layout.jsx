@@ -10,7 +10,6 @@ import { doc, updateDoc } from "@firebase/firestore"
 import { Menu, Transition } from "@headlessui/react"
 import { Fragment } from "react"
 import Image from "next/image"
-import logo from "../public/logo.svg"
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -60,10 +59,11 @@ export default function Layout({ children, title, container, noNav }) {
         <div className="font-sans">
             <Head>
                 <meta charSet="UTF-8" />
-                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+                <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover' />
                 <meta name="description" content="An open-source initiative to provide accessible and interactive learning for underprivileged kids through a web app." />
                 <meta name="robots" content="index, follow" />
                 <meta property="og:type" content="website" />
+                <meta property="og:image" content="/icon-192.png" />
                 <meta name="og:title" property="og:title" content="The STEAM Force" />
                 <meta name="og:description" property="og:description" content="An open-source initiative to provide accessible and interactive learning for underprivileged kids through a web app." />
                 <meta property="og:site_name" content="The STEAM Force" />
@@ -76,7 +76,18 @@ export default function Layout({ children, title, container, noNav }) {
                 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
                 <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
                 <link rel="shortcut icon" href="/favicon.ico" />
+                <link rel="manifest" href="/manifest.json" />
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossOrigin="anonymous" defer></script>
+                <meta name='application-name' content='PWA App' />
+                <meta name='apple-mobile-web-app-capable' content='yes' />
+                <meta name='apple-mobile-web-app-status-bar-style' content='default' />
+                <meta name='apple-mobile-web-app-title' content='PWA App' />
+                <meta name='format-detection' content='telephone=no' />
+                <meta name='mobile-web-app-capable' content='yes' />
+                <meta name='msapplication-config' content='/icons/browserconfig.xml' />
+                <meta name='msapplication-TileColor' content='#2B5797' />
+                <meta name='msapplication-tap-highlight' content='no' />
+                <meta name='theme-color' content='#000000' />
             </Head>
             <nav className="bg-black fixed w-screen z-[1000]">
                 <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
