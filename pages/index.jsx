@@ -14,7 +14,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="z-50">
-                    <Image layout="fill" src={home} priority loading="eager" quality="85" className="object-cover bg-center absolute z-50" />
+                    <Image alt="Homepage image" layout="fill" src={home} loading="lazy" quality="85" className="object-cover bg-center absolute z-50" />
                 </div>
             </div>
         </Layout>
