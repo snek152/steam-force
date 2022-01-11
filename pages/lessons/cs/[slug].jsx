@@ -10,9 +10,8 @@ import { useEffect } from "react"
 import { useRouter } from "next/router"
 import { arrayUnion, doc, increment, updateDoc } from "firebase/firestore"
 import { useAuth } from "../../../components/userContext"
-import db, { auth } from "../../../components/clientApp"
+import db from "../../../components/clientApp"
 import $ from "jquery"
-import hljs from "highlight.js"
 
 export default function CSLesson({ data, content, lessons }) {
     const router = useRouter()
@@ -52,7 +51,6 @@ export default function CSLesson({ data, content, lessons }) {
         router.reload()
     }
     useEffect(() => {
-        hljs.highlightAll()
         const fn = async () => {
             try {
                 await updateDoc(doc(db, "users", user.uid), {

@@ -1,5 +1,5 @@
 import '../styles/globals.scss'
-import "highlight.js/styles/atom-one-dark.css"
+import "../styles/atom-one-dark.css"
 import AuthProvider from '../components/userContext'
 
 function MyApp({ Component, pageProps }) {
