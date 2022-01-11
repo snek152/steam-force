@@ -56,10 +56,10 @@ export default function Layout({ children, title, container, noNav }) {
         }
     })
     return (
-        <div className="font-sans">
+        <div className="font-sans" lang="en">
             <Head>
                 <meta charSet="UTF-8" />
-                <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover' />
+                <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, viewport-fit=cover' />
                 <meta name="description" content="An open-source initiative to provide accessible and interactive learning for underprivileged kids through a web app." />
                 <meta name="robots" content="index, follow" />
                 <meta property="og:type" content="website" />
@@ -174,7 +174,7 @@ function LoggedOutUser({ router }) {
             <Link href="/signup">
                 <a className={router.pathname === "/signup" ? "active nav-link" : "inactive nav-link"}>Signup</a>
             </Link>
-            <a className={router.pathname === "/trial" ? "inactive nav-link cursor-pointer hover:bg-red bg-red" : "inactive nav-link cursor-pointer bg-green-600 hover:bg-green-600"} onClick={freeTrial}>Free Trial</a>
+            <a className={router.pathname === "/trial" ? "inactive nav-link cursor-pointer hover:bg-red bg-red" : "inactive nav-link cursor-pointer bg-green-500 hover:bg-green-500"} onClick={freeTrial}>Free Trial</a>
         </div>
     </>)
 }

@@ -71,9 +71,9 @@ export default function CSLesson({ data, content, lessons }) {
     }, [router.asPath])
     return <Layout title={data.title} container={false}>
         <AccountHeader />
-        <div className="flex max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 relative flex-grow">
+        <div className="flex max-w-7xl sm:flex-row flex-col mx-auto py-6 px-4 sm:px-6 lg:px-8 relative flex-grow">
             <Sidebar lessons={lessons} type="cs" />
-            <div className="inline-block prose prose-pre:bg-[#22272e] prose-pre:p-0 prose-h2:border-t-2 prose-h2:pt-5 border p-4 shadow-lg rounded-2xl border-opacity-80 bg-white max-w-none w-9/12">
+            <div className="w-full inline-block prose prose-pre:bg-[#22272e] prose-pre:p-0 prose-h2:border-t-2 prose-h2:pt-5 border p-4 shadow-lg rounded-2xl border-opacity-80 bg-white max-w-none sm:w-9/12">
                 <h1>{data.heading}</h1>
                 <p className="mb-0">In this section you will {data.desc}.</p>
                 <div dangerouslySetInnerHTML={{ __html: content }}></div>

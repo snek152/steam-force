@@ -26,8 +26,8 @@ export default function Sidebar({ lessons, type }) {
             $(".math").trigger("click")
         }
     }, [])
-    return <div className="w-3/12 inline-block relative">
-        <div className="sticky top-[88px] p-2">
+    return <div className="w-full sm:w-3/12 inline-block relative">
+        <div className="sticky sm:top-[88px] top-0 p-2">
             <h1 className="font-semibold text-center text-lg">Courses</h1>
             <p className="text-center">Points: <strong>{user.points}</strong></p>
             <div className="max-w-md py-2 mr-2 rounded-2xl">
