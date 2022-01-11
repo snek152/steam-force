@@ -76,6 +76,7 @@ export default function Layout({ children, title, container, noNav }) {
                 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
                 <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
                 <link rel="preconnect" href="https://apis.google.com/" />
+                <link rel="preconnect" href="https://steam-force.firebaseapp.com" />
                 <link rel="shortcut icon" href="/favicon.ico" />
                 <link rel="manifest" href="/manifest.json" />
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossOrigin="anonymous" defer></script>

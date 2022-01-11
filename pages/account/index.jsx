@@ -3,9 +3,9 @@ import { useAuth } from "../../components/userContext"
 import Image from "next/image"
 import Link from "next/link"
 import AccountHeader from "../../components/accountHeader"
-import { doc, getDoc, updateDoc } from "firebase/firestore"
+import { doc, getDoc } from "@firebase/firestore"
 import { useEffect, useState } from "react"
-import db, { auth } from "../../components/clientApp"
+import db from "../../components/clientApp"
 
 
 export default function Account() {
