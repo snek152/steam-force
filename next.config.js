@@ -1,4 +1,5 @@
 const withPWA = require("next-pwa")
+// const withBundle = require("@next/bundle-analyzer")
 
 module.exports = withPWA({
   reactStrictMode: true,

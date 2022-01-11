@@ -3,7 +3,6 @@ import Layout from "../components/layout"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../components/clientApp"
 import Router from "next/router"
-import nookies from "nookies"
 import Link from "next/link"
 
 export default function Login() {

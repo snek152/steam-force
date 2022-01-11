@@ -4,7 +4,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth"
 import db, { auth } from "../components/clientApp"
 import { collection, doc, getDocs, query, setDoc, where } from "@firebase/firestore"
 import Router from "next/router"
-import nookies from "nookies"
 import Link from "next/link"
 
 
