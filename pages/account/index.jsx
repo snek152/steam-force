@@ -49,17 +49,17 @@ export default function Account() {
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <div className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-green-200 shadow-xl flex flex-col justify-center cursor-pointer">
                         <h1 className="text-3xl text-center">Science</h1>
-                        <Image src="/science.svg" height={150} width={150} priority className="m-auto select-none" />
+                        <Image src="/science.svg" height={150} width={150} priority className="m-auto select-none" alt="Science logo" />
                     </div>
                     <Link href={`/lessons/cs/${courses.cs ? courses.cs : "intro-cp"}`}>
                         <div className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-blue-200 shadow-xl flex flex-col justify-center cursor-pointer">
                             <h1 className="text-3xl text-center">Engineering</h1>
-                            <Image src="/cs.svg" height={150} width={150} className="m-auto select-none" />
+                            <Image src="/cs.svg" height={150} width={150} className="m-auto select-none" alt="Engineering logo" />
                         </div>
                     </Link>
                     <div className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-red-200 shadow-xl flex flex-col justify-center cursor-pointer">
                         <h1 className="text-3xl text-center">Mathematics</h1>
-                        <Image src="/math.svg" height={150} width={150} className="m-auto select-none" />
+                        <Image src="/math.svg" height={150} width={150} className="m-auto select-none" alt="Math logo" />
                     </div>
                 </div>
             </div>

@@ -100,7 +100,7 @@ export default function EditAccount() {
                                     </label>
                                     <div className="mt-1 flex items-center">
                                         <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-                                            {user.profileUrl ? <img className="h-full w-full text-gray-300" src={tempImage} alt="" /> : <img className="h-full w-full text-gray-300" src="/avatar.svg" alt="" />}
+                                            {user.profileUrl ? <img className="h-full w-full text-gray-300" src={tempImage} alt="User profile" /> : <img className="h-full w-full text-gray-300" src="/avatar.svg" alt="User profile" />}
                                         </span>
                                         <label htmlFor="file-upload" className="cursor-pointer">
                                             <span className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

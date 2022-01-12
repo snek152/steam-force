@@ -18,8 +18,8 @@ function classNames(...classes) {
 function LeftNavLinks({ mobile }) {
     const router = useRouter()
     return <>
-        <a className={`nav-link ${mobile ? "mobile-nav" : ""} ${router.pathname == "/" ? "active" : "inactive"}`}>Home</a>
-        <a className={`nav-link ${mobile ? "mobile-nav" : ""} ${router.pathname == "/about" ? "active" : "inactive"}`}>About</a>
+        <a href="#" className={`nav-link ${mobile ? "mobile-nav" : ""} ${router.pathname == "/" ? "active" : "inactive"}`}>Home</a>
+        <a href="#" className={`nav-link ${mobile ? "mobile-nav" : ""} ${router.pathname == "/about" ? "active" : "inactive"}`}>About</a>
     </>
 }
 
@@ -109,7 +109,7 @@ export default function Layout({ children, title, container, noNav }) {
                             <div className="flex-shrink-0 flex items-center">
                                 <Link href="/">
                                     <a style={{ filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))", borderRadius: 15 }}>
-                                        <img className="block h-8 w-auto" src="/logo.svg" alt="Workflow" />
+                                        <img className="block h-8 w-auto" src="/logo.svg" alt="STEAM Force Logo" />
                                     </a>
                                 </Link>
                             </div>
@@ -174,7 +174,7 @@ function LoggedOutUser({ router }) {
             <Link href="/signup">
                 <a className={router.pathname === "/signup" ? "active nav-link" : "inactive nav-link"}>Signup</a>
             </Link>
-            <a className={router.pathname === "/trial" ? "inactive nav-link cursor-pointer hover:bg-red bg-red" : "inactive nav-link cursor-pointer bg-green-500 hover:bg-green-500"} onClick={freeTrial}>Free Trial</a>
+            <button className={router.pathname === "/trial" ? "inactive nav-link cursor-pointer hover:bg-red bg-red" : "inactive nav-link cursor-pointer bg-green-500 hover:bg-green-500"} onClick={freeTrial}>Free Trial</button>
         </div>
     </>)
 }
@@ -198,7 +198,7 @@ function LoggedInUser({ user }) {
                 <div>
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                         <span className="sr-only">Open user menu</span>
-                        {user.profileUrl ? <Image className="rounded-full" height={32} width={32} loading="eager" src={user.profileUrl} alt="" /> : <Image className="rounded-full" height={32} width={32} loading="eager" src="/avatar.svg" alt="" />}
+                        {user.profileUrl ? <Image className="rounded-full" height={32} width={32} loading="eager" src={user.profileUrl} alt="User profile" /> : <Image className="rounded-full" height={32} width={32} loading="eager" src="/avatar.svg" alt="User profile" />}
                     </Menu.Button>
                 </div>
                 <Transition

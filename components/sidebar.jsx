@@ -36,7 +36,7 @@ export default function Sidebar({ lessons, type }) {
                         <>
                             <Disclosure.Button className="science my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-green-100 rounded-lg hover:bg-green-200 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-75">
                                 <span>
-                                    <img src="/science.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" />
+                                    <img src="/science.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" alt="Science logo" />
                                     <h1 className="inline-block">Science</h1>
                                 </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
@@ -73,7 +73,7 @@ export default function Sidebar({ lessons, type }) {
                         <>
                             <Disclosure.Button className="cs my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-blue-100 rounded-lg hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
                                 <span>
-                                    <img src="/cs.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" />
+                                    <img src="/cs.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" alt="Engineering logo" />
                                     <h1 className="inline-block">Engineering</h1>
                                 </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
@@ -132,7 +132,7 @@ export default function Sidebar({ lessons, type }) {
                         <>
                             <Disclosure.Button className="math my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-red-100 rounded-lg hover:bg-red-200 focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75">
                                 <span>
-                                    <img src="/math.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" />
+                                    <img src="/math.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" alt="Math logo" />
                                     <h1 className="inline-block">Math</h1>
                                 </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
