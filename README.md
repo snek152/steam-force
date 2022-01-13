@@ -4,5 +4,4 @@ Hi! My name is Snehil, and I started the STEAM Force because I believe education
 
 The STEAM Force is a high speed interactive web app built with Next.js and Firebase services to provide comprehensive education across the various STEAM areas - Science, Tech/Engineering, Art, and Math. It spans numerous units containing many lessons filled with interactive quiz questions.
 
-
 Copyright © 2021 Snehil Kakani
