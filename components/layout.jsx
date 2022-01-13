@@ -10,6 +10,7 @@ import { doc, updateDoc } from "@firebase/firestore"
 import { Menu, Transition } from "@headlessui/react"
 import { Fragment } from "react"
 import Image from "next/image"
+import { Offline, Online } from "react-detect-offline"
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -120,22 +121,31 @@ export default function Layout({ children, title, container, noNav }) {
                             </div>
                         </div>
                         <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                            <RightNavLinks />
+                            <Offline>
+                                <div className="flex">
+                                    <p className="nav-link inactive">You are offline.</p>
+                                    <Link href="/lessons/cs/intro-cp">
+                                        <a className="active nav-link hover:bg-gray-600">Lessons</a>
+                                    </Link>
+                                </div>
+                            </Offline>
+                            <Online><RightNavLinks /></Online>
                         </div>
                     </div>
-                </div>
+                </div >
 
                 <div className="collapse nav-collapse" id="mobile-menu">
                     <div className="px-2 pt-2 pb-3 space-y-1">
                         <LeftNavLinks mobile={true} />
                     </div>
                 </div>
-            </nav>
+            </nav >
             {!noNav && <nav className="bg-black w-screen">
                 <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 h-16"></div>
-            </nav>}
+            </nav>
+            }
             <div className={container === false ? "" : "max-w-7xl mx-auto px-2 sm:px-6 lg:px-8"}>{children}</div>
-        </div>
+        </div >
     )
 }
 
