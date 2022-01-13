@@ -9,6 +9,7 @@ export default function AuthProvider({ children }) {
     const [user, setUser] = useState({ uid: null, loading: true })
     const [u, loading, error] = useAuthState(auth)
     useEffect(async () => {
+        console.log(error)
         if (!loading) {
             if (!u) {
                 setUser({ uid: null, loading: false })
