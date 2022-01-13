@@ -25,7 +25,7 @@ export default function Sidebar({ lessons, type }) {
         if (router.pathname.includes("math")) {
             $(".math").trigger("click")
         }
-    }, [])
+    }, [router.pathname])
     return <div className="w-full sm:w-3/12 inline-block relative">
         <div className="sticky sm:top-[88px] top-0 p-2">
             <h1 className="font-semibold text-center text-lg">Courses</h1>
