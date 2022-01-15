@@ -3,7 +3,8 @@ import { signOut } from "@firebase/auth"
 import { auth } from "../components/clientApp"
 import Router from "next/router"
 import Layout from "../components/layout"
-import { getPostBySlug, markdownToHtml } from "../components/courses"
+import { getPostBySlug } from "../components/courses"
+import markdownToHtml from "../components/markdown"
 import matter from "gray-matter"
 export default function Trial({ content }) {
     const formSubmit = () => {

@@ -1,4 +1,5 @@
-import { markdownToHtml, getPostBySlug, getAllPosts } from "../../../components/courses"
+import { getPostBySlug, getAllPosts } from "../../../components/courses"
+import markdownToHtml from "../../../components/markdown"
 import matter from "gray-matter"
 import Layout from "../../../components/layout"
 import Sidebar from "../../../components/sidebar"

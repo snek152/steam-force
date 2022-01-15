@@ -1,4 +1,4 @@
-const withPWA = require("next-pwa")
+const withPWA = process.env.NODE_ENV === "development" ? config => config : require("next-pwa")
 // const withBundle = require("@next/bundle-analyzer")
 
 module.exports = withPWA({
