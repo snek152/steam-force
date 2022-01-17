@@ -47,7 +47,7 @@ nav a {
   @apply text-gray-300 hover:bg-gray-900 hover:text-white;
 }
 
-.active {
+.active:not(.sticky-outer-wrapper) {
   @apply bg-gray-700 text-white;
 }
 
@@ -69,3 +69,4 @@ nav a {
     }
   }
 }
+

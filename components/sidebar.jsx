@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { Fragment, useEffect, useState } from "react"
 import $ from "jquery"
+import Sticky from "react-stickynode"
 
 const units = {
     cs: {
@@ -16,7 +17,7 @@ export default function Sidebar({ lessons, type }) {
     const user = useAuth()
     const router = useRouter()
     const [open, setOpen] = useState(false)
-
+    const [width, setWidth] = useState(0)
     const openModal = () => {
         setOpen(true)
     }
@@ -25,6 +26,7 @@ export default function Sidebar({ lessons, type }) {
         setOpen(false)
     }
     useEffect(() => {
+        console.log(window.screen.width)
         if (router.pathname.includes("science")) {
             $(".science").trigger("click")
         }
@@ -35,194 +37,207 @@ export default function Sidebar({ lessons, type }) {
             $(".math").trigger("click")
         }
     }, [router.pathname])
-    return <div className="w-full sm:w-3/12 inline-block relative">
-        <div className="sticky sm:top-[88px] top-0 p-2">
-            <h1 className="font-semibold text-center text-lg">Courses</h1>
-            <p className="text-center">Points: <strong>{user.points}</strong></p>
-            <div className="max-w-md py-2 mr-2 rounded-2xl">
-                <Disclosure>
-                    {({ open }) => (
-                        <>
-                            <Disclosure.Button className="science my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-green-100 rounded-lg hover:bg-green-200 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-75">
-                                <span>
-                                    <img src="/science.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" alt="Science logo" />
-                                    <h1 className="inline-block">Science</h1>
-                                </span>
-                                <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
-                                </svg>
-                            </Disclosure.Button>
-                            <Transition
-                                enter="transition duration-100 ease-out"
-                                enterFrom="transform scale-95 opacity-0"
-                                enterTo="transform scale-100 opacity-100"
-                                leave="transition duration-75 ease-out"
-                                leaveFrom="transform scale-100 opacity-100"
-                                leaveTo="transform scale-95 opacity-0"
-                            >
-                                <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
-                                    <ul className="list-outside text-left ml-4">
-                                        {lessons.science.map(lesson => (
-                                            <li key={lesson.slug} className={`p-1 hover:underline ${router.query.slug == lesson.slug && "font-bold"}`}>
-                                                <Link href={`/lessons/${type}/${lesson.slug}`}>
-                                                    <a>
-                                                        {lesson.title}
-                                                    </a>
-                                                </Link>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </Disclosure.Panel>
-                            </Transition>
-                        </>
-                    )}
-                </Disclosure>
-                <Disclosure>
-                    {({ open }) => (
-                        <>
-                            <Disclosure.Button className="cs my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-blue-100 rounded-lg hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
-                                <span>
-                                    <img src="/cs.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" alt="Engineering logo" />
-                                    <h1 className="inline-block">Engineering</h1>
-                                </span>
-                                <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
-                                </svg>
-                            </Disclosure.Button>
-                            <Transition
-                                enter="transition duration-100 ease-out"
-                                enterFrom="transform scale-95 opacity-0"
-                                enterTo="transform scale-100 opacity-100"
-                                leave="transition duration-75 ease-out"
-                                leaveFrom="transform scale-100 opacity-100"
-                                leaveTo="transform scale-95 opacity-0"
-                            >
-                                <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
-                                    {Object.keys(units.cs).map(key => (
-                                        <Disclosure key={key}>
-                                            <Disclosure.Button className="rounded-lg border w-full border-gray-200 p-1 mb-2 bg-gray-200">
-                                                <h1 className="text-sm inline-block">{units.cs[key]}</h1>
-                                                <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
-                                                </svg>
-                                            </Disclosure.Button>
-                                            <Transition
-                                                enter="transition duration-100 ease-out"
-                                                enterFrom="transform scale-95 opacity-0"
-                                                enterTo="transform scale-100 opacity-100"
-                                                leave="transition duration-75 ease-out"
-                                                leaveFrom="transform scale-100 opacity-100"
-                                                leaveTo="transform scale-95 opacity-0"
-                                            >
-                                                <Disclosure.Panel>
-                                                    <ul className="list-outside text-left ml-4 mb-2 ">
-                                                        {lessons.cs.map(lesson => lesson.unit == units.cs[key] && (
-                                                            <li key={lesson.slug} className={`p-1 text-sm hover:underline ${router.query.slug == lesson.slug && "font-bold"}`}>
-                                                                <Link href={`/lessons/${type}/${lesson.slug}`}>
-                                                                    <a>
-                                                                        {lesson.title}
-                                                                    </a>
-                                                                </Link>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </Disclosure.Panel>
-                                            </Transition>
-                                        </Disclosure>
-                                    ))}
+    useEffect(() => {
+        setWidth(window.screen.width)
+        window.addEventListener("resize", () => {
+            setWidth(window.screen.width)
+        })
+        return () => {
+            window.removeEventListener("resize", () => {
+                setWidth(window.screen.width)
+            })
+        }
+    }, [])
 
-                                </Disclosure.Panel>
-                            </Transition>
-                        </>
-                    )}
-                </Disclosure>
-                <Disclosure>
-                    {({ open }) => (
-                        <>
-                            <Disclosure.Button className="math my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-red-100 rounded-lg hover:bg-red-200 focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75">
-                                <span>
-                                    <img src="/math.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" alt="Math logo" />
-                                    <h1 className="inline-block">Math</h1>
-                                </span>
-                                <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
-                                </svg>
-                            </Disclosure.Button>
-                            <Transition
-                                enter="transition duration-100 ease-out"
-                                enterFrom="transform scale-95 opacity-0"
-                                enterTo="transform scale-100 opacity-100"
-                                leave="transition duration-75 ease-out"
-                                leaveFrom="transform scale-100 opacity-100"
-                                leaveTo="transform scale-95 opacity-0"
-                            >
-                                <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
-                                    <ul className="list-outside text-left ml-4 ">
-                                        {lessons.math.map(lesson => (
-                                            <li key={lesson.slug} className={`p-1 hover:underline ${router.query.slug == lesson.slug && "font-bold"}`}>
-                                                <Link href={`/lessons/${type}/${lesson.slug}`}>
-                                                    <a>
-                                                        {lesson.title}
-                                                    </a>
-                                                </Link>
-                                            </li>
+    return <div className="w-full sm:w-3/12 inline-block relative">
+        <Sticky top={88} enabled={width > 640}>
+            <div className="p-2">
+                <h1 className="font-semibold text-center text-lg">Courses</h1>
+                <p className="text-center">Points: <strong>{user.points}</strong></p>
+                <div className="sm:max-w-md py-2 mr-2 rounded-2xl">
+                    <Disclosure>
+                        {({ open }) => (
+                            <>
+                                <Disclosure.Button className="science my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-green-100 rounded-lg hover:bg-green-200 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-75">
+                                    <span>
+                                        <img src="/science.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" alt="Science logo" />
+                                        <h1 className="inline-block">Science</h1>
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
+                                        <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+                                    </svg>
+                                </Disclosure.Button>
+                                <Transition
+                                    enter="transition duration-100 ease-out"
+                                    enterFrom="transform scale-95 opacity-0"
+                                    enterTo="transform scale-100 opacity-100"
+                                    leave="transition duration-75 ease-out"
+                                    leaveFrom="transform scale-100 opacity-100"
+                                    leaveTo="transform scale-95 opacity-0"
+                                >
+                                    <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
+                                        <ul className="list-outside text-left ml-4">
+                                            {lessons.science.map(lesson => (
+                                                <li key={lesson.slug} className={`p-1 hover:underline ${router.query.slug == lesson.slug && "font-bold"}`}>
+                                                    <Link href={`/lessons/${type}/${lesson.slug}`}>
+                                                        <a>
+                                                            {lesson.title}
+                                                        </a>
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </Disclosure.Panel>
+                                </Transition>
+                            </>
+                        )}
+                    </Disclosure>
+                    <Disclosure>
+                        {({ open }) => (
+                            <>
+                                <Disclosure.Button className="cs my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-blue-100 rounded-lg hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
+                                    <span>
+                                        <img src="/cs.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" alt="Engineering logo" />
+                                        <h1 className="inline-block">Engineering</h1>
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
+                                        <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+                                    </svg>
+                                </Disclosure.Button>
+                                <Transition
+                                    enter="transition duration-100 ease-out"
+                                    enterFrom="transform scale-95 opacity-0"
+                                    enterTo="transform scale-100 opacity-100"
+                                    leave="transition duration-75 ease-out"
+                                    leaveFrom="transform scale-100 opacity-100"
+                                    leaveTo="transform scale-95 opacity-0"
+                                >
+                                    <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
+                                        {Object.keys(units.cs).map(key => (
+                                            <Disclosure key={key}>
+                                                <Disclosure.Button className="rounded-lg border w-full border-gray-200 p-1 mb-2 bg-gray-200">
+                                                    <h1 className="text-sm inline-block">{units.cs[key]}</h1>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+                                                    </svg>
+                                                </Disclosure.Button>
+                                                <Transition
+                                                    enter="transition duration-100 ease-out"
+                                                    enterFrom="transform scale-95 opacity-0"
+                                                    enterTo="transform scale-100 opacity-100"
+                                                    leave="transition duration-75 ease-out"
+                                                    leaveFrom="transform scale-100 opacity-100"
+                                                    leaveTo="transform scale-95 opacity-0"
+                                                >
+                                                    <Disclosure.Panel>
+                                                        <ul className="list-outside text-left ml-4 mb-2 ">
+                                                            {lessons.cs.map(lesson => lesson.unit == units.cs[key] && (
+                                                                <li key={lesson.slug} className={`p-1 text-sm hover:underline ${router.query.slug == lesson.slug && "font-bold"}`}>
+                                                                    <Link href={`/lessons/${type}/${lesson.slug}`}>
+                                                                        <a>
+                                                                            {lesson.title}
+                                                                        </a>
+                                                                    </Link>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </Disclosure.Panel>
+                                                </Transition>
+                                            </Disclosure>
                                         ))}
-                                    </ul>
-                                </Disclosure.Panel>
-                            </Transition>
-                        </>
-                    )}
-                </Disclosure>
-                <button type="button" onClick={openModal} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 block m-auto my-3 rounded-md bg-opacity-[0.85] hover:bg-opacity-75">
-                    Questions?
-                </button>
-                <Transition appear show={open} as={Fragment}>
-                    <Dialog as="div" className="fixed inset-0 z-[1000] overflow-y-auto" onClose={closeModal}>
-                        <div className="min-h-screen px-4 text-center">
-                            <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0"
-                                enterTo="opacity-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100"
-                                leaveTo="opacity-0"
-                            >
-                                <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-75" />
-                            </Transition.Child>
-                            <span className="inline-block h-screen align-middle" aria-hidden="true">
-                                &#8203;
-                            </span>
-                            <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0 scale-95"
-                                enterTo="opacity-100 scale-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100 scale-100"
-                                leaveTo="opacity-0 scale-95"
-                            >
-                                <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                                    <Dialog.Title as="h3"
-                                        className="text-lg font-medium leading-6 text-gray-900">
-                                        Title goes here
-                                    </Dialog.Title>
-                                    <div className="mt-2">
-                                        <p className="text-sm text-gray-500">
-                                            Your payment has been successfully submitted.
-                                        </p>
+                                    </Disclosure.Panel>
+                                </Transition>
+                            </>
+                        )}
+                    </Disclosure>
+                    <Disclosure>
+                        {({ open }) => (
+                            <>
+                                <Disclosure.Button className="math my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-red-100 rounded-lg hover:bg-red-200 focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75">
+                                    <span>
+                                        <img src="/math.svg" className="h-4 w-4 align-text-bottom p-[1px] inline-block" alt="Math logo" />
+                                        <h1 className="inline-block">Math</h1>
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className={`${open ? 'transform rotate-180' : ''} w-5 h-5 inline-block`} viewBox="0 0 20 20" fill="currentColor">
+                                        <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+                                    </svg>
+                                </Disclosure.Button>
+                                <Transition
+                                    enter="transition duration-100 ease-out"
+                                    enterFrom="transform scale-95 opacity-0"
+                                    enterTo="transform scale-100 opacity-100"
+                                    leave="transition duration-75 ease-out"
+                                    leaveFrom="transform scale-100 opacity-100"
+                                    leaveTo="transform scale-95 opacity-0"
+                                >
+                                    <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
+                                        <ul className="list-outside text-left ml-4 ">
+                                            {lessons.math.map(lesson => (
+                                                <li key={lesson.slug} className={`p-1 hover:underline ${router.query.slug == lesson.slug && "font-bold"}`}>
+                                                    <Link href={`/lessons/${type}/${lesson.slug}`}>
+                                                        <a>
+                                                            {lesson.title}
+                                                        </a>
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </Disclosure.Panel>
+                                </Transition>
+                            </>
+                        )}
+                    </Disclosure>
+                    <button type="button" onClick={openModal} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 block m-auto my-3 rounded-md bg-opacity-[0.85] hover:bg-opacity-75">
+                        Questions?
+                    </button>
+                    <Transition appear show={open} as={Fragment}>
+                        <Dialog as="div" className="fixed inset-0 z-[1000] overflow-y-auto" onClose={closeModal}>
+                            <div className="min-h-screen px-4 text-center">
+                                <Transition.Child
+                                    as={Fragment}
+                                    enter="ease-out duration-300"
+                                    enterFrom="opacity-0"
+                                    enterTo="opacity-100"
+                                    leave="ease-in duration-200"
+                                    leaveFrom="opacity-100"
+                                    leaveTo="opacity-0"
+                                >
+                                    <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-75" />
+                                </Transition.Child>
+                                <span className="inline-block h-screen align-middle" aria-hidden="true">
+                                    &#8203;
+                                </span>
+                                <Transition.Child
+                                    as={Fragment}
+                                    enter="ease-out duration-300"
+                                    enterFrom="opacity-0 scale-95"
+                                    enterTo="opacity-100 scale-100"
+                                    leave="ease-in duration-200"
+                                    leaveFrom="opacity-100 scale-100"
+                                    leaveTo="opacity-0 scale-95"
+                                >
+                                    <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                                        <Dialog.Title as="h3"
+                                            className="text-lg font-medium leading-6 text-gray-900">
+                                            Title goes here
+                                        </Dialog.Title>
+                                        <div className="mt-2">
+                                            <p className="text-sm text-gray-500">
+                                                Your payment has been successfully submitted.
+                                            </p>
+                                        </div>
+                                        <div className="mt-4">
+                                            <button onClick={closeModal} type="button" className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500">
+                                                Close modal
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div className="mt-4">
-                                        <button onClick={closeModal} type="button" className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500">
-                                            Close modal
-                                        </button>
-                                    </div>
-                                </div>
-                            </Transition.Child>
-                        </div>
-                    </Dialog>
-                </Transition>
+                                </Transition.Child>
+                            </div>
+                        </Dialog>
+                    </Transition>
+                </div>
             </div>
-        </div>
+        </Sticky>
     </div>
 }
