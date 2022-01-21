@@ -7,7 +7,7 @@ correct: "Sequence of instructions"
 heading: "Introduction to Computer Programming"
 lesson: 1
 next: "env"
-desc: "learn about the basics of computer programming, such as what makes a program"
+desc: "In this section you will learn about the basics of computer programming, such as what makes a program"
 unit: "Computer Programming"
 ---
 

@@ -8,7 +8,7 @@ heading: "Computer Programming - Operators"
 lesson: 7
 prev: "keywords"
 next: "decisions"
-desc: "learn about arithmetic and relational operators"
+desc: "In this section you will learn about arithmetic and relational operators"
 unit: "Computer Programming"
 ---
 An operator in a programming language is a symbol that tells the compiler or interpreter to perform specific mathematical, relational or logical operation and produce final result. This chapter will explain the concept of **operators** and it will take you through the important arithmetic and relational operators available in C, Java, and Python.

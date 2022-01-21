@@ -8,7 +8,7 @@ heading: "Computer Programming - Basic Syntax"
 lesson: 3
 prev: "env"
 next: "datatypes"
-desc: "learn about the basic syntax of a C program"
+desc: "In this section you will learn about the basic syntax of a C program"
 unit: "Computer Programming"
 ---
 

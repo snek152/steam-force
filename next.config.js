@@ -1,4 +1,4 @@
-const withPWA = process.env.NODE_ENV === "development" ? config => config : require("next-pwa")
+const withPWA = require("next-pwa")
 // const withBundle = require("@next/bundle-analyzer")
 
 module.exports = withPWA({
@@ -10,7 +10,8 @@ module.exports = withPWA({
     domains: ["firebasestorage.googleapis.com"]
   },
   pwa: {
-    dest: "public"
+    dest: "public",
+    disable: process.env.NODE_ENV === 'development'
   },
   i18n: {
     locales: ["en"],

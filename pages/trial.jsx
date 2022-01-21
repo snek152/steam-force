@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { signOut } from "@firebase/auth"
 import { auth } from "../components/clientApp"
 import Router from "next/router"
@@ -15,7 +14,6 @@ export default function Trial({ content }) {
             .catch((error) => {
                 let code = error.code.substring(5).replace(/-/g, ' ')
                 code = code.charAt(0).toUpperCase() + code.slice(1)
-                console.log(code)
             })
     }
     return (

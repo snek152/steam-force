@@ -8,7 +8,7 @@ heading: "Computer Programming - Keywords"
 lesson: 6
 prev: "variables"
 next: "operators"
-desc: "learn about reserved keywords"
+desc: "In this section you will learn about reserved keywords"
 unit: "Computer Programming"
 ---
 So far, we have covered two important concepts called variables and their data types. We discussed how to use **int**, **long**, and **float** to specify different data types. We also learnt how to name the variables to store different values.

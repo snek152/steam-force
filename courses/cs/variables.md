@@ -8,7 +8,7 @@ heading: "Computer Programming - Variables"
 lesson: 5
 prev: "datatypes"
 next: "keywords"
-desc: "learn about storing data"
+desc: "In this section you will learn about storing data"
 unit: "Computer Programming"
 ---
 Variables are the names you give to computer memory locations which are used to store values in a computer program.

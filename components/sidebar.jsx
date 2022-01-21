@@ -26,7 +26,6 @@ export default function Sidebar({ lessons, type }) {
         setOpen(false)
     }
     useEffect(() => {
-        console.log(window.screen.width)
         if (router.pathname.includes("science")) {
             $(".science").trigger("click")
         }
@@ -241,3 +240,5 @@ export default function Sidebar({ lessons, type }) {
         </Sticky>
     </div>
 }
+
+export { units }

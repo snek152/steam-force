@@ -8,7 +8,7 @@ heading: "Computer Programming - Data Types"
 lesson: 4
 prev: "syntax"
 next: "variables"
-desc: "learn about common primitive data types"
+desc: "In this section you will learn about common primitive data types"
 unit: "Computer Programming"
 ---
 

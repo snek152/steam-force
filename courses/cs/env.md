@@ -8,7 +8,7 @@ heading: "Computer Programming - Environment"
 lesson: 2
 prev: "intro-cp"
 next: "syntax"
-desc: "learn about the environment needed to start coding"
+desc: "In this section you will learn about the environment needed to start coding"
 unit: "Computer Programming"
 ---
 
