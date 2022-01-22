@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.4.2",
+    "@next/bundle-analyzer": "^12.0.8",
     "@types/react": "^17.0.38",
     "cors": "^2.8.5",
     "firebase": "^9.2.0",
