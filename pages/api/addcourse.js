@@ -22,7 +22,7 @@ const cors = initMiddleware(
 export default async function handler(req, res) {
     await cors(req, res)
     if (req.method !== "POST") {
-        res.json(405).json({ error: 1, message: "Method not allowed." })
+        res.status(405).json({ error: 1, message: "Method not allowed" })
     }
     const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
     const body = JSON.parse(req.body)
