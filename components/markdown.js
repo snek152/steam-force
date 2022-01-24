@@ -6,7 +6,12 @@ import highlight from "rehype-highlight"
 import stringify from "rehype-stringify"
 
 export default async function markdownToHtml(markdown) {
-    const result = await unified()
-        .use(parse).use(rehype).use(remarkGfm).use(highlight).use(stringify).process(markdown)
-    return result.toString()
+	const result = await unified()
+		.use(parse)
+		.use(rehype)
+		.use(remarkGfm)
+		.use(highlight)
+		.use(stringify)
+		.process(markdown)
+	return result.toString()
 }
