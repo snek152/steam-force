@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/link-passhref */
 import Layout from "../../components/layout"
 import { useAuth } from "../../components/userContext"
 import Image from "next/image"
@@ -8,82 +9,83 @@ import { useEffect, useState } from "react"
 import db from "../../components/clientApp"
 
 export default function Account() {
-	const user = useAuth()
-	const [courses, setCourses] = useState({
-		cs: null,
-		math: null,
-		science: null,
-	})
+  const user = useAuth()
+  const [courses, setCourses] = useState({
+    cs: null,
+    math: null,
+    science: null,
+  })
 
-	const [latest, setLatest] = useState({
-		current: "",
-		currentTitle: "",
-	})
-	useEffect(() => {
-		const fn = async () => {
-			try {
-				const data = await getDoc(doc(db, "users", user.uid))
-				setCourses(data.data().courses)
-				setLatest({
-					current: data.data().current,
-					currentTitle: data.data().currentTitle,
-				})
-			} catch {}
-		}
-		fn()
-	}, [user])
-	return (
-		<Layout title="Account" container={false}>
-			<AccountHeader />
-			<div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-				<div className="bg-gradient-to-r from-gray-200 to-gray-100 border border-gray-200 shadow rounded-lg p-3 m-2 mb-10">
-					<h1 className="font-medium text-lg">Continue where you left off</h1>
-					<Link href={latest.current ? latest.current : ""}>
-						<a className="font-semibold text-xl hover:underline">
-							{latest.currentTitle ? latest.currentTitle : ""}
-						</a>
-					</Link>
-				</div>
-				<h1 className="font-semibold text-center text-4xl pb-5">Courses</h1>
-				<div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-					<div className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-green-200 shadow-xl flex flex-col justify-center cursor-pointer">
-						<h1 className="text-3xl text-center">Science</h1>
-						<Image
-							src="/science.svg"
-							height={150}
-							width={150}
-							priority
-							className="m-auto select-none"
-							alt="Science logo"
-						/>
-					</div>
-					<Link
-						href={`/lessons/cs/${courses.cs ? courses.cs : "intro-cp"}`}
-						passHref
-					>
-						<div className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-blue-200 shadow-xl flex flex-col justify-center cursor-pointer">
-							<h1 className="text-3xl text-center">Engineering</h1>
-							<Image
-								src="/cs.svg"
-								height={150}
-								width={150}
-								className="m-auto select-none"
-								alt="Engineering logo"
-							/>
-						</div>
-					</Link>
-					<div className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-red-200 shadow-xl flex flex-col justify-center cursor-pointer">
-						<h1 className="text-3xl text-center">Mathematics</h1>
-						<Image
-							src="/math.svg"
-							height={150}
-							width={150}
-							className="m-auto select-none"
-							alt="Math logo"
-						/>
-					</div>
-				</div>
-			</div>
-		</Layout>
-	)
+  const [latest, setLatest] = useState({
+    current: "",
+    currentTitle: "",
+  })
+  useEffect(() => {
+    const fn = async () => {
+      try {
+        const data = await getDoc(doc(db, "users", user.uid))
+        setCourses(data.data().courses)
+        setLatest({
+          current: data.data().current,
+          currentTitle: data.data().currentTitle,
+        })
+      } catch {}
+    }
+    fn()
+  }, [user])
+  return (
+    <Layout title="Account" container={false}>
+      <AccountHeader />
+      <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-black dark:text-white">
+        <div className="bg-gradient-to-r from-gray-200 dark:from-other-700 to-gray-100 dark:to-other-800 border border-gray-200 dark:border-other-700 shadow dark:shadow-white/10 rounded-lg p-3 m-2 mb-10">
+          <h1 className="font-medium text-lg">Continue where you left off</h1>
+          <Link href={latest.current ? latest.current : ""}>
+            <a className="font-semibold text-xl hover:underline">
+              {latest.currentTitle ? latest.currentTitle : ""}
+            </a>
+          </Link>
+        </div>
+        <h1 className="font-semibold text-center text-4xl pb-5">Courses</h1>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-green-200 dark:bg-green-300 shadow-xl dark:shadow-white/10 flex flex-col justify-center cursor-pointer">
+            <h1 className="text-3xl text-center dark:text-black">Science</h1>
+            <Image
+              src="/science.svg"
+              height={150}
+              width={150}
+              priority
+              className="m-auto select-none"
+              alt="Science logo"
+            />
+          </div>
+          <Link href={`/lessons/cs/${courses.cs ? courses.cs : "intro-cp"}`}>
+            <div className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-blue-200 dark:bg-blue-300 shadow-xl dark:shadow-white/10 flex flex-col justify-center cursor-pointer">
+              <h1 className="text-3xl text-center dark:text-black">
+                Engineering
+              </h1>
+              <Image
+                src="/cs.svg"
+                height={150}
+                width={150}
+                className="m-auto select-none"
+                alt="Engineering logo"
+              />
+            </div>
+          </Link>
+          <div className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-red-200 dark:bg-red-300 shadow-xl dark:shadow-white/10 flex flex-col justify-center cursor-pointer">
+            <h1 className="text-3xl text-center dark:text-black">
+              Mathematics
+            </h1>
+            <Image
+              src="/math.svg"
+              height={150}
+              width={150}
+              className="m-auto select-none"
+              alt="Math logo"
+            />
+          </div>
+        </div>
+      </div>
+    </Layout>
+  )
 }

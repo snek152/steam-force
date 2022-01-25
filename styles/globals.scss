@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  @apply bg-gray-50;
-}
-
 body {
   @apply max-w-full overflow-x-hidden;
 }
@@ -44,7 +40,7 @@ nav a {
 }
 
 .inactive {
-  @apply text-gray-300 hover:bg-gray-900 hover:text-white;
+  @apply dark:text-gray-300 text-gray-600 hover:bg-gray-900 hover:text-white;
 }
 
 .active:not(.sticky-outer-wrapper) {
@@ -69,4 +65,3 @@ nav a {
     }
   }
 }
-
