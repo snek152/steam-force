@@ -307,7 +307,7 @@ function RightNavLinks() {
   } else {
     return (
       <svg
-        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+        className="animate-spin -ml-1 mr-3 h-5 w-5 text-black dark:text-white"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -428,7 +428,7 @@ function LoggedInUser({ user }) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="divide-gray-200 divide-y origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg dark:shadow-white py-1 bg-white dark:bg-black ring-1 ring-black dark:ring-white ring-opacity-5 focus:outline-none">
+          <Menu.Items className="divide-gray-200 divide-y origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg dark:shadow-white/20 py-1 bg-white dark:bg-black ring-1 ring-black dark:ring-white ring-opacity-5 focus:outline-none">
             <div className="py-1">
               <p
                 className="block px-4 py-1 text-sm text-gray-700 dark:text-gray-200 dropdown-item"

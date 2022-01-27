@@ -83,9 +83,11 @@ export default function AdminPanel() {
   }
   return (
     <Layout title="Contribute Content" container={false}>
-      <header className="bg-white shadow">
+      <header className="bg-white dark:bg-black shadow dark:shadow-white/30">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900">Contribute</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50">
+            Contribute
+          </h1>
         </div>
       </header>
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -112,12 +114,12 @@ export default function AdminPanel() {
             name="desc"
             type="text"
           />
-          <span className="rounded-md relative block w-full px-1.5 py-1 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
+          <span className="rounded-md relative block w-full px-1.5 py-1 placeholder-gray-500 dark:placeholder-other-400 text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
             <label
               htmlFor="content"
-              className="text-gray-500 text-sm cursor-pointer flex flex-auto items-center"
+              className="text-gray-500 dark:text-other-400 text-sm cursor-pointer flex flex-auto items-center"
             >
-              <span className="shadow-md rounded-lg bg-blue-500 h-10 inline-flex items-center justify-center w-10">
+              <span className="shadow-md rounded-lg bg-blue-500 dark:bg-blue-600 h-10 inline-flex items-center justify-center w-10">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 stroke-white"
@@ -151,76 +153,76 @@ export default function AdminPanel() {
             name="question"
             type="text"
           />
-          <span className="space-y-2 bg-white p-2 shadow-md block rounded-xl">
-            <h1 className="text-base block">
+          <span className="space-y-2 bg-white dark:bg-black p-2 shadow-md block rounded-xl">
+            <h1 className="text-sm block p-0.5 text-gray-500 dark:text-other-400">
               Answer Choices (Select Correct Answer)
             </h1>
             <span className="grid grid-cols-2 grid-rows-2 gap-2">
-              <span className="bg-white inline-flex flex-row flex-grow p-1 rounded-md relative px-3 py-2 border border-gray-200 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
+              <span className="bg-white dark:bg-black inline-flex flex-row flex-grow p-1 rounded-md relative px-3 py-2 border border-gray-200 dark:border-other-700 placeholder-gray-500 dark:placeholder-other-400 text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
                 <input
                   onChange={(e) => setCorrect(e.target.value)}
                   required
                   type="radio"
                   value="answer1"
                   name="correct"
-                  className="invalid:border-red h-4 w-4 focus:outline-none focus:ring-transparent align-middle mt-[3px] mr-2"
+                  className="invalid:border-red dark:invalid:border-red-500 h-4 w-4 focus:outline-none dark:bg-black focus:ring-transparent align-middle mt-[3px] mr-2"
                 />
                 <input
                   ref={answer1}
                   required
                   id="answer1"
-                  className="inline-block align-baseline text-gray-500 appearance-none rounded-md w-full relative px-1 placeholder-gray-500"
+                  className="dark:bg-black inline-block align-baseline text-gray-900 outline-none dark:text-gray-50 appearance-none rounded-md w-full relative px-1 placeholder-gray-500 dark:placeholder-other-400"
                   placeholder="Answer Choice 1"
                 />
               </span>
-              <span className="bg-white inline-flex flex-row flex-grow p-1 rounded-md relative px-3 py-2 border border-gray-200 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
+              <span className="bg-white dark:bg-black inline-flex flex-row flex-grow p-1 rounded-md relative px-3 py-2 border border-gray-200 dark:border-other-700 placeholder-gray-500 dark:placeholder-other-400 text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
                 <input
                   onChange={(e) => setCorrect(e.target.value)}
                   required
                   type="radio"
                   value="answer2"
                   name="correct"
-                  className="invalid:border-red h-4 w-4 focus:outline-none focus:ring-transparent align-middle mt-[3px] mr-2"
+                  className="invalid:border-red dark:invalid:border-red-500 h-4 w-4 focus:outline-none dark:bg-black focus:ring-transparent align-middle mt-[3px] mr-2"
                 />
                 <input
                   ref={answer2}
                   required
                   id="answer2"
-                  className="inline-block align-baseline text-gray-500 appearance-none rounded-md w-full relative px-1 placeholder-gray-500"
+                  className="dark:bg-black inline-block align-baseline text-gray-900 outline-none dark:text-gray-50 appearance-none rounded-md w-full relative px-1 placeholder-gray-500 dark:placeholder-other-400"
                   placeholder="Answer Choice 2"
                 />
               </span>
-              <span className="bg-white inline-flex flex-row flex-grow p-1 rounded-md relative px-3 py-2 border border-gray-200 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
+              <span className="bg-white dark:bg-black inline-flex flex-row flex-grow p-1 rounded-md relative px-3 py-2 border border-gray-200 dark:border-other-700 placeholder-gray-500 dark:placeholder-other-400 text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
                 <input
                   onChange={(e) => setCorrect(e.target.value)}
                   required
                   type="radio"
                   value="answer3"
                   name="correct"
-                  className="invalid:border-red h-4 w-4 focus:outline-none focus:ring-transparent align-middle mt-[3px] mr-2"
+                  className="invalid:border-red dark:invalid:border-red-500 h-4 w-4 focus:outline-none dark:bg-black focus:ring-transparent align-middle mt-[3px] mr-2"
                 />
                 <input
                   ref={answer3}
                   required
                   id="answer3"
-                  className="inline-block align-baseline text-gray-500 appearance-none rounded-md w-full relative px-1 placeholder-gray-500"
+                  className="dark:bg-black inline-block align-baseline text-gray-900 outline-none dark:text-gray-50 appearance-none rounded-md w-full relative px-1 placeholder-gray-500 dark:placeholder-other-400"
                   placeholder="Answer Choice 3"
                 />
               </span>
-              <span className="bg-white inline-flex flex-row flex-grow p-1 rounded-md relative px-3 py-2 border border-gray-200 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
+              <span className="bg-white dark:bg-black inline-flex flex-row flex-grow p-1 rounded-md relative px-3 py-2 border border-gray-200 dark:border-other-700 placeholder-gray-500 dark:placeholder-other-400 text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
                 <input
                   onChange={(e) => setCorrect(e.target.value)}
                   required
                   type="radio"
                   value="answer4"
                   name="correct"
-                  className="invalid:border-red h-4 w-4 focus:outline-none focus:ring-transparent align-middle mt-[3px] mr-2"
+                  className="invalid:border-red dark:invalid:border-red-500 h-4 w-4 focus:outline-none dark:bg-black focus:ring-transparent align-middle mt-[3px] mr-2"
                 />
                 <input
                   ref={answer4}
                   required
                   id="answer4"
-                  className="inline-block align-baseline text-gray-500 appearance-none rounded-md w-full relative px-1 placeholder-gray-500"
+                  className="dark:bg-black inline-block align-baseline text-gray-900 outline-none dark:text-gray-50 appearance-none rounded-md w-full relative px-1 placeholder-gray-500 dark:placeholder-other-400"
                   placeholder="Answer Choice 4"
                 />
               </span>
@@ -229,14 +231,14 @@ export default function AdminPanel() {
           <div className="flex items-center gap-2">
             <Listbox value={course} onChange={setCourse}>
               <div className="relative w-1/2">
-                <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
-                  <span className="block truncate text-gray-500">
+                <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white dark:bg-black rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
+                  <span className="block truncate text-gray-500 dark:text-other-400">
                     {course.name}
                   </span>
                   <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 text-gray-400"
+                      className="h-5 w-5 text-gray-400 dark:text-other-500"
                       aria-hidden="true"
                       viewBox="0 0 20 20"
                       fill="currentColor"
@@ -255,14 +257,16 @@ export default function AdminPanel() {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white dark:bg-black rounded-md shadow-lg max-h-60 ring-1 ring-black dark:ring-other-700 ring-opacity-5 focus:outline-none sm:text-sm">
                     {courses.map((courseMap, courseIdx) => (
                       <Listbox.Option
                         key={courseIdx}
                         value={courseMap}
                         className={({ active }) =>
                           `${
-                            active ? "text-black bg-blue-300" : "text-gray-900"
+                            active
+                              ? "text-black bg-blue-300"
+                              : "text-gray-900 dark:text-gray-50"
                           }
                                               cursor-default select-none relative py-2 pl-10 pr-4`
                         }
@@ -278,7 +282,7 @@ export default function AdminPanel() {
                             </span>
                             {selected ? (
                               <span
-                                className={`text-gray-900 absolute inset-y-0 left-0 flex items-center pl-3`}
+                                className={`text-gray-900 dark:text-gray-50 absolute inset-y-0 left-0 flex items-center pl-3`}
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -333,7 +337,7 @@ function InputField({ labelName, re, name, type, className }) {
         name={name}
         type={type}
         required
-        className={`${className} appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-100 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm shadow-md`}
+        className={`${className} dark:bg-black appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-100 dark:border-other-800 placeholder-gray-500 dark:placeholder-other-400 text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm shadow-md dark:shadow-white/10 dark:shadow`}
         placeholder={labelName}
       />
     </>

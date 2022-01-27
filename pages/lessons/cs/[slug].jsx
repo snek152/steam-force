@@ -188,16 +188,18 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const slugs = fs.readdirSync(join(process.cwd(), "courses/cs"))
   const posts = slugs.map((slug) => {
-    return { slug: matter(getPostBySlug(slug, "cs")).data.slug }
+    return { slug: slug.replace(/\.md$/, "") }
+  })
+  const paths = []
+  posts.forEach((post) => {
+    paths.push({
+      params: {
+        slug: post.slug,
+      },
+    })
   })
   return {
-    paths: posts.map((post) => {
-      return {
-        params: {
-          slug: post.slug,
-        },
-      }
-    }),
+    paths: paths,
     fallback: false,
   }
 }
