@@ -10,6 +10,7 @@ export default function AuthProvider({ children }) {
   const [u, loading, error] = useAuthState(auth)
   useEffect(() => {
     const fn = async () => {
+      console.log(error)
       if (!loading) {
         if (!u) {
           setUser({ uid: null, loading: false })
@@ -26,7 +27,7 @@ export default function AuthProvider({ children }) {
       }
     }
     fn()
-  }, [u, loading])
+  }, [u, loading, error])
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>
 }
