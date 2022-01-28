@@ -87,16 +87,23 @@ export default function CSLesson({ data, content, lessons }) {
           <div dangerouslySetInnerHTML={{ __html: content }}></div>
           <div
             className={
-              user.completed?.includes(data.slug) ? "cursor-not-allowed" : ""
+              user.completed?.includes(data.slug) || user.offline
+                ? "cursor-not-allowed"
+                : ""
             }
           >
             <div
-              className={`bg-gray-50 dark:bg-other-900 shadow-md rounded-md p-3 mb-5 ${
-                user.completed?.includes(data.slug)
+              className={`bg-gray-50 dark:bg-other-900 shadow-md rounded-md p-3 relative mb-5 ${
+                user.completed?.includes(data.slug) || user.offline
                   ? "bg-white dark:bg-black text-gray-400 dark:text-other-500 cursor-not-allowed pointer-events-none"
                   : ""
               }`}
             >
+              {user.offline && (
+                <span className="absolute grid font-medium place-items-center text-gray-500 text-5xl dark:text-other-500 w-full h-full object-contain">
+                  Offline
+                </span>
+              )}
               <span className="font-semibold text-lg">
                 Review: {data.question}
               </span>
@@ -105,6 +112,7 @@ export default function CSLesson({ data, content, lessons }) {
                   <span
                     className={`flex flex-row flex-grow m-1 p-1 rounded-lg ${
                       user.completed?.includes(data.slug) &&
+                      !user.offline &&
                       choice == data.correct
                         ? "bggreen"
                         : ""

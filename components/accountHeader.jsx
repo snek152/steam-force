@@ -8,7 +8,11 @@ export default function AccountHeader() {
     <header className="bg-white dark:bg-black shadow dark:shadow-white/30">
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50 flex items-center justify-between">
-          <span>Welcome back, {user.username}.</span>
+          {!user.offline ? (
+            <span>Welcome back, {user.username}.</span>
+          ) : (
+            <span>Offline</span>
+          )}
           <span
             className="space-x-1 hover:underline cursor-pointer"
             onClick={() => router.push("/account/contribute")}
