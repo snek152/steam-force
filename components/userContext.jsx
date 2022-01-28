@@ -16,7 +16,9 @@ export default function AuthProvider({ children }) {
           setUser({ uid: null, loading: false })
         } else {
           setUser((u) => u)
-          const userDb = await getDoc(doc(db, "users", u.uid))
+          const userDb = await getDoc(doc(db, "users", u.uid)).catch((e) => {
+            console.log(e)
+          })
           const userData = userDb.data()
           if (!userData) {
             setUser({ anonymous: true, uid: u.uid, profileUrl: null })
