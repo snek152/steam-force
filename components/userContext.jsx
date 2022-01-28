@@ -17,7 +17,7 @@ export default function AuthProvider({ children }) {
         } else {
           setUser((u) => u)
           const userDb = await getDoc(doc(db, "users", u.uid)).catch((e) => {
-            console.log(e)
+            setUser({ uid: null, offline: true })
           })
           const userData = userDb.data()
           if (!userData) {
