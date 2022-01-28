@@ -11,7 +11,6 @@ import { doc, updateDoc } from "@firebase/firestore"
 import { Menu, Switch, Transition } from "@headlessui/react"
 import { Fragment } from "react"
 import Image from "next/image"
-import { Offline, Online } from "react-detect-offline"
 import { useTheme } from "next-themes"
 
 function classNames(...classes) {
@@ -254,17 +253,16 @@ export default function Layout({ children, title, container, noNav }) {
               </div>
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <Offline>
+              {user.offline ? (
                 <div className="flex">
                   <p className="nav-link inactive">You are offline.</p>
                   <Link href="/lessons/cs/intro-cp">
                     <a className="active nav-link hover:bg-gray-600">Lessons</a>
                   </Link>
                 </div>
-              </Offline>
-              <Online>
+              ) : (
                 <RightNavLinks />
-              </Online>
+              )}
             </div>
           </div>
         </div>
