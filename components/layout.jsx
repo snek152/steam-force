@@ -249,7 +249,6 @@ export default function Layout({ children, title, container, noNav }) {
               <div className="hidden sm:block sm:ml-6">
                 <div className="flex space-x-4 items-center">
                   <LeftNavLinks />
-                  <InstallPWAButton />
                 </div>
               </div>
             </div>
@@ -271,7 +270,6 @@ export default function Layout({ children, title, container, noNav }) {
         <div className="collapse nav-collapse duration-[0ms]" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1">
             <LeftNavLinks mobile={true} />
-            <InstallPWAButton />
           </div>
         </div>
       </nav>
@@ -483,43 +481,5 @@ function LoggedInUser({ user }) {
         </Transition>
       </Menu>
     </>
-  )
-}
-
-function InstallPWAButton() {
-  const [supportsPWA, setSupportsPWA] = useState(false)
-  const [promptInstall, setPromptInstall] = useState(null)
-
-  useEffect(() => {
-    console.log(supportsPWA)
-    const handler = (e) => {
-      e.preventDefault()
-      console.log("we are being triggered :D")
-      setSupportsPWA(true)
-      setPromptInstall(e)
-    }
-    window.addEventListener("beforeinstallprompt", handler)
-
-    return () => window.removeEventListener("transitionend", handler)
-  })
-  const onClick = (e) => {
-    e.preventDefault()
-    if (!promptInstall) {
-      return
-    }
-    promptInstall.prompt()
-  }
-  // if (!supportsPWA) {
-  //   return null
-  // }
-  return (
-    <button
-      className=""
-      aria-label="Install app"
-      title="Install app"
-      onClick={onClick}
-    >
-      Install
-    </button>
   )
 }
