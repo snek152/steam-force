@@ -60,6 +60,7 @@ function LeftNavLinks({ mobile }) {
             pointer-events-none inline-block h-[16.5px] w-[16.5px] rounded-full bg-other-700 dark:bg-white shadow-lg transform ring-0 transition ease-in-out duration-200`}
         />
       </Switch>
+      <InstallPWAButton />
     </>
   )
 }
@@ -482,4 +483,34 @@ function LoggedInUser({ user }) {
       </Menu>
     </>
   )
+}
+
+function InstallPWAButton() {
+  const [deferredPrompt, setDeferredPrompt] = useState(null)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const callback = (e) => {
+      e.preventDefault()
+      setDeferredPrompt(e)
+      setVisible(true)
+    }
+    window.addEventListener("beforeinstallprompt", callback)
+    return () => window.removeEventListener("transitionend", callback)
+  }, [])
+  const onClick = (e) => {
+    setVisible(false)
+    e.preventDefault()
+    deferredPrompt.prompt()
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("User accepted the prompt")
+      } else {
+        console.log("dismissed")
+      }
+      setDeferredPrompt(null)
+    })
+  }
+  return visible ? (
+    <button onClick={onClick}>Hi testing installability</button>
+  ) : null
 }
