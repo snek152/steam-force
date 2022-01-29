@@ -3,10 +3,11 @@ import { useAuth } from "./userContext"
 import { Dialog, Disclosure, Transition } from "@headlessui/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { Fragment, useEffect, useState } from "react"
+import { Fragment, useEffect, useRef, useState } from "react"
 import $ from "jquery"
 import Sticky from "react-stickynode"
-
+import InputField from "./inputField"
+import { auth } from "./clientApp"
 const units = {
   cs: {
     cp: "Computer Programming",
@@ -14,7 +15,7 @@ const units = {
   },
 }
 
-export default function Sidebar({ lessons, type }) {
+export default function Sidebar({ lessons, type, currentTitle }) {
   const user = useAuth()
   const router = useRouter()
   const [open, setOpen] = useState(false)
@@ -48,14 +49,39 @@ export default function Sidebar({ lessons, type }) {
       })
     }
   }, [])
-
+  const title = useRef(null)
+  const desc = useRef(null)
+  const formSubmit = async (e) => {
+    e.preventDefault()
+    await fetch(
+      `${
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://steam-force.vercel.app"
+      }/api/feedback`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          title: title.current.value,
+          body: desc.current.value,
+          email: auth.currentUser.email,
+          lesson: currentTitle,
+        }),
+      },
+    )
+  }
   return (
     <div className="w-full sm:w-3/12 inline-block relative">
       <Sticky top={88} enabled={width > 640}>
         <div className="p-2">
           <h1 className="font-semibold text-center text-lg">Courses</h1>
           <p className="text-center">
-            Points: <strong>{user.points}</strong>
+            Points:{" "}
+            {user.offline ? (
+              <strong>not available</strong>
+            ) : (
+              <strong>{user.points}</strong>
+            )}
           </p>
           <div className="sm:max-w-md py-2 mr-2 rounded-2xl">
             <Disclosure>
@@ -263,13 +289,15 @@ export default function Sidebar({ lessons, type }) {
                 </>
               )}
             </Disclosure>
-            <button
-              type="button"
-              onClick={openModal}
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 block m-auto my-3 rounded-md bg-opacity-[0.85] hover:bg-opacity-75"
-            >
-              Questions?
-            </button>
+            {user.uid && (
+              <button
+                type="button"
+                onClick={openModal}
+                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 block m-auto my-3 rounded-md bg-opacity-[0.85] hover:bg-opacity-75"
+              >
+                Questions?
+              </button>
+            )}
             <Transition appear show={open} as={Fragment}>
               <Dialog
                 as="div"
@@ -308,21 +336,42 @@ export default function Sidebar({ lessons, type }) {
                         as="h3"
                         className="text-lg font-medium leading-6 text-gray-900"
                       >
-                        Title goes here
+                        Questions?
                       </Dialog.Title>
                       <div className="mt-2">
-                        <p className="text-sm text-gray-500">
-                          Your payment has been successfully submitted.
-                        </p>
-                      </div>
-                      <div className="mt-4">
-                        <button
-                          onClick={closeModal}
-                          type="button"
-                          className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                        >
-                          Close modal
-                        </button>
+                        <form className="space-y-3" onSubmit={formSubmit}>
+                          <InputField
+                            type="text"
+                            name="title"
+                            re={title}
+                            labelName="Title"
+                            className="dark:shadow-black/50"
+                            autoComplete="off"
+                          />
+                          <InputField
+                            type="textarea"
+                            name="desc"
+                            re={desc}
+                            labelName="Description"
+                            className="h-16 dark:shadow-black/50"
+                            autoComplete="off"
+                          />
+                          <div className="flex justify-between">
+                            <button
+                              onClick={closeModal}
+                              type="button"
+                              className="bg-gray-300 dark:bg-gray-500 rounded-md shadow-md no-underline py-1.5 px-3 font-normal"
+                            >
+                              Close
+                            </button>
+                            <button
+                              type="submit"
+                              className="bg-blue-500 rounded-md shadow-md no-underline text-white py-1.5 px-3 font-normal"
+                            >
+                              Submit
+                            </button>
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </Transition.Child>

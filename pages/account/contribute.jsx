@@ -1,7 +1,7 @@
 import Layout from "../../components/layout"
 import { useRef, useState, Fragment } from "react"
 import { Listbox, Transition } from "@headlessui/react"
-
+import InputField from "../../components/inputField"
 const courses = [
   { name: "Engineering", slug: "cs" },
   { name: "Math", slug: "math" },
@@ -25,7 +25,7 @@ export default function AdminPanel() {
   const unit = useRef(null)
   const contentValue = useRef(null)
   const [content, setContent] = useState("Lesson Content (MD format)")
-  const [error, setError] = useState("Submit")
+  const [error, setError] = useState("")
   const readFile = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
@@ -322,24 +322,5 @@ export default function AdminPanel() {
         </form>
       </div>
     </Layout>
-  )
-}
-
-function InputField({ labelName, re, name, type, className }) {
-  return (
-    <>
-      <label htmlFor={name} className="sr-only">
-        {labelName}
-      </label>
-      <input
-        ref={re}
-        id={name}
-        name={name}
-        type={type}
-        required
-        className={`${className} dark:bg-black appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-100 dark:border-other-800 placeholder-gray-500 dark:placeholder-other-400 text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm shadow-md dark:shadow-white/10 dark:shadow`}
-        placeholder={labelName}
-      />
-    </>
   )
 }

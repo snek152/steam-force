@@ -80,7 +80,7 @@ export default function CSLesson({ data, content, lessons }) {
     <Layout title={data.title} container={false}>
       <AccountHeader />
       <div className="flex max-w-7xl sm:flex-row flex-col mx-auto py-6 px-4 sm:px-6 lg:px-8 relative flex-grow">
-        <Sidebar lessons={lessons} type="cs" />
+        <Sidebar lessons={lessons} type="cs" currentTitle={data.title} />
         <div className="w-full inline-block prose dark:prose-invert prose-pre:p-0 prose-h2:border-t-2 prose-h2:pt-5 border p-4 shadow-lg rounded-2xl border-opacity-80 bg-white dark:bg-black max-w-none sm:w-9/12">
           <h1>{data.heading}</h1>
           <p className="mb-0">In this section you will {data.desc}.</p>
@@ -100,7 +100,7 @@ export default function CSLesson({ data, content, lessons }) {
               }`}
             >
               {user.offline && (
-                <span className="absolute grid font-medium place-items-center text-gray-500 text-5xl dark:text-other-500 w-full h-full object-contain">
+                <span className="absolute -translate-x-3 -translate-y-3 grid font-medium place-items-center text-gray-500 text-5xl dark:text-other-500 w-full h-full object-contain">
                   Offline
                 </span>
               )}
