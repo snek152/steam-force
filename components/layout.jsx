@@ -499,7 +499,7 @@ function InstallPWAButton() {
     window.addEventListener("beforeinstallprompt", handler)
 
     return () => window.removeEventListener("transitionend", handler)
-  }, [])
+  })
   const onClick = (e) => {
     e.preventDefault()
     if (!promptInstall) {
@@ -512,8 +512,7 @@ function InstallPWAButton() {
   }
   return (
     <button
-      className="link-button"
-      id="setup_button"
+      className=""
       aria-label="Install app"
       title="Install app"
       onClick={onClick}
