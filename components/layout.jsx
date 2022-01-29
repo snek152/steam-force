@@ -490,6 +490,7 @@ function InstallPWAButton() {
   const [promptInstall, setPromptInstall] = useState(null)
 
   useEffect(() => {
+    console.log(supportsPWA)
     const handler = (e) => {
       e.preventDefault()
       console.log("we are being triggered :D")
