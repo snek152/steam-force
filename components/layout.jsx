@@ -60,7 +60,6 @@ function LeftNavLinks({ mobile }) {
             pointer-events-none inline-block h-[16.5px] w-[16.5px] rounded-full bg-other-700 dark:bg-white shadow-lg transform ring-0 transition ease-in-out duration-200`}
         />
       </Switch>
-      <InstallPWAButton />
     </>
   )
 }
@@ -250,6 +249,7 @@ export default function Layout({ children, title, container, noNav }) {
               <div className="hidden sm:block sm:ml-6">
                 <div className="flex space-x-4 items-center">
                   <LeftNavLinks />
+                  <InstallPWAButton />
                 </div>
               </div>
             </div>
@@ -271,6 +271,7 @@ export default function Layout({ children, title, container, noNav }) {
         <div className="collapse nav-collapse duration-[0ms]" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1">
             <LeftNavLinks mobile={true} />
+            <InstallPWAButton />
           </div>
         </div>
       </nav>
