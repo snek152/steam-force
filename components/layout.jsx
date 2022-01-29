@@ -486,31 +486,39 @@ function LoggedInUser({ user }) {
 }
 
 function InstallPWAButton() {
-  const [deferredPrompt, setDeferredPrompt] = useState(null)
-  const [visible, setVisible] = useState(false)
+  const [supportsPWA, setSupportsPWA] = useState(false)
+  const [promptInstall, setPromptInstall] = useState(null)
+
   useEffect(() => {
-    const callback = (e) => {
+    const handler = (e) => {
       e.preventDefault()
-      setDeferredPrompt(e)
-      setVisible(true)
+      console.log("we are being triggered :D")
+      setSupportsPWA(true)
+      setPromptInstall(e)
     }
-    window.addEventListener("beforeinstallprompt", callback)
-    return () => window.removeEventListener("transitionend", callback)
+    window.addEventListener("beforeinstallprompt", handler)
+
+    return () => window.removeEventListener("transitionend", handler)
   }, [])
   const onClick = (e) => {
-    setVisible(false)
     e.preventDefault()
-    deferredPrompt.prompt()
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === "accepted") {
-        console.log("User accepted the prompt")
-      } else {
-        console.log("dismissed")
-      }
-      setDeferredPrompt(null)
-    })
+    if (!promptInstall) {
+      return
+    }
+    promptInstall.prompt()
   }
-  return visible ? (
-    <button onClick={onClick}>Hi testing installability</button>
-  ) : null
+  if (!supportsPWA) {
+    return null
+  }
+  return (
+    <button
+      className="link-button"
+      id="setup_button"
+      aria-label="Install app"
+      title="Install app"
+      onClick={onClick}
+    >
+      Install
+    </button>
+  )
 }
