@@ -2,10 +2,10 @@ import { getPostBySlug, getAllPosts } from "../../../components/courses"
 import markdownToHtml from "../../../components/markdown"
 import matter from "gray-matter"
 import Layout from "../../../components/layout"
-import Sidebar from "../../../components/sidebar"
+// import Sidebar from "../../../components/sidebar"
 import fs from "fs"
 import { join } from "path"
-import AccountHeader from "../../../components/accountHeader"
+// import AccountHeader from "../../../components/accountHeader"
 import Link from "next/link"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
@@ -15,6 +15,10 @@ import db from "../../../components/clientApp"
 import $ from "jquery"
 import { LessonProps } from "../../../components/utils"
 import { GetStaticPaths, GetStaticProps } from "next"
+import dynamic from "next/dynamic"
+
+const Sidebar = dynamic(() => import("../../../components/sidebar"))
+const AccountHeader = dynamic(() => import("../../../components/accountHeader"))
 
 export default function CSLesson(props: LessonProps) {
   const router = useRouter()

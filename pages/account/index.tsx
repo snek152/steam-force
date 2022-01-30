@@ -3,10 +3,13 @@ import Layout from "../../components/layout"
 import { useAuth } from "../../components/userContext"
 import Image from "next/image"
 import Link from "next/link"
-import AccountHeader from "../../components/accountHeader"
+// import AccountHeader from "../../components/accountHeader"
 import { doc, getDoc } from "@firebase/firestore"
 import { useEffect, useState } from "react"
 import db from "../../components/clientApp"
+import dynamic from "next/dynamic"
+
+const AccountHeader = dynamic(() => import("../../components/accountHeader"))
 
 export default function Account() {
   const user = useAuth()

@@ -1,7 +1,11 @@
 import Layout from "../../components/layout"
 import { useRef, useState, Fragment, FormEvent } from "react"
 import { Listbox, Transition } from "@headlessui/react"
-import InputField from "../../components/inputField"
+import dynamic from "next/dynamic"
+// import InputField from "../../components/inputField"
+
+const InputField = dynamic(() => import("../../components/inputField"))
+
 const courses = [
   { name: "Engineering", slug: "cs" },
   { name: "Math", slug: "math" },
