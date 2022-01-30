@@ -123,7 +123,7 @@ export default function CSLesson({ data, content, lessons }) {
                       type="radio"
                       id={choice}
                       name={`${data.slug}-question`}
-                      className="h-4 w-4 focus:outline-none focus:ring-transparent align-middle mt-[6px] mr-2"
+                      className="h-4 w-4 focus:outline-none dark:bg-other-900 dark:border-gray-50 focus:ring-transparent align-middle mt-[6px] mr-2"
                     />
                     <label
                       className="not-prose inline-block align-baseline"

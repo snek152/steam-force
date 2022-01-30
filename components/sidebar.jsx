@@ -274,7 +274,7 @@ export default function Sidebar({ lessons, type, currentTitle }) {
                         {lessons.math.map((lesson) => (
                           <li
                             key={lesson.slug}
-                            className={`p-1 hover:underline ${
+                            className={`p-1 ${
                               router.query.slug == lesson.slug && "font-bold"
                             }`}
                           >
