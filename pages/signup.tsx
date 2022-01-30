@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useRef, useState } from "react"
+import { FormEvent, useRef, useState } from "react"
 import Layout from "../components/layout"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import db, { auth } from "../components/clientApp"
@@ -18,7 +18,7 @@ export default function Signup() {
   const email = useRef(null)
   const password = useRef(null)
   const username = useRef(null)
-  const formSubmit = async (event) => {
+  const formSubmit = async (event: FormEvent) => {
     event.preventDefault()
     const usernameData = await getDocs(
       query(

@@ -1,6 +1,5 @@
 import Layout from "../components/layout"
 import Image from "next/image"
-import home from "../public/home.png"
 
 export default function Home() {
   return (
@@ -22,7 +21,7 @@ export default function Home() {
           <Image
             alt="Homepage image"
             layout="fill"
-            src={home}
+            src="/home.png"
             loading="lazy"
             quality="85"
             className="object-cover bg-center absolute z-50"

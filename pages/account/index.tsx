@@ -32,7 +32,7 @@ export default function Account() {
       } catch {}
     }
     fn()
-  }, [user])
+  }, [user.uid])
   return (
     <Layout title="Account" container={false}>
       <AccountHeader />
@@ -59,7 +59,7 @@ export default function Account() {
             />
           </div>
           <Link href={`/lessons/cs/${courses.cs ? courses.cs : "intro-cp"}`}>
-            <div className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-blue-200 dark:bg-blue-300 shadow-xl dark:shadow-white/10 flex flex-col justify-center cursor-pointer">
+            <a className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-blue-200 dark:bg-blue-300 shadow-xl dark:shadow-white/10 flex flex-col justify-center cursor-pointer">
               <h1 className="text-3xl text-center dark:text-black">
                 Engineering
               </h1>
@@ -70,7 +70,7 @@ export default function Account() {
                 className="m-auto select-none"
                 alt="Engineering logo"
               />
-            </div>
+            </a>
           </Link>
           <div className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-red-200 dark:bg-red-300 shadow-xl dark:shadow-white/10 flex flex-col justify-center cursor-pointer">
             <h1 className="text-3xl text-center dark:text-black">

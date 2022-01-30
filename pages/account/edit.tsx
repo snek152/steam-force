@@ -4,7 +4,7 @@ import { useAuth } from "../../components/userContext"
 import db, { auth, storage } from "../../components/clientApp"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { doc, updateDoc } from "@firebase/firestore"
-import { useEffect, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 import { updateEmail, updatePassword } from "@firebase/auth"
 import Router from "next/router"
 
@@ -21,11 +21,11 @@ export default function EditAccount() {
   const imageRead = (e) => {
     let reader = new FileReader()
     reader.onloadend = () => {
-      setTemp(reader.result)
+      setTemp(reader.result as string)
     }
     reader.readAsDataURL(e.target.files[0])
   }
-  const changeCreds = async (e) => {
+  const changeCreds = async (e: FormEvent) => {
     e.preventDefault()
     if (image.current.files.length > 0) {
       const storageRef = ref(storage, `images/${user.username}`)

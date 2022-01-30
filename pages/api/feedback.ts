@@ -1,6 +1,6 @@
 import { Octokit } from "octokit"
-import { v4 } from "uuid"
 import Cors from "cors"
+import { NextApiHandler, NextApiRequest, NextApiResponse } from "next"
 
 function initMiddleware(middleware) {
   return (req, res) =>
@@ -20,7 +20,10 @@ const cors = initMiddleware(
   }),
 )
 
-export default async function handler(req, res) {
+const handler: NextApiHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse,
+) => {
   await cors(req, res)
   if (req.method !== "POST") {
     res.status(405).json({ error: 1, message: "Method not allowed" })

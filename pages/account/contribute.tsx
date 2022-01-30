@@ -1,5 +1,5 @@
 import Layout from "../../components/layout"
-import { useRef, useState, Fragment } from "react"
+import { useRef, useState, Fragment, FormEvent } from "react"
 import { Listbox, Transition } from "@headlessui/react"
 import InputField from "../../components/inputField"
 const courses = [
@@ -26,17 +26,17 @@ export default function AdminPanel() {
   const contentValue = useRef(null)
   const [content, setContent] = useState("Lesson Content (MD format)")
   const [error, setError] = useState("")
-  const readFile = (file) => {
+  const readFile = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
       reader.onload = () => {
-        resolve(reader.result)
+        resolve(reader.result as string)
       }
       reader.onerror = reject
       reader.readAsText(file, "UTF-8")
     })
   }
-  const formSubmit = async (e) => {
+  const formSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const fileContents = await readFile(contentValue.current.files[0])
     const correctVal =

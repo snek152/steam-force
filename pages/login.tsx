@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useRef, useState } from "react"
+import { FormEvent, useRef, useState } from "react"
 import Layout from "../components/layout"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../components/clientApp"
@@ -9,7 +9,7 @@ import Link from "next/link"
 export default function Login() {
   const email = useRef(null)
   const password = useRef(null)
-  const formSubmit = (event) => {
+  const formSubmit = (event: FormEvent) => {
     event.preventDefault()
     signInWithEmailAndPassword(
       auth,

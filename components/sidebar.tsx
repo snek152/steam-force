@@ -15,6 +15,15 @@ const units = {
   },
 }
 
+interface SidebarProps {
+  lessons: {
+    cs: { title: string; lesson: string; slug: string; unit: string }
+    math: { title: string; lesson: string; slug: string; unit: string }
+    science: { title: string; lesson: string; slug: string; unit: string }
+  }
+  type: string
+  currentTitle: string
+}
 export default function Sidebar({ lessons, type, currentTitle }) {
   const user = useAuth()
   const router = useRouter()
@@ -124,7 +133,7 @@ export default function Sidebar({ lessons, type, currentTitle }) {
                         {lessons.science.map((lesson) => (
                           <li
                             key={lesson.slug}
-                            className={`p-1 hover:underline ${
+                            className={`p-1 ${
                               router.query.slug == lesson.slug && "font-bold"
                             }`}
                           >
@@ -211,7 +220,7 @@ export default function Sidebar({ lessons, type, currentTitle }) {
                                     lesson.unit == units.cs[key] && (
                                       <li
                                         key={lesson.slug}
-                                        className={`p-1 text-sm hover:underline dark:text-white ${
+                                        className={`p-1 text-sm dark:text-white ${
                                           router.query.slug == lesson.slug &&
                                           "font-bold"
                                         }`}
@@ -346,7 +355,6 @@ export default function Sidebar({ lessons, type, currentTitle }) {
                             re={title}
                             labelName="Title"
                             className="dark:shadow-black/50"
-                            autoComplete="off"
                           />
                           <InputField
                             type="textarea"
@@ -354,7 +362,6 @@ export default function Sidebar({ lessons, type, currentTitle }) {
                             re={desc}
                             labelName="Description"
                             className="h-16 dark:shadow-black/50"
-                            autoComplete="off"
                           />
                           <div className="flex justify-between">
                             <button

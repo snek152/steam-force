@@ -5,7 +5,7 @@ import { useAuth } from "./userContext"
 import { signInAnonymously, signOut } from "firebase/auth"
 import db, { auth, storage } from "./clientApp"
 import Router, { useRouter } from "next/router"
-import { useEffect, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import { getDownloadURL, ref } from "@firebase/storage"
 import { doc, updateDoc } from "@firebase/firestore"
 import { Menu, Switch, Transition } from "@headlessui/react"
@@ -13,11 +13,22 @@ import { Fragment } from "react"
 import Image from "next/image"
 import { useTheme } from "next-themes"
 
+interface LeftNavLinksProps {
+  mobile?: boolean
+}
+
+interface LayoutProps {
+  children: ReactNode
+  title: string
+  container?: boolean
+  noNav?: boolean
+}
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
-function LeftNavLinks({ mobile }) {
+function LeftNavLinks(props: LeftNavLinksProps) {
   const router = useRouter()
   const { theme, setTheme } = useTheme()
   const [darkMode, setDarkMode] = useState(false)
@@ -33,7 +44,7 @@ function LeftNavLinks({ mobile }) {
     <>
       <a
         href="#"
-        className={`nav-link ${mobile ? "mobile-nav" : ""} ${
+        className={`nav-link ${props.mobile ? "mobile-nav" : ""} ${
           router.pathname == "/" ? "active" : "inactive"
         }`}
       >
@@ -41,7 +52,7 @@ function LeftNavLinks({ mobile }) {
       </a>
       <a
         href="#"
-        className={`nav-link ${mobile ? "mobile-nav" : ""} ${
+        className={`nav-link ${props.mobile ? "mobile-nav" : ""} ${
           router.pathname == "/about" ? "active" : "inactive"
         }`}
       >
@@ -64,7 +75,7 @@ function LeftNavLinks({ mobile }) {
   )
 }
 
-export default function Layout({ children, title, container, noNav }) {
+export default function Layout(props: LayoutProps) {
   const user = useAuth()
   const router = useRouter()
 
@@ -92,7 +103,7 @@ export default function Layout({ children, title, container, noNav }) {
     ) {
       Router.push("/account")
     }
-  }, [router.pathname, user])
+  }, [router.pathname, user.uid, user.loading, user.anonymous])
 
   useEffect(() => {
     if (!user.anonymous && !user.loading && user.uid !== null) {
@@ -145,7 +156,7 @@ export default function Layout({ children, title, container, noNav }) {
           content="An open-source initiative to provide accessible and interactive learning for underprivileged kids through a web app."
         />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <title>The STEAM Force | {title || "404"}</title>
+        <title>The STEAM Force | {props.title || "404"}</title>
         <link rel="preconnect" href="https://apis.google.com/" />
         <link rel="preconnect" href="https://steam-force.firebaseapp.com" />
         <link rel="shortcut icon" href="/favicon.ico" />
@@ -381,17 +392,19 @@ export default function Layout({ children, title, container, noNav }) {
           </div>
         </div>
       </nav>
-      {!noNav && (
+      {!props.noNav && (
         <nav className="bg-black w-screen">
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 h-16"></div>
         </nav>
       )}
       <div
         className={
-          container === false ? "" : "max-w-7xl mx-auto px-2 sm:px-6 lg:px-8"
+          props.container === false
+            ? ""
+            : "max-w-7xl mx-auto px-2 sm:px-6 lg:px-8"
         }
       >
-        {children}
+        {props.children}
       </div>
     </div>
   )
@@ -538,7 +551,7 @@ function LoggedInUser({ user }) {
             <div className="py-1">
               <p
                 className="block px-4 py-1 text-sm text-gray-700 dark:text-gray-200 dropdown-item"
-                tabIndex="-1"
+                tabIndex={-1}
                 role="menuitem"
               >
                 Signed in as <span className="font-bold">{user?.username}</span>

@@ -5,7 +5,7 @@ import rehype from "remark-rehype"
 import highlight from "rehype-highlight"
 import stringify from "rehype-stringify"
 
-export default async function markdownToHtml(markdown) {
+export default async function markdownToHtml(markdown: string) {
   const result = await unified()
     .use(parse)
     .use(rehype)

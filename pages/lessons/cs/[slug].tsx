@@ -13,12 +13,14 @@ import { arrayUnion, doc, increment, updateDoc } from "@firebase/firestore"
 import { useAuth } from "../../../components/userContext"
 import db from "../../../components/clientApp"
 import $ from "jquery"
+import { LessonProps } from "../../../components/utils"
+import { GetStaticPaths, GetStaticProps } from "next"
 
-export default function CSLesson({ data, content, lessons }) {
+export default function CSLesson(props: LessonProps) {
   const router = useRouter()
   const user = useAuth()
-  const answerchoices = [...data.answerchoices]
-  const shuffleArray = (array) => {
+  const answerchoices = [...props.data.answerchoices]
+  const shuffleArray = (array: string[]) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
       const temp = array[i]
@@ -29,25 +31,33 @@ export default function CSLesson({ data, content, lessons }) {
   shuffleArray(answerchoices)
   const formSubmit = async (e) => {
     e.preventDefault()
-    const val = $(`input[name=${data.slug}-question]:checked + label`).html()
-    if (val == data.correct) {
-      $(`:has(> input[name=${data.slug}-question]:checked)`).addClass("bggreen")
+    const val = $(
+      `input[name=${props.data.slug}-question]:checked + label`,
+    ).html()
+    if (val == props.data.correct) {
+      $(`:has(> input[name=${props.data.slug}-question]:checked)`).addClass(
+        "bggreen",
+      )
       await updateDoc(doc(db, "users", user.uid), {
         points: increment(10),
       })
     } else {
-      $(`:has(> input[name=${data.slug}-question]:checked)`).addClass("bgred")
-      $(`input[name=${data.slug}-question] + label`).each((index, element) => {
-        if (element.innerText == data.correct) {
-          $(element.parentElement).addClass("bggreen")
-        }
-      })
+      $(`:has(> input[name=${props.data.slug}-question]:checked)`).addClass(
+        "bgred",
+      )
+      $(`input[name=${props.data.slug}-question] + label`).each(
+        (index: number, element: HTMLElement) => {
+          if (element.innerText == props.data.correct) {
+            $(element.parentElement).addClass("bggreen")
+          }
+        },
+      )
       await updateDoc(doc(db, "users", user.uid), {
         points: increment(1),
       })
     }
     await updateDoc(doc(db, "users", user.uid), {
-      completed: arrayUnion(data.slug),
+      completed: arrayUnion(props.data.slug),
     })
     router.reload()
   }
@@ -56,45 +66,45 @@ export default function CSLesson({ data, content, lessons }) {
       try {
         await updateDoc(doc(db, "users", user.uid), {
           current: router.asPath,
-          currentTitle: data.heading,
+          currentTitle: props.data.heading,
         })
         await updateDoc(doc(db, "users", user.uid), {
-          courses: {
-            cs: data.slug,
-            math: user.courses.math,
-            science: user.courses.science,
-          },
+          "courses.cs": props.data.slug,
         })
-      } catch {}
+      } catch (e) {}
     }
     fn()
   }, [
-    data.heading,
-    data.slug,
+    props.data.heading,
+    props.data.slug,
     router.asPath,
     user.courses?.math,
     user.courses?.science,
     user?.uid,
   ])
   return (
-    <Layout title={data.title} container={false}>
+    <Layout title={props.data.title} container={false}>
       <AccountHeader />
       <div className="flex max-w-7xl sm:flex-row flex-col mx-auto py-6 px-4 sm:px-6 lg:px-8 relative flex-grow">
-        <Sidebar lessons={lessons} type="cs" currentTitle={data.title} />
+        <Sidebar
+          lessons={props.lessons}
+          type="cs"
+          currentTitle={props.data.title}
+        />
         <div className="w-full inline-block prose dark:prose-invert prose-pre:p-0 prose-h2:border-t-2 prose-h2:pt-5 border p-4 shadow-lg rounded-2xl border-opacity-80 bg-white dark:bg-black max-w-none sm:w-9/12">
-          <h1>{data.heading}</h1>
-          <p className="mb-0">In this section you will {data.desc}.</p>
-          <div dangerouslySetInnerHTML={{ __html: content }}></div>
+          <h1>{props.data.heading}</h1>
+          <p className="mb-0">In this section you will {props.data.desc}.</p>
+          <div dangerouslySetInnerHTML={{ __html: props.content }}></div>
           <div
             className={
-              user.completed?.includes(data.slug) || user.offline
+              user.completed?.includes(props.data.slug) || user.offline
                 ? "cursor-not-allowed"
                 : ""
             }
           >
             <div
               className={`bg-gray-50 dark:bg-other-900 shadow-md rounded-md p-3 relative mb-5 ${
-                user.completed?.includes(data.slug) || user.offline
+                user.completed?.includes(props.data.slug) || user.offline
                   ? "bg-white dark:bg-black text-gray-400 dark:text-other-500 cursor-not-allowed pointer-events-none"
                   : ""
               }`}
@@ -105,15 +115,15 @@ export default function CSLesson({ data, content, lessons }) {
                 </span>
               )}
               <span className="font-semibold text-lg">
-                Review: {data.question}
+                Review: {props.data.question}
               </span>
               <form onSubmit={formSubmit}>
                 {answerchoices.map((choice) => (
                   <span
                     className={`flex flex-row flex-grow m-1 p-1 rounded-lg ${
-                      user.completed?.includes(data.slug) &&
+                      user.completed?.includes(props.data.slug) &&
                       !user.offline &&
-                      choice == data.correct
+                      choice == props.data.correct
                         ? "bggreen"
                         : ""
                     }`}
@@ -122,7 +132,7 @@ export default function CSLesson({ data, content, lessons }) {
                     <input
                       type="radio"
                       id={choice}
-                      name={`${data.slug}-question`}
+                      name={`${props.data.slug}-question`}
                       className="h-4 w-4 focus:outline-none dark:bg-other-900 dark:border-gray-50 focus:ring-transparent align-middle mt-[6px] mr-2"
                     />
                     <label
@@ -136,7 +146,7 @@ export default function CSLesson({ data, content, lessons }) {
                 <button
                   type="submit"
                   className={`text-white dark:text-black py-1 px-2 rounded-md shadow-lg ${
-                    user.completed?.includes(data.slug)
+                    user.completed?.includes(props.data.slug)
                       ? "bg-blue-200 dark:bg-blue-300"
                       : "bg-blue-500 dark:bg-blue-400"
                   }`}
@@ -147,10 +157,10 @@ export default function CSLesson({ data, content, lessons }) {
             </div>
           </div>
           <div className="flex justify-between h-10">
-            <Link href={`/lessons/cs/${data.prev}`}>
+            <Link href={`/lessons/cs/${props.data.prev}`}>
               <a
                 className={`bg-gray-300 dark:bg-gray-500 rounded-md shadow-md no-underline pt-[0.4rem] px-3 font-normal ${
-                  data.prev
+                  props.data.prev
                     ? ""
                     : "pointer-events-none bg-gray-200 text-gray-400"
                 }`}
@@ -158,10 +168,10 @@ export default function CSLesson({ data, content, lessons }) {
                 Previous
               </a>
             </Link>
-            <Link href={`/lessons/cs/${data.next}`}>
+            <Link href={`/lessons/cs/${props.data.next}`}>
               <a
                 className={`bg-blue-500 rounded-md shadow-md no-underline text-white pt-[0.4rem] px-3 font-normal ${
-                  data.next
+                  props.data.next
                     ? ""
                     : "pointer-events-none bg-blue-300 dark:bg-blue-400 text-gray-100"
                 }`}
@@ -176,8 +186,8 @@ export default function CSLesson({ data, content, lessons }) {
   )
 }
 
-export async function getStaticProps({ params }) {
-  const fileContents = getPostBySlug(params.slug, "cs")
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const fileContents = getPostBySlug(params.slug as string, "cs")
   const { data, content } = matter(fileContents)
   const cont = await markdownToHtml(content)
   return {
@@ -193,7 +203,7 @@ export async function getStaticProps({ params }) {
   }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const slugs = fs.readdirSync(join(process.cwd(), "courses/cs"))
   const posts = slugs.map((slug) => {
     return { slug: slug.replace(/\.md$/, "") }

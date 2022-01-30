@@ -11,7 +11,9 @@
   "dependencies": {
     "@headlessui/react": "^1.4.2",
     "@next/bundle-analyzer": "^12.0.8",
+    "@types/cors": "^2.8.12",
     "@types/react": "^17.0.38",
+    "@types/uuid": "^8.3.4",
     "cors": "^2.8.5",
     "firebase": "^9.2.0",
     "gray-matter": "^4.0.3",

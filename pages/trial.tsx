@@ -5,6 +5,7 @@ import Layout from "../components/layout"
 import { getPostBySlug } from "../components/courses"
 import markdownToHtml from "../components/markdown"
 import matter from "gray-matter"
+import { GetStaticProps } from "next"
 export default function Trial({ content }) {
   const formSubmit = () => {
     signOut(auth)
@@ -26,7 +27,7 @@ export default function Trial({ content }) {
   )
 }
 
-export async function getStaticProps(ctx) {
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const fileContents = ["intro-cp", "env", "syntax"]
     .map((s) => {
       return matter(getPostBySlug(s, "cs")).content

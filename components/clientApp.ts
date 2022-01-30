@@ -12,7 +12,6 @@ const firebaseConfig = {
   messagingSenderId: "527388890460",
   appId: "1:527388890460:web:0b1cde44a5da5792b9dd99",
   measurementId: "G-Z33D1ZSYST",
-  storageBucket: "gs://steam-force.appspot.com/",
 }
 if (!getApps().length) {
   initializeApp(firebaseConfig)
