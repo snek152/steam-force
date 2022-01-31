@@ -3,11 +3,9 @@ import Head from "next/head"
 import Link from "next/link"
 import { useAuth } from "./userContext"
 import { signInAnonymously, signOut } from "firebase/auth"
-import db, { auth, storage } from "./clientApp"
+import { auth } from "./clientApp"
 import Router, { useRouter } from "next/router"
 import { ReactNode, useEffect, useState } from "react"
-import { getDownloadURL, ref } from "@firebase/storage"
-import { doc, updateDoc } from "@firebase/firestore"
 import { Menu, Switch, Transition } from "@headlessui/react"
 import { Fragment } from "react"
 import Image from "next/image"
@@ -104,25 +102,6 @@ export default function Layout(props: LayoutProps) {
       Router.push("/account")
     }
   }, [router.pathname, user.uid, user.loading, user.anonymous])
-
-  useEffect(() => {
-    if (!user.anonymous && !user.loading && user.uid !== null) {
-      const storageRef = ref(storage, `images/${user.username}`)
-      getDownloadURL(storageRef)
-        .then(async (url) => {
-          await updateDoc(doc(db, "users", user.uid), {
-            profileUrl: url,
-          })
-          await auth.currentUser.getIdToken(true)
-        })
-        .catch(async (err) => {
-          await updateDoc(doc(db, "users", user.uid), {
-            profileUrl: null,
-          })
-          await auth.currentUser.getIdToken(true)
-        })
-    }
-  })
 
   return (
     <div

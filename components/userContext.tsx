@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import db, { auth } from "./clientApp"
-import { doc, getDoc } from "@firebase/firestore"
+import { auth } from "./clientApp"
 import { useAuthState } from "react-firebase-hooks/auth"
 
 const AuthContext = createContext(null)
@@ -35,16 +34,26 @@ export default function AuthProvider({ children }) {
           setUser({ uid: null, loading: false })
         } else {
           setUser((u) => u)
-          try {
-            const userDb = await getDoc(doc(db, "users", u.uid))
-            const userData = userDb.data()
+          const userDb = await fetch(
+            `${
+              process.env.NODE_ENV === "development"
+                ? "http://localhost:3000"
+                : "https://steam-force.vercel.app"
+            }/api/user/getuser?username=${u.uid}`,
+            {
+              method: "GET",
+            },
+          )
+          const userData = await userDb.json()
+          if (userData.error == 1) {
+            setUser({ uid: null, offline: true })
+          } else {
+            const myData = userData.data
             if (!userData) {
               setUser({ anonymous: true, uid: u.uid, profileUrl: null })
             } else {
-              setUser({ ...userData, anonymous: false, uid: u.uid })
+              setUser({ ...myData, anonymous: false, uid: u.uid })
             }
-          } catch {
-            setUser({ uid: null, offline: true })
           }
         }
       }

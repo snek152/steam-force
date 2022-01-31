@@ -2,15 +2,7 @@
 import { FormEvent, useRef, useState } from "react"
 import Layout from "../components/layout"
 import { createUserWithEmailAndPassword } from "firebase/auth"
-import db, { auth } from "../components/clientApp"
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-  where,
-} from "@firebase/firestore"
+import { auth } from "../components/clientApp"
 import Router from "next/router"
 import Link from "next/link"
 
@@ -20,13 +12,18 @@ export default function Signup() {
   const username = useRef(null)
   const formSubmit = async (event: FormEvent) => {
     event.preventDefault()
-    const usernameData = await getDocs(
-      query(
-        collection(db, "users"),
-        where("username", "==", username.current.value),
-      ),
+    const usernameData = await fetch(
+      `${
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://steam-force.vercel.app"
+      }/api/username?username=${username.current.value}`,
+      {
+        method: "GET",
+      },
     )
-    if (!usernameData.empty) {
+    const data = await usernameData.json()
+    if (!data.exists) {
       setError("Username already exists")
     } else {
       createUserWithEmailAndPassword(
@@ -36,17 +33,20 @@ export default function Signup() {
       )
         .then(async (userCredential) => {
           setError(null)
-          await setDoc(doc(db, "users", userCredential.user.uid), {
-            username: username.current.value,
-            profileUrl: null,
-            courses: {
-              math: null,
-              science: null,
-              cs: null,
+          await fetch(
+            `${
+              process.env.NODE_ENV === "development"
+                ? "http://localhost:3000"
+                : "https://steam-force.vercel.app"
+            }/api/user/adduser`,
+            {
+              method: "POST",
+              body: JSON.stringify({
+                username: username.current.value,
+                uid: userCredential.user.uid,
+              }),
             },
-            points: 0,
-            current: null,
-          })
+          )
           Router.push("/account")
         })
         .catch((error) => {

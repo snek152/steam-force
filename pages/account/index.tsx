@@ -4,9 +4,7 @@ import { useAuth } from "../../components/userContext"
 import Image from "next/image"
 import Link from "next/link"
 // import AccountHeader from "../../components/accountHeader"
-import { doc, getDoc } from "@firebase/firestore"
 import { useEffect, useState } from "react"
-import db from "../../components/clientApp"
 import dynamic from "next/dynamic"
 
 const AccountHeader = dynamic(() => import("../../components/accountHeader"))
@@ -26,11 +24,21 @@ export default function Account() {
   useEffect(() => {
     const fn = async () => {
       try {
-        const data = await getDoc(doc(db, "users", user.uid))
-        setCourses(data.data().courses)
+        const res = await fetch(
+          `${
+            process.env.NODE_ENV === "development"
+              ? "http://localhost:3000"
+              : "https://steam-force.vercel.app"
+          }/api/user/getuser?username=${user.uid}`,
+          {
+            method: "GET",
+          },
+        )
+        const data = (await res.json()).data
+        setCourses(data.courses)
         setLatest({
-          current: data.data().current,
-          currentTitle: data.data().currentTitle,
+          current: data.current,
+          currentTitle: data.currentTitle,
         })
       } catch {}
     }

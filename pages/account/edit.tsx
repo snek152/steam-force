@@ -1,9 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import Layout from "../../components/layout"
 import { useAuth } from "../../components/userContext"
-import db, { auth, storage } from "../../components/clientApp"
+import { auth, storage } from "../../components/clientApp"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
-import { doc, updateDoc } from "@firebase/firestore"
 import { FormEvent, useEffect, useRef, useState } from "react"
 import { updateEmail, updatePassword } from "@firebase/auth"
 import Router from "next/router"
@@ -31,9 +30,21 @@ export default function EditAccount() {
       const storageRef = ref(storage, `images/${user.username}`)
       uploadBytes(storageRef, image.current.files[0]).then((snapshot) => {
         getDownloadURL(storageRef).then(async (url) => {
-          await updateDoc(doc(db, "users", user.uid), {
-            profileUrl: url,
-          })
+          await fetch(
+            `${
+              process.env.NODE_ENV === "development"
+                ? "http://localhost:3000"
+                : "https://steam-force.vercel.app"
+            }/api/user/updateuser`,
+            {
+              method: "PATCH",
+              body: JSON.stringify({
+                uid: user.uid,
+                field: "profileUrl",
+                update: url,
+              }),
+            },
+          )
           Router.reload()
           setTemp(user.profileUrl)
         })
@@ -44,9 +55,21 @@ export default function EditAccount() {
       username.current.value !== "" &&
       !username.current.value.includes(" ")
     ) {
-      await updateDoc(doc(db, "users", user.uid), {
-        username: username.current.value,
-      })
+      await fetch(
+        `${
+          process.env.NODE_ENV === "development"
+            ? "http://localhost:3000"
+            : "https://steam-force.vercel.app"
+        }/api/user/updateuser`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            uid: user.uid,
+            field: "username",
+            update: username.current.value,
+          }),
+        },
+      )
       Router.reload()
     }
     if (

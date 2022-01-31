@@ -11,7 +11,6 @@ import { useEffect } from "react"
 import { useRouter } from "next/router"
 import { arrayUnion, doc, increment, updateDoc } from "@firebase/firestore"
 import { useAuth } from "../../../components/userContext"
-import db from "../../../components/clientApp"
 import { LessonProps } from "../../../components/utils"
 import { GetStaticPaths, GetStaticProps } from "next"
 import dynamic from "next/dynamic"
@@ -44,9 +43,23 @@ export default function CSLesson(props: LessonProps) {
       document
         .querySelector(`input[name=${props.data.slug}-question]:checked`)
         .classList.add("bggreen")
-      await updateDoc(doc(db, "users", user.uid), {
-        points: increment(10),
-      })
+      await fetch(
+        `${
+          process.env.NODE_ENV === "development"
+            ? "http://localhost:3000"
+            : "https://steam-force.vercel.app"
+        }/api/user/updateuser`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            uid: user.uid,
+            field: "points",
+            update: "increment",
+            args: [10],
+            method: true,
+          }),
+        },
+      )
     } else {
       document
         .querySelector(`input[name=${props.data.slug}-question]:checked`)
@@ -58,25 +71,93 @@ export default function CSLesson(props: LessonProps) {
             element.parentElement.classList.add("bggreen")
           }
         })
-      await updateDoc(doc(db, "users", user.uid), {
-        points: increment(1),
-      })
+      await fetch(
+        `${
+          process.env.NODE_ENV === "development"
+            ? "http://localhost:3000"
+            : "https://steam-force.vercel.app"
+        }/api/user/updateuser`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            uid: user.uid,
+            field: "points",
+            update: "increment",
+            args: [1],
+            method: true,
+          }),
+        },
+      )
     }
-    await updateDoc(doc(db, "users", user.uid), {
-      completed: arrayUnion(props.data.slug),
-    })
+    await fetch(
+      `${
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://steam-force.vercel.app"
+      }/api/user/updateuser`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          uid: user.uid,
+          field: "completed",
+          update: "arrayUnion",
+          args: [props.data.slug],
+          method: true,
+        }),
+      },
+    )
     router.reload()
   }
   useEffect(() => {
     const fn = async () => {
       try {
-        await updateDoc(doc(db, "users", user.uid), {
-          current: router.asPath,
-          currentTitle: props.data.heading,
-        })
-        await updateDoc(doc(db, "users", user.uid), {
-          "courses.cs": props.data.slug,
-        })
+        await Promise.all([
+          fetch(
+            `${
+              process.env.NODE_ENV === "development"
+                ? "http://localhost:3000"
+                : "https://steam-force.vercel.app"
+            }/api/user/updateuser`,
+            {
+              method: "PATCH",
+              body: JSON.stringify({
+                uid: user.uid,
+                field: "current",
+                update: router.asPath,
+              }),
+            },
+          ),
+          fetch(
+            `${
+              process.env.NODE_ENV === "development"
+                ? "http://localhost:3000"
+                : "https://steam-force.vercel.app"
+            }/api/user/updateuser`,
+            {
+              method: "PATCH",
+              body: JSON.stringify({
+                uid: user.uid,
+                field: "currentTitle",
+                update: props.data.heading,
+              }),
+            },
+          ),
+          fetch(
+            `${
+              process.env.NODE_ENV === "development"
+                ? "http://localhost:3000"
+                : "https://steam-force.vercel.app"
+            }/api/user/updateuser`,
+            {
+              method: "PATCH",
+              body: JSON.stringify({
+                uid: user.uid,
+                field: "courses.cs",
+                update: props.data.slug,
+              }),
+            },
+          ),
+        ])
       } catch (e) {}
     }
     fn()

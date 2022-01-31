@@ -47,3 +47,4 @@ const handler: NextApiHandler = async (
     res.status(200).json({ error: 0, message: "Success" })
   }
 }
+export default handler
