@@ -12,7 +12,6 @@ import { useRouter } from "next/router"
 import { arrayUnion, doc, increment, updateDoc } from "@firebase/firestore"
 import { useAuth } from "../../../components/userContext"
 import db from "../../../components/clientApp"
-import $ from "jquery"
 import { LessonProps } from "../../../components/utils"
 import { GetStaticPaths, GetStaticProps } from "next"
 import dynamic from "next/dynamic"
@@ -35,27 +34,30 @@ export default function CSLesson(props: LessonProps) {
   shuffleArray(answerchoices)
   const formSubmit = async (e) => {
     e.preventDefault()
-    const val = $(
+    const val = document.querySelector(
       `input[name=${props.data.slug}-question]:checked + label`,
-    ).html()
+    ).innerHTML
     if (val == props.data.correct) {
-      $(`:has(> input[name=${props.data.slug}-question]:checked)`).addClass(
-        "bggreen",
-      )
+      document
+        .querySelector(`input[name=${props.data.slug}-question]:checked`)
+        .parentElement.classList.add("bggreen")
+      document
+        .querySelector(`input[name=${props.data.slug}-question]:checked`)
+        .classList.add("bggreen")
       await updateDoc(doc(db, "users", user.uid), {
         points: increment(10),
       })
     } else {
-      $(`:has(> input[name=${props.data.slug}-question]:checked)`).addClass(
-        "bgred",
-      )
-      $(`input[name=${props.data.slug}-question] + label`).each(
-        (index: number, element: HTMLElement) => {
+      document
+        .querySelector(`input[name=${props.data.slug}-question]:checked`)
+        .parentElement.classList.add("bgred")
+      document
+        .querySelectorAll(`input[name=${props.data.slug}-question] + label`)
+        .forEach((element: HTMLElement) => {
           if (element.innerText == props.data.correct) {
-            $(element.parentElement).addClass("bggreen")
+            element.parentElement.classList.add("bggreen")
           }
-        },
-      )
+        })
       await updateDoc(doc(db, "users", user.uid), {
         points: increment(1),
       })

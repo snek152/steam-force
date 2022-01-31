@@ -3,8 +3,7 @@ import { useAuth } from "./userContext"
 import { Dialog, Disclosure, Transition } from "@headlessui/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { Fragment, useEffect, useRef, useState } from "react"
-import $ from "jquery"
+import { FormEvent, Fragment, useEffect, useRef, useState } from "react"
 import Sticky from "react-stickynode"
 import InputField from "./inputField"
 import { auth } from "./clientApp"
@@ -17,18 +16,21 @@ const units = {
 
 interface SidebarProps {
   lessons: {
-    cs: { title: string; lesson: string; slug: string; unit: string }
-    math: { title: string; lesson: string; slug: string; unit: string }
-    science: { title: string; lesson: string; slug: string; unit: string }
+    cs: { title: string; lesson: string; slug: string; unit: string }[]
+    math: { title: string; lesson: string; slug: string; unit: string }[]
+    science: { title: string; lesson: string; slug: string; unit: string }[]
   }
   type: string
   currentTitle: string
 }
-export default function Sidebar({ lessons, type, currentTitle }) {
+export default function Sidebar(props: SidebarProps) {
   const user = useAuth()
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [width, setWidth] = useState(0)
+  const science = useRef<HTMLButtonElement>(null)
+  const cs = useRef<HTMLButtonElement>(null)
+  const math = useRef<HTMLButtonElement>(null)
   const openModal = () => {
     setOpen(true)
   }
@@ -38,13 +40,13 @@ export default function Sidebar({ lessons, type, currentTitle }) {
   }
   useEffect(() => {
     if (router.pathname.includes("science")) {
-      $(".science").trigger("click")
+      science.current.click()
     }
     if (router.pathname.includes("cs")) {
-      $(".cs").trigger("click")
+      cs.current.click()
     }
     if (router.pathname.includes("math")) {
-      $(".math").trigger("click")
+      math.current.click()
     }
   }, [router.pathname])
   useEffect(() => {
@@ -60,7 +62,7 @@ export default function Sidebar({ lessons, type, currentTitle }) {
   }, [])
   const title = useRef(null)
   const desc = useRef(null)
-  const formSubmit = async (e) => {
+  const formSubmit = async (e: FormEvent) => {
     e.preventDefault()
     await fetch(
       `${
@@ -74,7 +76,7 @@ export default function Sidebar({ lessons, type, currentTitle }) {
           title: title.current.value,
           body: desc.current.value,
           email: auth.currentUser.email,
-          lesson: currentTitle,
+          lesson: props.currentTitle,
         }),
       },
     )
@@ -96,7 +98,10 @@ export default function Sidebar({ lessons, type, currentTitle }) {
             <Disclosure>
               {({ open }) => (
                 <>
-                  <Disclosure.Button className="science my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-green-100 dark:bg-green-300 rounded-lg hover:bg-green-200 dark:hover:bg-green-400 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-75">
+                  <Disclosure.Button
+                    ref={science}
+                    className="my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-green-100 dark:bg-green-300 rounded-lg hover:bg-green-200 dark:hover:bg-green-400 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-75"
+                  >
                     <span>
                       <img
                         src="/science.svg"
@@ -130,14 +135,16 @@ export default function Sidebar({ lessons, type, currentTitle }) {
                   >
                     <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
                       <ul className="list-outside text-left ml-4">
-                        {lessons.science.map((lesson) => (
+                        {props.lessons.science.map((lesson) => (
                           <li
                             key={lesson.slug}
                             className={`p-1 ${
                               router.query.slug == lesson.slug && "font-bold"
                             }`}
                           >
-                            <Link href={`/lessons/${type}/${lesson.slug}`}>
+                            <Link
+                              href={`/lessons/${props.type}/${lesson.slug}`}
+                            >
                               <a>{lesson.title}</a>
                             </Link>
                           </li>
@@ -151,7 +158,10 @@ export default function Sidebar({ lessons, type, currentTitle }) {
             <Disclosure>
               {({ open }) => (
                 <>
-                  <Disclosure.Button className="cs my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-blue-100 dark:bg-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-400 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75">
+                  <Disclosure.Button
+                    ref={cs}
+                    className="my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-blue-100 dark:bg-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-400 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75"
+                  >
                     <span>
                       <img
                         src="/cs.svg"
@@ -215,7 +225,7 @@ export default function Sidebar({ lessons, type, currentTitle }) {
                           >
                             <Disclosure.Panel>
                               <ul className="list-outside text-left ml-4 mb-2 ">
-                                {lessons.cs.map(
+                                {props.lessons.cs.map(
                                   (lesson) =>
                                     lesson.unit == units.cs[key] && (
                                       <li
@@ -226,7 +236,7 @@ export default function Sidebar({ lessons, type, currentTitle }) {
                                         }`}
                                       >
                                         <Link
-                                          href={`/lessons/${type}/${lesson.slug}`}
+                                          href={`/lessons/${props.type}/${lesson.slug}`}
                                         >
                                           <a>{lesson.title}</a>
                                         </Link>
@@ -246,7 +256,10 @@ export default function Sidebar({ lessons, type, currentTitle }) {
             <Disclosure>
               {({ open }) => (
                 <>
-                  <Disclosure.Button className="math my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-red-100 dark:bg-red-300 rounded-lg hover:bg-red-200 dark:hover:bg-red-400 focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75">
+                  <Disclosure.Button
+                    ref={math}
+                    className="my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-red-100 dark:bg-red-300 rounded-lg hover:bg-red-200 dark:hover:bg-red-400 focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75"
+                  >
                     <span>
                       <img
                         src="/math.svg"
@@ -280,14 +293,16 @@ export default function Sidebar({ lessons, type, currentTitle }) {
                   >
                     <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
                       <ul className="list-outside text-left ml-4 ">
-                        {lessons.math.map((lesson) => (
+                        {props.lessons.math.map((lesson) => (
                           <li
                             key={lesson.slug}
                             className={`p-1 ${
                               router.query.slug == lesson.slug && "font-bold"
                             }`}
                           >
-                            <Link href={`/lessons/${type}/${lesson.slug}`}>
+                            <Link
+                              href={`/lessons/${props.type}/${lesson.slug}`}
+                            >
                               <a>{lesson.title}</a>
                             </Link>
                           </li>

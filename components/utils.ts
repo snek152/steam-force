@@ -14,8 +14,8 @@ export interface LessonProps {
   }
   content: string
   lessons: {
-    cs: { title: string; lesson: string; slug: string; unit: string }
-    math: { title: string; lesson: string; slug: string; unit: string }
-    science: { title: string; lesson: string; slug: string; unit: string }
+    cs: { title: string; lesson: string; slug: string; unit: string }[]
+    math: { title: string; lesson: string; slug: string; unit: string }[]
+    science: { title: string; lesson: string; slug: string; unit: string }[]
   }
 }
