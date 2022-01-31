@@ -23,9 +23,21 @@ type UserCourse = {
   math: string | null
   science: string | null
 }
-
+const defaultUser: User = {
+  uid: null,
+  loading: true,
+  offline: false,
+  anonymous: false,
+  profileUrl: null,
+  current: "",
+  username: "",
+  points: 0,
+  currentTitle: "",
+  courses: { cs: null, math: null, science: null },
+  completed: [],
+}
 export default function AuthProvider({ children }) {
-  const [user, setUser] = useState<User>({ uid: null, loading: true })
+  const [user, setUser] = useState<User>(defaultUser)
   const [u, loading, error] = useAuthState(auth)
   useEffect(() => {
     const fn = async () => {

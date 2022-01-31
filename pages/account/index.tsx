@@ -3,23 +3,23 @@ import Layout from "../../components/layout"
 import { useAuth } from "../../components/userContext"
 import Image from "next/image"
 import Link from "next/link"
-// import AccountHeader from "../../components/accountHeader"
 import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
+import { GetServerSideProps } from "next"
 
 const AccountHeader = dynamic(() => import("../../components/accountHeader"))
 
 export default function Account() {
   const user = useAuth()
   const [courses, setCourses] = useState({
-    cs: null,
-    math: null,
-    science: null,
+    cs: user.courses.cs,
+    math: user.courses.math,
+    science: user.courses.science,
   })
 
   const [latest, setLatest] = useState({
-    current: "",
-    currentTitle: "",
+    current: user.current,
+    currentTitle: user.currentTitle,
   })
   useEffect(() => {
     const fn = async () => {
@@ -99,4 +99,11 @@ export default function Account() {
       </div>
     </Layout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  ctx.req.cookies
+  return {
+    props: {},
+  }
 }
