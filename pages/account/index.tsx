@@ -12,9 +12,9 @@ const AccountHeader = dynamic(() => import("../../components/accountHeader"))
 export default function Account() {
   const user = useAuth()
   const [courses, setCourses] = useState({
-    cs: user.courses.cs,
-    math: user.courses.math,
-    science: user.courses.science,
+    cs: user.courses?.cs,
+    math: user.courses?.math,
+    science: user.courses?.science,
   })
 
   const [latest, setLatest] = useState({
@@ -99,11 +99,4 @@ export default function Account() {
       </div>
     </Layout>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  ctx.req.cookies
-  return {
-    props: {},
-  }
 }
