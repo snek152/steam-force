@@ -24,7 +24,7 @@ interface SidebarProps {
   currentTitle: string
 }
 export default function Sidebar(props: SidebarProps) {
-  const user = useAuth()
+  const [user] = useAuth()
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [width, setWidth] = useState(0)

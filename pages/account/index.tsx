@@ -10,7 +10,7 @@ import { GetServerSideProps } from "next"
 const AccountHeader = dynamic(() => import("../../components/accountHeader"))
 
 export default function Account() {
-  const user = useAuth()
+  const [user] = useAuth()
   const [courses, setCourses] = useState({
     cs: user.courses?.cs,
     math: user.courses?.math,
@@ -21,6 +21,9 @@ export default function Account() {
     current: user.current,
     currentTitle: user.currentTitle,
   })
+  useEffect(() => {
+    console.log(user.current)
+  }, [user])
   useEffect(() => {
     const fn = async () => {
       try {

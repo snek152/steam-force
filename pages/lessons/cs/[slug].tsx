@@ -7,7 +7,7 @@ import fs from "fs"
 import { join } from "path"
 // import AccountHeader from "../../../components/accountHeader"
 import Link from "next/link"
-import { useEffect } from "react"
+import { FormEvent, useEffect } from "react"
 import { useRouter } from "next/router"
 import { useAuth } from "../../../components/userContext"
 import { LessonProps } from "../../../components/utils"
@@ -19,18 +19,10 @@ const AccountHeader = dynamic(() => import("../../../components/accountHeader"))
 
 export default function CSLesson(props: LessonProps) {
   const router = useRouter()
-  const user = useAuth()
+  const [user, dispatch] = useAuth()
   const answerchoices = [...props.data.answerchoices]
-  const shuffleArray = (array: string[]) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      const temp = array[i]
-      array[i] = array[j]
-      array[j] = temp
-    }
-  }
-  shuffleArray(answerchoices)
-  const formSubmit = async (e) => {
+
+  const formSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const val = document.querySelector(
       `input[name=${props.data.slug}-question]:checked + label`,
@@ -105,7 +97,7 @@ export default function CSLesson(props: LessonProps) {
         }),
       },
     )
-    router.reload()
+    dispatch()
   }
   useEffect(() => {
     const fn = async () => {

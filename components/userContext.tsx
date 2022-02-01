@@ -39,6 +39,10 @@ const defaultUser: User = {
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState<User>(defaultUser)
   const [u, loading, error] = useAuthState(auth)
+  const [dval, setDval] = useState("")
+  const dispatch = () => {
+    setDval((v) => v + " ")
+  }
   useEffect(() => {
     const fn = async () => {
       if (!loading) {
@@ -71,11 +75,16 @@ export default function AuthProvider({ children }) {
       }
     }
     fn()
-  }, [u, loading, error])
+    return () => setDval("")
+  }, [u, loading, error, dval])
 
-  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={[user, dispatch]}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
-export const useAuth = (): User => {
+export const useAuth = (): [User, () => void] => {
   return useContext(AuthContext)
 }

@@ -74,7 +74,7 @@ function LeftNavLinks(props: LeftNavLinksProps) {
 }
 
 export default function Layout(props: LayoutProps) {
-  const user = useAuth()
+  const [user] = useAuth()
   const router = useRouter()
 
   useEffect(() => {
@@ -391,7 +391,7 @@ export default function Layout(props: LayoutProps) {
 
 function RightNavLinks() {
   const router = useRouter()
-  const user = useAuth()
+  const [user] = useAuth()
   if (user.loading === undefined || user.loading == false) {
     if (user.uid) {
       if (user.anonymous) {

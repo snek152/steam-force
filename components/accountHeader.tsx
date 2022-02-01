@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import { useAuth } from "./userContext"
 
 export default function AccountHeader() {
-  const user = useAuth()
+  const [user] = useAuth()
   const router = useRouter()
   return (
     <header className="bg-white dark:bg-black shadow dark:shadow-white/30">

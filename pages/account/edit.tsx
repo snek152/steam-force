@@ -5,14 +5,13 @@ import { auth, storage } from "../../components/clientApp"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { FormEvent, useEffect, useRef, useState } from "react"
 import { updateEmail, updatePassword } from "@firebase/auth"
-import Router from "next/router"
 
 export default function EditAccount() {
   const image = useRef(null)
   const username = useRef(null)
   const email = useRef(null)
   const password = useRef(null)
-  const user = useAuth()
+  const [user, dispatch] = useAuth()
   const [tempImage, setTemp] = useState(user.profileUrl)
   useEffect(() => {
     setTemp(user.profileUrl)
@@ -45,7 +44,7 @@ export default function EditAccount() {
               }),
             },
           )
-          Router.reload()
+          dispatch()
           setTemp(user.profileUrl)
         })
       })
@@ -70,7 +69,7 @@ export default function EditAccount() {
           }),
         },
       )
-      Router.reload()
+      dispatch()
     }
     if (
       email.current.value !== auth.currentUser.email &&
