@@ -7,10 +7,9 @@ import { FormEvent, useEffect } from "react"
 import { useRouter } from "next/router"
 import { useAuth } from "../../../components/userContext"
 import { LessonProps } from "../../../components/utils"
-import { GetStaticPaths, GetStaticProps } from "next"
+import { GetServerSideProps } from "next"
 import dynamic from "next/dynamic"
-import fs from "fs"
-import { join } from "path"
+import { getCookie } from "cookies-next"
 
 const Sidebar = dynamic(() => import("../../../components/sidebar"))
 const AccountHeader = dynamic(() => import("../../../components/accountHeader"))
@@ -160,12 +159,13 @@ export default function CSLesson(props: LessonProps) {
   ])
   return (
     <Layout title={props.data.title} container={false}>
-      <AccountHeader fallback={""} />
+      <AccountHeader fallback={props.user.username} />
       <div className="flex max-w-7xl sm:flex-row flex-col mx-auto py-6 px-4 sm:px-6 lg:px-8 relative flex-grow">
         <Sidebar
           lessons={props.lessons}
           type="cs"
           currentTitle={props.data.title}
+          fallback={props.user}
         />
         <div className="w-full inline-block prose dark:prose-invert prose-pre:p-0 prose-h2:border-t-2 prose-h2:pt-5 border p-4 shadow-lg rounded-2xl border-opacity-80 bg-white dark:bg-black max-w-none sm:w-9/12">
           <h1>{props.data.heading}</h1>
@@ -261,11 +261,11 @@ export default function CSLesson(props: LessonProps) {
     </Layout>
   )
 }
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const fileContents = getPostBySlug(params.slug as string, "cs")
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const fileContents = getPostBySlug(ctx.params.slug as string, "cs")
   const { data, content } = matter(fileContents)
   const cont = await markdownToHtml(content)
+  const cookie = JSON.parse(getCookie("user", ctx).toString())
   return {
     props: {
       content: cont,
@@ -275,26 +275,43 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         math: getAllPosts("math"),
         science: getAllPosts("science"),
       },
+      user: cookie,
     },
-    revalidate: 60,
   }
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = fs.readdirSync(join(process.cwd(), "courses/cs"))
-  const posts = slugs.map((slug) => {
-    return { slug: slug.replace(/\.md$/, "") }
-  })
-  const paths = []
-  posts.forEach((post) => {
-    paths.push({
-      params: {
-        slug: post.slug,
-      },
-    })
-  })
-  return {
-    paths: paths,
-    fallback: false,
-  }
-}
+// export const getStaticProps: GetStaticProps = async ({ params }) => {
+//   const fileContents = getPostBySlug(params.slug as string, "cs")
+//   const { data, content } = matter(fileContents)
+//   const cont = await markdownToHtml(content)
+//   return {
+//     props: {
+//       content: cont,
+//       data: data,
+//       lessons: {
+//         cs: getAllPosts("cs"),
+//         math: getAllPosts("math"),
+//         science: getAllPosts("science"),
+//       },
+//     },
+//   }
+// }
+
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const slugs = fs.readdirSync(join(process.cwd(), "courses/cs"))
+//   const posts = slugs.map((slug) => {
+//     return { slug: slug.replace(/\.md$/, "") }
+//   })
+//   const paths = []
+//   posts.forEach((post) => {
+//     paths.push({
+//       params: {
+//         slug: post.slug,
+//       },
+//     })
+//   })
+//   return {
+//     paths: paths,
+//     fallback: false,
+//   }
+// }
