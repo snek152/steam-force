@@ -5,7 +5,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
-import { GetServerSideProps } from "next"
 
 const AccountHeader = dynamic(() => import("../../components/accountHeader"))
 
