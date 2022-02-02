@@ -75,6 +75,33 @@ function LeftNavLinks(props: LeftNavLinksProps) {
 
 export default function Layout(props: LayoutProps) {
   const [user] = useAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (
+      (router.pathname == "/login" || router.pathname == "/signup") &&
+      user.loading === undefined &&
+      user.uid !== null &&
+      !user.anonymous
+    ) {
+      Router.push("/account")
+    } else if (
+      router.pathname == "/account" &&
+      user.uid === null &&
+      user.loading === false
+    ) {
+      Router.push("/")
+    } else if (router.pathname == "/account" && user.anonymous === true) {
+      Router.push("/trial")
+    } else if (
+      router.pathname == "/trial" &&
+      user.uid &&
+      !user.loading &&
+      !user.anonymous
+    ) {
+      Router.push("/account")
+    }
+  }, [router.pathname, user.uid, user.loading, user.anonymous])
 
   return (
     <div

@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { auth } from "./clientApp"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { getCookie, removeCookies, setCookies } from "cookies-next"
 
 const AuthContext = createContext(null)
 
@@ -49,7 +48,6 @@ export default function AuthProvider({ children }) {
       if (!loading) {
         if (!u) {
           setUser({ uid: null, loading: false })
-          setCookies("user", { uid: null, loading: false })
         } else {
           setUser((u) => u)
           const userDb = await fetch(
@@ -64,19 +62,12 @@ export default function AuthProvider({ children }) {
           )
           const userData = await userDb.json()
           if (userData.error == 1) {
-            setCookies("user", { uid: null, offline: true })
             setUser({ uid: null, offline: true })
           } else {
             const myData = userData.data
             if (!userData) {
-              setCookies("user", {
-                anonymous: true,
-                uid: u.uid,
-                profileUrl: null,
-              })
               setUser({ anonymous: true, uid: u.uid, profileUrl: null })
             } else {
-              setCookies("user", { ...myData, anonymous: false, uid: u.uid })
               setUser({ ...myData, anonymous: false, uid: u.uid })
             }
           }
@@ -84,9 +75,7 @@ export default function AuthProvider({ children }) {
       }
     }
     fn()
-    return () => {
-      setDval("")
-    }
+    return () => setDval("")
   }, [u, loading, error, dval])
 
   return (

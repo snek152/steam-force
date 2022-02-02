@@ -6,22 +6,24 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
 import { GetServerSideProps } from "next"
-import { getCookie } from "cookies-next"
 
 const AccountHeader = dynamic(() => import("../../components/accountHeader"))
 
-export default function Account({ user: serverUser }) {
+export default function Account() {
   const [user] = useAuth()
   const [courses, setCourses] = useState({
-    cs: serverUser.courses?.cs,
-    math: serverUser.courses?.math,
-    science: serverUser.courses?.science,
+    cs: user.courses?.cs,
+    math: user.courses?.math,
+    science: user.courses?.science,
   })
 
   const [latest, setLatest] = useState({
-    current: serverUser.current,
-    currentTitle: serverUser.currentTitle,
+    current: user.current,
+    currentTitle: user.currentTitle,
   })
+  useEffect(() => {
+    console.log(user.current)
+  }, [user])
   useEffect(() => {
     const fn = async () => {
       try {
@@ -47,7 +49,7 @@ export default function Account({ user: serverUser }) {
   }, [user.uid])
   return (
     <Layout title="Account" container={false}>
-      <AccountHeader fallback={serverUser.username} />
+      <AccountHeader />
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-black dark:text-white">
         <div className="bg-gradient-to-r from-gray-200 dark:from-other-700 to-gray-100 dark:to-other-800 border border-gray-200 dark:border-other-700 shadow dark:shadow-white/10 rounded-lg p-3 m-2 mb-10">
           <h1 className="font-medium text-lg">Continue where you left off</h1>
@@ -100,13 +102,4 @@ export default function Account({ user: serverUser }) {
       </div>
     </Layout>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const cookie = JSON.parse(getCookie("user", ctx).toString())
-  return {
-    props: {
-      user: cookie,
-    },
-  }
 }
