@@ -22,6 +22,7 @@ interface SidebarProps {
   }
   type: string
   currentTitle: string
+  fallback: any
 }
 export default function Sidebar(props: SidebarProps) {
   const [user] = useAuth()
@@ -88,10 +89,10 @@ export default function Sidebar(props: SidebarProps) {
           <h1 className="font-semibold text-center text-lg">Courses</h1>
           <p className="text-center">
             Points:{" "}
-            {user.offline ? (
+            {(user ? user.offline : props.fallback.offline) ? (
               <strong>not available</strong>
             ) : (
-              <strong>{user.points}</strong>
+              <strong>{user.points || props.fallback.points}</strong>
             )}
           </p>
           <div className="sm:max-w-md py-2 mr-2 rounded-2xl">

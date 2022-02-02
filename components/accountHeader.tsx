@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import { useAuth } from "./userContext"
 
-export default function AccountHeader() {
+export default function AccountHeader({ fallback }) {
   const [user] = useAuth()
   const router = useRouter()
   return (
@@ -9,12 +9,12 @@ export default function AccountHeader() {
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50 flex items-center justify-between">
           {!user.offline ? (
-            <span>Welcome back, {user.username}.</span>
+            <span>Welcome back, {user.username || fallback}.</span>
           ) : (
             <span>Offline</span>
           )}
           <span
-            className="space-x-1 hover:underline cursor-pointer"
+            className="space-x-1 cursor-pointer"
             onClick={() => router.push("/account/contribute")}
           >
             <svg
