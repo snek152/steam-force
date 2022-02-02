@@ -47,7 +47,11 @@ export default function AuthProvider({ children }) {
     const fn = async () => {
       if (!loading) {
         if (!u) {
-          setUser({ uid: null, loading: false })
+          if (!window.navigator.onLine) {
+            setUser({ uid: null, offline: true })
+          } else {
+            setUser({ uid: null, loading: false })
+          }
         } else {
           setUser((u) => u)
           const userDb = await fetch(
