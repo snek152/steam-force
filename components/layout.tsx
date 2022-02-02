@@ -37,7 +37,6 @@ function LeftNavLinks(props: LeftNavLinksProps) {
       setDarkMode(false)
     }
   }, [theme])
-  if (!theme) return null
   return (
     <>
       <a
