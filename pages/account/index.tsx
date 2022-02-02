@@ -21,9 +21,6 @@ export default function Account() {
     currentTitle: user.currentTitle,
   })
   useEffect(() => {
-    console.log(user.current)
-  }, [user])
-  useEffect(() => {
     const fn = async () => {
       try {
         const res = await fetch(
