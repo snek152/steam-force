@@ -275,6 +275,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         math: getAllPosts("math"),
         science: getAllPosts("science"),
       },
+      searches: getAllPosts("cs").map((value) => {
+        return { title: value.title, slug: value.slug, type: "cs" }
+      }),
     },
   }
 }

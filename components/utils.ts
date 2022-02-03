@@ -18,4 +18,5 @@ export interface LessonProps {
     math: { title: string; lesson: string; slug: string; unit: string }[]
     science: { title: string; lesson: string; slug: string; unit: string }[]
   }
+  searches: { title: string; slug: string; type: string }[]
 }

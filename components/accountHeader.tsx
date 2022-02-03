@@ -1,7 +1,10 @@
 import { useRouter } from "next/router"
 import { useAuth } from "./userContext"
 
-export default function AccountHeader() {
+interface AccountHeaderProps {
+  searches?: { title: string; slug: string; type: string }[]
+}
+export default function AccountHeader(props: AccountHeaderProps) {
   const [user] = useAuth()
   const router = useRouter()
   return (
@@ -13,6 +16,7 @@ export default function AccountHeader() {
           ) : (
             <span>Offline</span>
           )}
+          {props.searches && <h1>hi</h1>}
           <span
             className="space-x-1 hover:underline cursor-pointer"
             onClick={() => router.push("/account/contribute")}
