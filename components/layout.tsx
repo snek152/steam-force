@@ -57,7 +57,9 @@ function LeftNavLinks(props: LeftNavLinksProps) {
       </a>
       <Switch
         checked={darkMode}
-        onChange={() => setTheme(theme === "light" ? "dark" : "light")}
+        onChange={() =>
+          setTheme(theme === "light" || theme === "system" ? "dark" : "light")
+        }
         className={`${darkMode ? "bg-other-700" : "bg-other-200"}
           relative inline-flex flex-shrink-0 h-[20.9px] w-[40.7px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
       >
