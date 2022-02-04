@@ -14,7 +14,6 @@ export default function AccountHeader(props: AccountHeaderProps) {
   const sortedList = props.searches.filter((item) =>
     item.title.toLowerCase().includes(search.toLowerCase()),
   )
-  console.log(sortedList)
   return (
     <header className="bg-white dark:bg-black shadow dark:shadow-white/30">
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -67,12 +66,7 @@ export default function AccountHeader(props: AccountHeaderProps) {
                         href={`/lessons/${item.type}/${item.slug}`}
                         key={index}
                       >
-                        <a
-                          className="p-1 px-2 hover:bg-gray-100 rounded-md block"
-                          onClick={() => {
-                            console.log("hi")
-                          }}
-                        >
+                        <a className="p-1 px-2 hover:bg-gray-100 rounded-md block">
                           <li>{item.title}</li>
                         </a>
                       </Link>
