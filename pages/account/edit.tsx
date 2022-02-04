@@ -96,10 +96,10 @@ export default function EditAccount() {
               <p className="mt-1 text-sm text-gray-600 dark:text-gray-300"></p>
             </div>
           </div>
-          <div className="mt-5 md:mt-0 md:col-span-2">
+          <div className="mt-5 md:col-span-2 md:mt-0">
             <form onSubmit={(e) => changeCreds(e)}>
-              <div className="shadow overflow-hidden sm:rounded-md dark:shadow-white/20">
-                <div className="px-4 py-5 bg-white dark:bg-black sm:p-6">
+              <div className="overflow-hidden shadow dark:shadow-white/20 sm:rounded-md">
+                <div className="bg-white px-4 py-5 dark:bg-black sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
                       <label
@@ -114,7 +114,7 @@ export default function EditAccount() {
                         name="first-name"
                         id="first-name"
                         autoComplete="username"
-                        className="mt-1 dark:bg-black focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm dark:shadow-white/10 sm:text-sm border-gray-300 dark:border-other-600 rounded-md"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-other-600 dark:bg-black dark:shadow-white/10 sm:text-sm"
                       />
                     </div>
 
@@ -131,7 +131,7 @@ export default function EditAccount() {
                         name="email-address"
                         id="email-address"
                         autoComplete="email"
-                        className="mt-1 dark:bg-black focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm dark:shadow-white/10 sm:text-sm border-gray-300 dark:border-other-600 rounded-md"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-other-600 dark:bg-black dark:shadow-white/10 sm:text-sm"
                       />
                     </div>
 
@@ -148,7 +148,7 @@ export default function EditAccount() {
                         name="password"
                         id="password"
                         autoComplete="email"
-                        className="mt-1 dark:bg-black focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm dark:shadow-white/10 sm:text-sm border-gray-300 dark:border-other-600 rounded-md"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-other-600 dark:bg-black dark:shadow-white/10 sm:text-sm"
                       />
                     </div>
                   </div>
@@ -157,7 +157,7 @@ export default function EditAccount() {
                       Photo
                     </label>
                     <div className="mt-1 flex items-center">
-                      <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100 dark:bg-other-800">
+                      <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100 dark:bg-other-800">
                         {user.profileUrl ? (
                           <img
                             className="h-full w-full text-gray-300"
@@ -173,7 +173,7 @@ export default function EditAccount() {
                         )}
                       </span>
                       <label htmlFor="file-upload" className="cursor-pointer">
-                        <span className="ml-5 bg-white dark:bg-black py-2 px-3 border border-gray-300 dark:border-other-600 rounded-md shadow-sm dark:shadow-white/10 text-sm leading-4 font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <span className="ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:border-other-600 dark:bg-black dark:text-gray-200 dark:shadow-white/10">
                           Change
                         </span>
                         <input
@@ -189,10 +189,10 @@ export default function EditAccount() {
                     </div>
                   </div>
                 </div>
-                <div className="px-4 py-3 bg-gray-50 dark:bg-other-900 text-right sm:px-6">
+                <div className="bg-gray-50 px-4 py-3 text-right dark:bg-other-900 sm:px-6">
                   <button
                     type="submit"
-                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm dark:shadow-white/10 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:shadow-white/10"
                   >
                     Save
                   </button>

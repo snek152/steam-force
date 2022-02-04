@@ -119,13 +119,13 @@ export default function CSLesson(props: LessonProps) {
   return (
     <Layout title={props.data.title} container={false}>
       <AccountHeader searches={props.searches} />
-      <div className="flex max-w-7xl sm:flex-row flex-col mx-auto py-6 px-4 sm:px-6 lg:px-8 relative flex-grow">
+      <div className="relative mx-auto flex max-w-7xl flex-grow flex-col py-6 px-4 sm:flex-row sm:px-6 lg:px-8">
         <Sidebar
           lessons={props.lessons}
           type="cs"
           currentTitle={props.data.title}
         />
-        <div className="w-full inline-block prose dark:prose-invert prose-pre:p-0 prose-h2:border-t-2 prose-h2:pt-5 border p-4 shadow-lg rounded-2xl border-opacity-80 bg-white dark:bg-black max-w-none sm:w-9/12">
+        <div className="prose inline-block w-full max-w-none rounded-2xl border border-opacity-80 bg-white p-4 shadow-lg prose-h2:border-t-2 prose-h2:pt-5 prose-pre:p-0 dark:prose-invert dark:bg-black sm:w-9/12">
           <h1>{props.data.heading}</h1>
           <p className="mb-0">In this section you will {props.data.desc}.</p>
           <div dangerouslySetInnerHTML={{ __html: props.content }}></div>
@@ -137,24 +137,24 @@ export default function CSLesson(props: LessonProps) {
             }
           >
             <div
-              className={`bg-gray-50 dark:bg-other-900 shadow-md rounded-md p-3 relative mb-5 ${
+              className={`relative mb-5 rounded-md bg-gray-50 p-3 shadow-md dark:bg-other-900 ${
                 user.completed?.includes(props.data.slug) || user.offline
-                  ? "bg-white dark:bg-black text-gray-400 dark:text-other-500 cursor-not-allowed pointer-events-none"
+                  ? "pointer-events-none cursor-not-allowed bg-white text-gray-400 dark:bg-black dark:text-other-500"
                   : ""
               }`}
             >
               {user.offline && (
-                <span className="absolute -translate-x-3 -translate-y-3 grid font-medium place-items-center text-gray-500 text-5xl dark:text-other-500 w-full h-full object-contain">
+                <span className="absolute grid h-full w-full -translate-x-3 -translate-y-3 place-items-center object-contain text-5xl font-medium text-gray-500 dark:text-other-500">
                   Offline
                 </span>
               )}
-              <span className="font-semibold text-lg">
+              <span className="text-lg font-semibold">
                 Review: {props.data.question}
               </span>
               <form onSubmit={formSubmit}>
                 {answerchoices.map((choice) => (
                   <span
-                    className={`flex flex-row flex-grow m-1 p-1 rounded-lg ${
+                    className={`m-1 flex flex-grow flex-row rounded-lg p-1 ${
                       user.completed?.includes(props.data.slug) &&
                       !user.offline &&
                       choice == props.data.correct
@@ -167,7 +167,7 @@ export default function CSLesson(props: LessonProps) {
                       type="radio"
                       id={choice}
                       name={`${props.data.slug}-question`}
-                      className="h-4 w-4 focus:outline-none dark:bg-other-900 dark:border-gray-50 focus:ring-transparent align-middle mt-[6px] mr-2"
+                      className="mt-[6px] mr-2 h-4 w-4 align-middle focus:outline-none focus:ring-transparent dark:border-gray-50 dark:bg-other-900"
                     />
                     <label
                       className="not-prose inline-block align-baseline"
@@ -179,7 +179,7 @@ export default function CSLesson(props: LessonProps) {
                 ))}
                 <button
                   type="submit"
-                  className={`text-white dark:text-black py-1 px-2 rounded-md shadow-lg ${
+                  className={`rounded-md py-1 px-2 text-white shadow-lg dark:text-black ${
                     user.completed?.includes(props.data.slug)
                       ? "bg-blue-200 dark:bg-blue-300"
                       : "bg-blue-500 dark:bg-blue-400"
@@ -190,10 +190,10 @@ export default function CSLesson(props: LessonProps) {
               </form>
             </div>
           </div>
-          <div className="flex justify-between h-10">
+          <div className="flex h-10 justify-between">
             <Link href={`/lessons/cs/${props.data.prev}`}>
               <a
-                className={`bg-gray-300 dark:bg-gray-500 rounded-md shadow-md no-underline pt-[0.4rem] px-3 font-normal ${
+                className={`rounded-md bg-gray-300 px-3 pt-[0.4rem] font-normal no-underline shadow-md dark:bg-gray-500 ${
                   props.data.prev
                     ? ""
                     : "pointer-events-none bg-gray-200 text-gray-400"
@@ -204,10 +204,10 @@ export default function CSLesson(props: LessonProps) {
             </Link>
             <Link href={`/lessons/cs/${props.data.next}`}>
               <a
-                className={`bg-blue-500 rounded-md shadow-md no-underline text-white pt-[0.4rem] px-3 font-normal ${
+                className={`rounded-md bg-blue-500 px-3 pt-[0.4rem] font-normal text-white no-underline shadow-md ${
                   props.data.next
                     ? ""
-                    : "pointer-events-none bg-blue-300 dark:bg-blue-400 text-gray-100"
+                    : "pointer-events-none bg-blue-300 text-gray-100 dark:bg-blue-400"
                 }`}
               >
                 Next

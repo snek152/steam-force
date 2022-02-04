@@ -46,8 +46,8 @@ export default function Signup() {
   const [e, setError] = useState(null)
   return (
     <Layout title="Signup">
-      <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8">
+      <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md space-y-8">
           <div>
             <img
               className="mx-auto h-12 w-auto"
@@ -60,13 +60,13 @@ export default function Signup() {
             <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-300">
               Already have an account?&nbsp;
               <Link href="/login">
-                <a className="font-medium text-indigo-600 dark:text-indigo-500 hover:text-indigo-500 dark:hover:text-indigo-400">
+                <a className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
                   Log in&nbsp;
                 </a>
               </Link>
               or&nbsp;
               <Link href="/trial">
-                <a className="font-medium text-indigo-600 dark:text-indigo-500 hover:text-indigo-500 dark:hover:text-indigo-400">
+                <a className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
                   start your free trial
                 </a>
               </Link>
@@ -77,7 +77,7 @@ export default function Signup() {
             onSubmit={(event) => formSubmit(event)}
           >
             <input type="hidden" name="remember" value="true" />
-            <div className="rounded-md shadow-sm -space-y-px">
+            <div className="-space-y-px rounded-md shadow-sm">
               <div>
                 <label htmlFor="username" className="sr-only">
                   Username
@@ -89,7 +89,7 @@ export default function Signup() {
                   type="text"
                   autoComplete="nickname"
                   required
-                  className="appearance-none rounded-none dark:bg-black relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-50 rounded-t-md focus:outline-none focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 focus:z-10 sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:border-gray-600 dark:bg-black dark:text-gray-50 dark:placeholder-gray-400 dark:focus:border-indigo-400 dark:focus:ring-indigo-400 sm:text-sm"
                   placeholder="Username"
                 />
               </div>
@@ -104,7 +104,7 @@ export default function Signup() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="appearance-none rounded-none dark:bg-black relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 focus:z-10 sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:border-gray-600 dark:bg-black dark:text-gray-50 dark:placeholder-gray-400 dark:focus:border-indigo-400 dark:focus:ring-indigo-400 sm:text-sm"
                   placeholder="Email address"
                 />
               </div>
@@ -119,7 +119,7 @@ export default function Signup() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="appearance-none rounded-none dark:bg-black relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-50 rounded-b-md focus:outline-none focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400 focus:z-10 sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:border-gray-600 dark:bg-black dark:text-gray-50 dark:placeholder-gray-400 dark:focus:border-indigo-400 dark:focus:ring-indigo-400 sm:text-sm"
                   placeholder="Password"
                 />
               </div>
@@ -127,7 +127,7 @@ export default function Signup() {
 
             <div className="flex items-center justify-between">
               <div className="text-sm">
-                <p className="text-red-500 font-medium">{e}</p>
+                <p className="font-medium text-red-500">{e}</p>
               </div>
 
               <div className="text-sm">
@@ -143,9 +143,9 @@ export default function Signup() {
             <div>
               <button
                 type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <svg
                     className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
                     xmlns="http://www.w3.org/2000/svg"

@@ -76,10 +76,10 @@ export default function Sidebar(props: SidebarProps) {
     })
   }
   return (
-    <div className="w-full sm:w-3/12 inline-block relative">
+    <div className="relative inline-block w-full sm:w-3/12">
       <Sticky top={88} enabled={width > 640}>
         <div className="p-2">
-          <h1 className="font-semibold text-center text-lg">Courses</h1>
+          <h1 className="text-center text-lg font-semibold">Courses</h1>
           <p className="text-center">
             Points:{" "}
             {user.offline ? (
@@ -88,18 +88,18 @@ export default function Sidebar(props: SidebarProps) {
               <strong>{user.points}</strong>
             )}
           </p>
-          <div className="sm:max-w-md py-2 mr-2 rounded-2xl">
+          <div className="mr-2 rounded-2xl py-2 sm:max-w-md">
             <Disclosure>
               {({ open }) => (
                 <>
                   <Disclosure.Button
                     ref={science}
-                    className="my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-green-100 dark:bg-green-300 rounded-lg hover:bg-green-200 dark:hover:bg-green-400 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-75"
+                    className="my-2 flex w-full justify-between rounded-lg bg-green-100 px-4 py-2 text-left text-sm font-medium text-black hover:bg-green-200 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-75 dark:bg-green-300 dark:hover:bg-green-400"
                   >
                     <span>
                       <img
                         src="/science.svg"
-                        className="h-4 w-4 align-text-bottom p-[1px] inline-block"
+                        className="inline-block h-4 w-4 p-[1px] align-text-bottom"
                         alt="Science logo"
                       />
                       <h1 className="inline-block">Science</h1>
@@ -107,8 +107,8 @@ export default function Sidebar(props: SidebarProps) {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className={`${
-                        open ? "transform rotate-180" : ""
-                      } w-5 h-5 inline-block`}
+                        open ? "rotate-180 transform" : ""
+                      } inline-block h-5 w-5`}
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -127,8 +127,8 @@ export default function Sidebar(props: SidebarProps) {
                     leaveFrom="transform scale-100 opacity-100"
                     leaveTo="transform scale-95 opacity-0"
                   >
-                    <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
-                      <ul className="list-outside text-left ml-4">
+                    <Disclosure.Panel className="relative px-4 pt-1 pb-1 text-sm text-gray-600">
+                      <ul className="ml-4 list-outside text-left">
                         {props.lessons.science.map((lesson) => (
                           <li
                             key={lesson.slug}
@@ -154,12 +154,12 @@ export default function Sidebar(props: SidebarProps) {
                 <>
                   <Disclosure.Button
                     ref={cs}
-                    className="my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-blue-100 dark:bg-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-400 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75"
+                    className="my-2 flex w-full justify-between rounded-lg bg-blue-100 px-4 py-2 text-left text-sm font-medium text-black hover:bg-blue-200 focus:outline-none focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-75 dark:bg-blue-300 dark:hover:bg-blue-400"
                   >
                     <span>
                       <img
                         src="/cs.svg"
-                        className="h-4 w-4 align-text-bottom p-[1px] inline-block"
+                        className="inline-block h-4 w-4 p-[1px] align-text-bottom"
                         alt="Engineering logo"
                       />
                       <h1 className="inline-block">Engineering</h1>
@@ -167,8 +167,8 @@ export default function Sidebar(props: SidebarProps) {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className={`${
-                        open ? "transform rotate-180" : ""
-                      } w-5 h-5 inline-block`}
+                        open ? "rotate-180 transform" : ""
+                      } inline-block h-5 w-5`}
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -187,18 +187,18 @@ export default function Sidebar(props: SidebarProps) {
                     leaveFrom="transform scale-100 opacity-100"
                     leaveTo="transform scale-95 opacity-0"
                   >
-                    <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
+                    <Disclosure.Panel className="relative px-4 pt-1 pb-1 text-sm text-gray-600">
                       {Object.keys(units.cs).map((key) => (
                         <Disclosure key={key}>
-                          <Disclosure.Button className="rounded-lg border w-full border-gray-200 p-1 mb-2 bg-gray-200 dark:bg-gray-700 dark:border-gray-700 dark:text-white">
-                            <h1 className="text-sm inline-block">
+                          <Disclosure.Button className="mb-2 w-full rounded-lg border border-gray-200 bg-gray-200 p-1 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
+                            <h1 className="inline-block text-sm">
                               {units.cs[key]}
                             </h1>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               className={`${
-                                open ? "transform rotate-180" : ""
-                              } w-5 h-5 inline-block`}
+                                open ? "rotate-180 transform" : ""
+                              } inline-block h-5 w-5`}
                               viewBox="0 0 20 20"
                               fill="currentColor"
                             >
@@ -218,7 +218,7 @@ export default function Sidebar(props: SidebarProps) {
                             leaveTo="transform scale-95 opacity-0"
                           >
                             <Disclosure.Panel>
-                              <ul className="list-outside text-left ml-4 mb-2 ">
+                              <ul className="ml-4 mb-2 list-outside text-left ">
                                 {props.lessons.cs.map(
                                   (lesson) =>
                                     lesson.unit == units.cs[key] && (
@@ -252,12 +252,12 @@ export default function Sidebar(props: SidebarProps) {
                 <>
                   <Disclosure.Button
                     ref={math}
-                    className="my-2 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-black bg-red-100 dark:bg-red-300 rounded-lg hover:bg-red-200 dark:hover:bg-red-400 focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75"
+                    className="my-2 flex w-full justify-between rounded-lg bg-red-100 px-4 py-2 text-left text-sm font-medium text-black hover:bg-red-200 focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75 dark:bg-red-300 dark:hover:bg-red-400"
                   >
                     <span>
                       <img
                         src="/math.svg"
-                        className="h-4 w-4 align-text-bottom p-[1px] inline-block"
+                        className="inline-block h-4 w-4 p-[1px] align-text-bottom"
                         alt="Math logo"
                       />
                       <h1 className="inline-block">Math</h1>
@@ -265,8 +265,8 @@ export default function Sidebar(props: SidebarProps) {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className={`${
-                        open ? "transform rotate-180" : ""
-                      } w-5 h-5 inline-block`}
+                        open ? "rotate-180 transform" : ""
+                      } inline-block h-5 w-5`}
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -285,8 +285,8 @@ export default function Sidebar(props: SidebarProps) {
                     leaveFrom="transform scale-100 opacity-100"
                     leaveTo="transform scale-95 opacity-0"
                   >
-                    <Disclosure.Panel className="px-4 pt-1 pb-1 text-sm text-gray-600 relative">
-                      <ul className="list-outside text-left ml-4 ">
+                    <Disclosure.Panel className="relative px-4 pt-1 pb-1 text-sm text-gray-600">
+                      <ul className="ml-4 list-outside text-left ">
                         {props.lessons.math.map((lesson) => (
                           <li
                             key={lesson.slug}
@@ -311,7 +311,7 @@ export default function Sidebar(props: SidebarProps) {
               <button
                 type="button"
                 onClick={openModal}
-                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 block m-auto my-3 rounded-md bg-opacity-[0.85] hover:bg-opacity-75"
+                className="m-auto my-3 block rounded-md bg-blue-600 bg-opacity-[0.85] px-4 py-2 text-sm font-medium text-white hover:bg-opacity-75"
               >
                 Questions?
               </button>
@@ -349,7 +349,7 @@ export default function Sidebar(props: SidebarProps) {
                     leaveFrom="opacity-100 scale-100"
                     leaveTo="opacity-0 scale-95"
                   >
-                    <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                    <div className="my-8 inline-block w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                       <Dialog.Title
                         as="h3"
                         className="text-lg font-medium leading-6 text-gray-900"
@@ -376,13 +376,13 @@ export default function Sidebar(props: SidebarProps) {
                             <button
                               onClick={closeModal}
                               type="button"
-                              className="bg-gray-300 dark:bg-gray-500 rounded-md shadow-md no-underline py-1.5 px-3 font-normal"
+                              className="rounded-md bg-gray-300 py-1.5 px-3 font-normal no-underline shadow-md dark:bg-gray-500"
                             >
                               Close
                             </button>
                             <button
                               type="submit"
-                              className="bg-blue-500 rounded-md shadow-md no-underline text-white py-1.5 px-3 font-normal"
+                              className="rounded-md bg-blue-500 py-1.5 px-3 font-normal text-white no-underline shadow-md"
                             >
                               Submit
                             </button>

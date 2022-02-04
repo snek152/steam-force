@@ -38,19 +38,19 @@ export default function Account() {
   return (
     <Layout title="Account" container={false}>
       <AccountHeader />
-      <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-black dark:text-white">
-        <div className="bg-gradient-to-r from-gray-200 dark:from-other-700 to-gray-100 dark:to-other-800 border border-gray-200 dark:border-other-700 shadow dark:shadow-white/10 rounded-lg p-3 m-2 mb-10">
-          <h1 className="font-medium text-lg">Continue where you left off</h1>
+      <div className="mx-auto max-w-7xl py-6 px-4 text-black dark:text-white sm:px-6 lg:px-8">
+        <div className="m-2 mb-10 rounded-lg border border-gray-200 bg-gradient-to-r from-gray-200 to-gray-100 p-3 shadow dark:border-other-700 dark:from-other-700 dark:to-other-800 dark:shadow-white/10">
+          <h1 className="text-lg font-medium">Continue where you left off</h1>
           <Link href={latest.current || ""}>
-            <a className="font-semibold text-xl hover:underline">
+            <a className="text-xl font-semibold hover:underline">
               {latest.currentTitle || ""}
             </a>
           </Link>
         </div>
-        <h1 className="font-semibold text-center text-4xl pb-5">Courses</h1>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <div className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-green-200 dark:bg-green-300 shadow-xl dark:shadow-white/10 flex flex-col justify-center cursor-pointer">
-            <h1 className="text-3xl text-center dark:text-black">Science</h1>
+        <h1 className="pb-5 text-center text-4xl font-semibold">Courses</h1>
+        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="flex h-64 w-full cursor-pointer flex-col justify-center rounded-md border border-gray-200 border-opacity-50 bg-green-200 shadow-xl dark:bg-green-300 dark:shadow-white/10 sm:w-64">
+            <h1 className="text-center text-3xl dark:text-black">Science</h1>
             <Image
               src="/science.svg"
               height={150}
@@ -61,8 +61,8 @@ export default function Account() {
             />
           </div>
           <Link href={`/lessons/cs/${courses.cs || "intro-cp"}`}>
-            <a className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-blue-200 dark:bg-blue-300 shadow-xl dark:shadow-white/10 flex flex-col justify-center cursor-pointer">
-              <h1 className="text-3xl text-center dark:text-black">
+            <a className="flex h-64 w-full cursor-pointer flex-col justify-center rounded-md border border-gray-200 border-opacity-50 bg-blue-200 shadow-xl dark:bg-blue-300 dark:shadow-white/10 sm:w-64">
+              <h1 className="text-center text-3xl dark:text-black">
                 Engineering
               </h1>
               <Image
@@ -74,8 +74,8 @@ export default function Account() {
               />
             </a>
           </Link>
-          <div className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-red-200 dark:bg-red-300 shadow-xl dark:shadow-white/10 flex flex-col justify-center cursor-pointer">
-            <h1 className="text-3xl text-center dark:text-black">
+          <div className="flex h-64 w-full cursor-pointer flex-col justify-center rounded-md border border-gray-200 border-opacity-50 bg-red-200 shadow-xl dark:bg-red-300 dark:shadow-white/10 sm:w-64">
+            <h1 className="text-center text-3xl dark:text-black">
               Mathematics
             </h1>
             <Image

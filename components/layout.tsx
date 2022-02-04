@@ -61,13 +61,13 @@ function LeftNavLinks(props: LeftNavLinksProps) {
           setTheme(theme === "light" || theme === "system" ? "dark" : "light")
         }
         className={`${darkMode ? "bg-other-700" : "bg-other-200"}
-          relative inline-flex flex-shrink-0 h-[20.9px] w-[40.7px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+          relative inline-flex h-[20.9px] w-[40.7px] flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
       >
         <span className="sr-only">Toggle dark mode</span>
         <span
           aria-hidden="true"
           className={`${darkMode ? "translate-x-[19.8px]" : "translate-x-0"}
-            pointer-events-none inline-block h-[16.5px] w-[16.5px] rounded-full bg-other-700 dark:bg-white shadow-lg transform ring-0 transition ease-in-out duration-200`}
+            pointer-events-none inline-block h-[16.5px] w-[16.5px] transform rounded-full bg-other-700 shadow-lg ring-0 transition duration-200 ease-in-out dark:bg-white`}
         />
       </Switch>
     </>
@@ -106,7 +106,7 @@ export default function Layout(props: LayoutProps) {
 
   return (
     <div
-      className="font-sans bg-gray-50 dark:bg-other-900 min-h-screen"
+      className="min-h-screen bg-gray-50 font-sans dark:bg-other-900"
       lang="en"
     >
       <Head>
@@ -283,15 +283,15 @@ export default function Layout(props: LayoutProps) {
           media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
         />
       </Head>
-      <nav className="dark:bg-black bg-white fixed w-screen z-[1000]">
-        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-          <div className="relative flex items-center justify-between h-16">
+      <nav className="fixed z-[1000] w-screen bg-white dark:bg-black">
+        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="relative flex h-16 items-center justify-between">
             <div className="inset-y-0 left-0 flex items-center sm:hidden">
               <button
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#mobile-menu"
-                className="collapsed inline-flex items-center justify-center p-2 nav-toggler rounded-md text-gray-500 dark:text-gray-400 dark:hover:text-white hover:text-black dark:hover:bg-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset dark:focus:ring-white focus:ring-black"
+                className="collapsed nav-toggler inline-flex items-center justify-center rounded-md p-2 text-gray-500 hover:bg-gray-200 hover:text-black focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-white"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >
@@ -328,8 +328,8 @@ export default function Layout(props: LayoutProps) {
                 </svg>
               </button>
             </div>
-            <div className="flex-1 flex items-center pl-1 xs:items-center sm:p-0 xs:justify-start sm:items-stretch sm:justify-start">
-              <div className="flex-shrink-0 flex items-center">
+            <div className="flex flex-1 items-center pl-1 sm:items-stretch sm:justify-start sm:p-0 xs:items-center xs:justify-start">
+              <div className="flex flex-shrink-0 items-center">
                 <Link href="/">
                   <a
                     style={{
@@ -345,8 +345,8 @@ export default function Layout(props: LayoutProps) {
                   </a>
                 </Link>
               </div>
-              <div className="hidden sm:block sm:ml-6">
-                <div className="flex space-x-4 items-center">
+              <div className="hidden sm:ml-6 sm:block">
+                <div className="flex items-center space-x-4">
                   <LeftNavLinks />
                 </div>
               </div>
@@ -367,21 +367,21 @@ export default function Layout(props: LayoutProps) {
         </div>
 
         <div className="collapse nav-collapse duration-[0ms]" id="mobile-menu">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="space-y-1 px-2 pt-2 pb-3">
             <LeftNavLinks mobile={true} />
           </div>
         </div>
       </nav>
       {!props.noNav && (
-        <nav className="bg-black w-screen">
-          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 h-16"></div>
+        <nav className="w-screen bg-black">
+          <div className="mx-auto h-16 max-w-7xl px-2 sm:px-6 lg:px-8"></div>
         </nav>
       )}
       <div
         className={
           props.container === false
             ? ""
-            : "max-w-7xl mx-auto px-2 sm:px-6 lg:px-8"
+            : "mx-auto max-w-7xl px-2 sm:px-6 lg:px-8"
         }
       >
         {props.children}
@@ -406,7 +406,7 @@ function RightNavLinks() {
   } else {
     return (
       <svg
-        className="animate-spin -ml-1 mr-3 h-5 w-5 text-black dark:text-white"
+        className="-ml-1 mr-3 h-5 w-5 animate-spin text-black dark:text-white"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -464,7 +464,7 @@ function LoggedOutUser({ router }) {
         <button
           className={
             router.pathname === "/trial"
-              ? "inactive nav-link cursor-pointer hover:bg-red bg-red"
+              ? "inactive nav-link cursor-pointer bg-red hover:bg-red"
               : "inactive nav-link cursor-pointer bg-green-500 hover:bg-green-500"
           }
           onClick={freeTrial}
@@ -493,9 +493,9 @@ function LoggedInUser({ user }) {
   }
   return (
     <>
-      <Menu as="div" className="ml-3 relative">
+      <Menu as="div" className="relative ml-3">
         <div>
-          <Menu.Button className="bg-other-800 dark:bg-gray-100 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+          <Menu.Button className="flex rounded-full bg-other-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 dark:bg-gray-100">
             <span className="sr-only">Open user menu</span>
             {user.profileUrl ? (
               <Image
@@ -527,10 +527,10 @@ function LoggedInUser({ user }) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="divide-gray-200 divide-y origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg dark:shadow-white/20 py-1 bg-white dark:bg-black ring-1 ring-black dark:ring-white ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right divide-y divide-gray-200 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black dark:shadow-white/20 dark:ring-white">
             <div className="py-1">
               <p
-                className="block px-4 py-1 text-sm text-gray-700 dark:text-gray-200 dropdown-item"
+                className="dropdown-item block px-4 py-1 text-sm text-gray-700 dark:text-gray-200"
                 tabIndex={-1}
                 role="menuitem"
               >
@@ -569,7 +569,7 @@ function LoggedInUser({ user }) {
                   <a
                     className={classNames(
                       active ? "bg-gray-100 dark:bg-other-700" : "",
-                      "block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 cursor-pointer",
+                      "block cursor-pointer px-4 py-2 text-sm text-gray-700 dark:text-gray-200",
                     )}
                     onClick={formSubmit}
                   >
