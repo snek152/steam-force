@@ -11,7 +11,7 @@ export default function AccountHeader(props: AccountHeaderProps) {
   const router = useRouter()
   const [search, setSearch] = useState("")
   const re = useRef<HTMLInputElement>(null)
-  const sortedList = props.searches.filter((item) =>
+  const sortedList = props.searches?.filter((item) =>
     item.title.toLowerCase().includes(search.toLowerCase()),
   )
   return (
@@ -60,19 +60,21 @@ export default function AccountHeader(props: AccountHeaderProps) {
               />
               {search && document.activeElement == re.current && (
                 <div className="absolute bg-white dark:bg-other-800 z-50 w-full rounded-lg p-3 shadow-lg dark:shadow-white/10 border-gray-100">
-                  <ul className="text-sm">
+                  <ul className="text-sm font-semibold select-none">
                     {sortedList.map((item, index) => (
                       <Link
                         href={`/lessons/${item.type}/${item.slug}`}
                         key={index}
                       >
-                        <a className="p-1 px-2 hover:bg-gray-100 rounded-md block">
+                        <a className="p-1 px-2 hover:bg-gray-100 dark:hover:bg-other-700 rounded-md block">
                           <li>{item.title}</li>
                         </a>
                       </Link>
                     ))}
                     {sortedList.length === 0 && (
-                      <li>No lessons matched your search.</li>
+                      <li className="p-1 px-2 rounded-md block">
+                        No lessons matched your search.
+                      </li>
                     )}
                   </ul>
                 </div>

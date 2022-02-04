@@ -31,7 +31,7 @@ function LeftNavLinks(props: LeftNavLinksProps) {
   const { theme, setTheme } = useTheme()
   const [darkMode, setDarkMode] = useState(false)
   useEffect(() => {
-    if (theme === "dark") {
+    if (theme === "dark" || theme === "system") {
       setDarkMode(true)
     } else {
       setDarkMode(false)
