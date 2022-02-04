@@ -242,14 +242,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       },
       searches: [...postMap("cs"), ...postMap("math"), ...postMap("science")],
     },
+    revalidate: 60,
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const slugs = fs.readdirSync(join(process.cwd(), "courses/cs"))
-  const posts = slugs.map((slug) => {
+  const posts = slugs.slice(0, 2).map((slug) => {
     return { slug: slug.replace(/\.md$/, "") }
   })
+  console.log(posts)
   const paths = []
   posts.forEach((post) => {
     paths.push({
@@ -260,6 +262,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   })
   return {
     paths: paths,
-    fallback: false,
+    fallback: "blocking",
   }
 }
