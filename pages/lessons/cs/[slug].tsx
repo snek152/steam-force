@@ -8,7 +8,7 @@ import Link from "next/link"
 import { FormEvent, useEffect } from "react"
 import { useRouter } from "next/router"
 import { useAuth } from "../../../components/userContext"
-import { LessonProps } from "../../../components/utils"
+import { fetchData, LessonProps } from "../../../components/utils"
 import { GetStaticPaths, GetStaticProps } from "next"
 import dynamic from "next/dynamic"
 
@@ -32,23 +32,16 @@ export default function CSLesson(props: LessonProps) {
       document
         .querySelector(`input[name=${props.data.slug}-question]:checked`)
         .classList.add("bggreen")
-      await fetch(
-        `${
-          process.env.NODE_ENV === "development"
-            ? "http://localhost:3000"
-            : "https://steam-force.vercel.app"
-        }/api/user/updateuser`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({
-            uid: user.uid,
-            field: "points",
-            update: "increment",
-            args: [10],
-            method: true,
-          }),
-        },
-      )
+      await fetchData("/api/user/updateuser", {
+        method: "PATCH",
+        body: JSON.stringify({
+          uid: user.uid,
+          field: "points",
+          update: "increment",
+          args: [10],
+          method: true,
+        }),
+      })
     } else {
       document
         .querySelector(`input[name=${props.data.slug}-question]:checked`)
@@ -60,92 +53,57 @@ export default function CSLesson(props: LessonProps) {
             element.parentElement.classList.add("bggreen")
           }
         })
-      await fetch(
-        `${
-          process.env.NODE_ENV === "development"
-            ? "http://localhost:3000"
-            : "https://steam-force.vercel.app"
-        }/api/user/updateuser`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({
-            uid: user.uid,
-            field: "points",
-            update: "increment",
-            args: [1],
-            method: true,
-          }),
-        },
-      )
-    }
-    await fetch(
-      `${
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:3000"
-          : "https://steam-force.vercel.app"
-      }/api/user/updateuser`,
-      {
+      await fetchData("/api/user/updateuser", {
         method: "PATCH",
         body: JSON.stringify({
           uid: user.uid,
-          field: "completed",
-          update: "arrayUnion",
-          args: [props.data.slug],
+          field: "points",
+          update: "increment",
+          args: [1],
           method: true,
         }),
-      },
-    )
+      })
+    }
+    await fetchData("/api/user/updateuser", {
+      method: "PATCH",
+      body: JSON.stringify({
+        uid: user.uid,
+        field: "completed",
+        update: "arrayUnion",
+        args: [props.data.slug],
+        method: true,
+      }),
+    })
     dispatch()
   }
   useEffect(() => {
     const fn = async () => {
       try {
         await Promise.all([
-          fetch(
-            `${
-              process.env.NODE_ENV === "development"
-                ? "http://localhost:3000"
-                : "https://steam-force.vercel.app"
-            }/api/user/updateuser`,
-            {
-              method: "PATCH",
-              body: JSON.stringify({
-                uid: user.uid,
-                field: "current",
-                update: router.asPath,
-              }),
-            },
-          ),
-          fetch(
-            `${
-              process.env.NODE_ENV === "development"
-                ? "http://localhost:3000"
-                : "https://steam-force.vercel.app"
-            }/api/user/updateuser`,
-            {
-              method: "PATCH",
-              body: JSON.stringify({
-                uid: user.uid,
-                field: "currentTitle",
-                update: props.data.heading,
-              }),
-            },
-          ),
-          fetch(
-            `${
-              process.env.NODE_ENV === "development"
-                ? "http://localhost:3000"
-                : "https://steam-force.vercel.app"
-            }/api/user/updateuser`,
-            {
-              method: "PATCH",
-              body: JSON.stringify({
-                uid: user.uid,
-                field: "courses.cs",
-                update: props.data.slug,
-              }),
-            },
-          ),
+          fetchData("/api/user/updateuser", {
+            method: "PATCH",
+            body: JSON.stringify({
+              uid: user.uid,
+              field: "current",
+              update: router.asPath,
+            }),
+          }),
+          fetchData("/api/user/updateuser", {
+            method: "PATCH",
+            body: JSON.stringify({
+              uid: user.uid,
+              field: "currentTitle",
+              update: props.data.heading,
+            }),
+          }),
+          fetchData("/api/user/updateuser", {
+            method: "PATCH",
+            body: JSON.stringify({
+              uid: user.uid,
+              field: "courses.cs",
+              update: props.data.slug,
+            }),
+          }),
         ])
       } catch (e) {}
     }
@@ -160,7 +118,7 @@ export default function CSLesson(props: LessonProps) {
   ])
   return (
     <Layout title={props.data.title} container={false}>
-      <AccountHeader />
+      <AccountHeader searches={props.searches} />
       <div className="flex max-w-7xl sm:flex-row flex-col mx-auto py-6 px-4 sm:px-6 lg:px-8 relative flex-grow">
         <Sidebar
           lessons={props.lessons}
@@ -266,6 +224,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const fileContents = getPostBySlug(params.slug as string, "cs")
   const { data, content } = matter(fileContents)
   const cont = await markdownToHtml(content)
+  const postMap = (
+    type: string,
+  ): { title: string; slug: string; type: string }[] => {
+    return getAllPosts(type).map((value) => {
+      return { title: value.title, slug: value.slug, type: type }
+    })
+  }
   return {
     props: {
       content: cont,
@@ -275,9 +240,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         math: getAllPosts("math"),
         science: getAllPosts("science"),
       },
-      searches: getAllPosts("cs").map((value) => {
-        return { title: value.title, slug: value.slug, type: "cs" }
-      }),
+      searches: [...postMap("cs"), ...postMap("math"), ...postMap("science")],
     },
   }
 }

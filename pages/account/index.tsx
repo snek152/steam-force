@@ -1,10 +1,10 @@
-/* eslint-disable @next/next/link-passhref */
 import Layout from "../../components/layout"
 import { useAuth } from "../../components/userContext"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
+import { fetchData } from "../../components/utils"
 
 const AccountHeader = dynamic(() => import("../../components/accountHeader"))
 
@@ -15,7 +15,6 @@ export default function Account() {
     math: user.courses?.math,
     science: user.courses?.science,
   })
-
   const [latest, setLatest] = useState({
     current: user.current,
     currentTitle: user.currentTitle,
@@ -23,17 +22,10 @@ export default function Account() {
   useEffect(() => {
     const fn = async () => {
       try {
-        const res = await fetch(
-          `${
-            process.env.NODE_ENV === "development"
-              ? "http://localhost:3000"
-              : "https://steam-force.vercel.app"
-          }/api/user/getuser?username=${user.uid}`,
-          {
-            method: "GET",
-          },
-        )
-        const data = (await res.json()).data
+        const res = await fetchData(`/api/user/getuser?username=${user.uid}`, {
+          method: "GET",
+        })
+        const data = res.data
         setCourses(data.courses)
         setLatest({
           current: data.current,
@@ -49,9 +41,9 @@ export default function Account() {
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-black dark:text-white">
         <div className="bg-gradient-to-r from-gray-200 dark:from-other-700 to-gray-100 dark:to-other-800 border border-gray-200 dark:border-other-700 shadow dark:shadow-white/10 rounded-lg p-3 m-2 mb-10">
           <h1 className="font-medium text-lg">Continue where you left off</h1>
-          <Link href={latest.current ? latest.current : ""}>
+          <Link href={latest.current || ""}>
             <a className="font-semibold text-xl hover:underline">
-              {latest.currentTitle ? latest.currentTitle : ""}
+              {latest.currentTitle || ""}
             </a>
           </Link>
         </div>
@@ -68,7 +60,7 @@ export default function Account() {
               alt="Science logo"
             />
           </div>
-          <Link href={`/lessons/cs/${courses.cs ? courses.cs : "intro-cp"}`}>
+          <Link href={`/lessons/cs/${courses.cs || "intro-cp"}`}>
             <a className="sm:w-64 border border-gray-200 border-opacity-50 h-64 w-full rounded-md bg-blue-200 dark:bg-blue-300 shadow-xl dark:shadow-white/10 flex flex-col justify-center cursor-pointer">
               <h1 className="text-3xl text-center dark:text-black">
                 Engineering

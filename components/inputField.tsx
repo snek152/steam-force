@@ -2,7 +2,7 @@ import { MutableRefObject } from "react"
 
 interface InputFieldProps {
   labelName: string
-  re: MutableRefObject<any>
+  re?: MutableRefObject<any>
   name: string
   type: string
   className?: string
@@ -15,7 +15,7 @@ export default function InputField(props: InputFieldProps) {
         {props.labelName}
       </label>
       <input
-        ref={props.re}
+        ref={props.re || null}
         id={props.name}
         name={props.name}
         type={props.type}

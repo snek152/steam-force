@@ -2,6 +2,7 @@ import Layout from "../../components/layout"
 import { useRef, useState, Fragment, FormEvent } from "react"
 import { Listbox, Transition } from "@headlessui/react"
 import dynamic from "next/dynamic"
+import { fetchData } from "../../components/utils"
 // import InputField from "../../components/inputField"
 
 const InputField = dynamic(() => import("../../components/inputField"))
@@ -51,30 +52,23 @@ export default function AdminPanel() {
         : answer3.current.id === correct
         ? answer3.current.value
         : answer4.current.value
-    const res = await fetch(
-      `${
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:3000"
-          : "https://steam-force.vercel.app"
-      }/api/addcourse`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          title: title.current.value,
-          heading: heading.current.value,
-          description: desc.current.value,
-          course: course.slug,
-          question: question.current.value,
-          content: fileContents,
-          answer1: answer1.current.value,
-          answer2: answer2.current.value,
-          answer3: answer3.current.value,
-          answer4: answer4.current.value,
-          correct: correctVal,
-          unit: unit.current.value,
-        }),
-      },
-    )
+    const res = await fetchData("/api/addcourse", {
+      method: "POST",
+      body: JSON.stringify({
+        title: title.current.value,
+        heading: heading.current.value,
+        description: desc.current.value,
+        course: course.slug,
+        question: question.current.value,
+        content: fileContents,
+        answer1: answer1.current.value,
+        answer2: answer2.current.value,
+        answer3: answer3.current.value,
+        answer4: answer4.current.value,
+        correct: correctVal,
+        unit: unit.current.value,
+      }),
+    })
     const json = res.status
     switch (json) {
       case 200:

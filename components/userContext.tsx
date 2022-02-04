@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { auth } from "./clientApp"
 import { useAuthState } from "react-firebase-hooks/auth"
+import { fetchData } from "./utils"
 
 const AuthContext = createContext(null)
 
@@ -54,17 +55,10 @@ export default function AuthProvider({ children }) {
           }
         } else {
           setUser((u) => u)
-          const userDb = await fetch(
-            `${
-              process.env.NODE_ENV === "development"
-                ? "http://localhost:3000"
-                : "https://steam-force.vercel.app"
-            }/api/user/getuser?username=${u.uid}`,
-            {
-              method: "GET",
-            },
+          const userData = await fetchData(
+            `/api/user/getuser?username=${u.uid}`,
+            { method: "GET" },
           )
-          const userData = await userDb.json()
           if (userData.error == 1) {
             setUser({ uid: null, offline: true })
           } else {

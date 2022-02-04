@@ -5,6 +5,7 @@ import { auth, storage } from "../../components/clientApp"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { FormEvent, useEffect, useRef, useState } from "react"
 import { updateEmail, updatePassword } from "@firebase/auth"
+import { fetchData } from "../../components/utils"
 
 export default function EditAccount() {
   const image = useRef(null)
@@ -29,21 +30,14 @@ export default function EditAccount() {
       const storageRef = ref(storage, `images/${user.username}`)
       uploadBytes(storageRef, image.current.files[0]).then((snapshot) => {
         getDownloadURL(storageRef).then(async (url) => {
-          await fetch(
-            `${
-              process.env.NODE_ENV === "development"
-                ? "http://localhost:3000"
-                : "https://steam-force.vercel.app"
-            }/api/user/updateuser`,
-            {
-              method: "PATCH",
-              body: JSON.stringify({
-                uid: user.uid,
-                field: "profileUrl",
-                update: url,
-              }),
-            },
-          )
+          await fetchData("/api/user/updateuser", {
+            method: "PATCH",
+            body: JSON.stringify({
+              uid: user.uid,
+              field: "profileUrl",
+              update: url,
+            }),
+          })
           dispatch()
           setTemp(user.profileUrl)
         })
@@ -54,21 +48,14 @@ export default function EditAccount() {
       username.current.value !== "" &&
       !username.current.value.includes(" ")
     ) {
-      await fetch(
-        `${
-          process.env.NODE_ENV === "development"
-            ? "http://localhost:3000"
-            : "https://steam-force.vercel.app"
-        }/api/user/updateuser`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({
-            uid: user.uid,
-            field: "username",
-            update: username.current.value,
-          }),
-        },
-      )
+      await fetchData("/api/user/updateuser", {
+        method: "PATCH",
+        body: JSON.stringify({
+          uid: user.uid,
+          field: "username",
+          update: username.current.value,
+        }),
+      })
       dispatch()
     }
     if (

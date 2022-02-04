@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../components/clientApp"
 import Router from "next/router"
 import Link from "next/link"
+import { fetchData } from "../components/utils"
 
 export default function Signup() {
   const email = useRef(null)
@@ -12,17 +13,10 @@ export default function Signup() {
   const username = useRef(null)
   const formSubmit = async (event: FormEvent) => {
     event.preventDefault()
-    const usernameData = await fetch(
-      `${
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:3000"
-          : "https://steam-force.vercel.app"
-      }/api/username?username=${username.current.value}`,
-      {
-        method: "GET",
-      },
+    const data = await fetchData(
+      `/api/username?username=${username.current.value}`,
+      { method: "GET" },
     )
-    const data = await usernameData.json()
     if (!data.exists) {
       setError("Username already exists")
     } else {
@@ -33,20 +27,13 @@ export default function Signup() {
       )
         .then(async (userCredential) => {
           setError(null)
-          await fetch(
-            `${
-              process.env.NODE_ENV === "development"
-                ? "http://localhost:3000"
-                : "https://steam-force.vercel.app"
-            }/api/user/adduser`,
-            {
-              method: "POST",
-              body: JSON.stringify({
-                username: username.current.value,
-                uid: userCredential.user.uid,
-              }),
-            },
-          )
+          await fetchData("/api/user/adduser", {
+            method: "POST",
+            body: JSON.stringify({
+              username: username.current.value,
+              uid: userCredential.user.uid,
+            }),
+          })
           Router.push("/account")
         })
         .catch((error) => {

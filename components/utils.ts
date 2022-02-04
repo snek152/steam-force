@@ -20,3 +20,16 @@ export interface LessonProps {
   }
   searches: { title: string; slug: string; type: string }[]
 }
+
+export const fetchData = async (url: string, options?: RequestInit) => {
+  const res = await fetch(
+    `${
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://steam-force.vercel.app"
+    }${url}`,
+    options,
+  )
+  const json = await res.json()
+  return json
+}

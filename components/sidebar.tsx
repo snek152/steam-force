@@ -7,6 +7,7 @@ import { FormEvent, Fragment, useEffect, useRef, useState } from "react"
 import Sticky from "react-stickynode"
 import InputField from "./inputField"
 import { auth } from "./clientApp"
+import { fetchData } from "./utils"
 const units = {
   cs: {
     cp: "Computer Programming",
@@ -64,22 +65,15 @@ export default function Sidebar(props: SidebarProps) {
   const desc = useRef(null)
   const formSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    await fetch(
-      `${
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:3000"
-          : "https://steam-force.vercel.app"
-      }/api/feedback`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          title: title.current.value,
-          body: desc.current.value,
-          email: auth.currentUser.email,
-          lesson: props.currentTitle,
-        }),
-      },
-    )
+    await fetchData("/api/feedback", {
+      method: "POST",
+      body: JSON.stringify({
+        title: title.current.value,
+        body: desc.current.value,
+        email: auth.currentUser.email,
+        lesson: props.currentTitle,
+      }),
+    })
   }
   return (
     <div className="w-full sm:w-3/12 inline-block relative">
