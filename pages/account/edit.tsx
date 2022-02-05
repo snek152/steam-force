@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import Layout from "../../components/layout"
 import { useAuth } from "../../components/userContext"
-import { auth, storage } from "../../components/clientApp"
+import { auth, storage } from "../../lib/clientApp"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { FormEvent, useEffect, useRef, useState } from "react"
 import { updateEmail, updatePassword } from "@firebase/auth"
-import { fetchData } from "../../components/utils"
+import { fetchData } from "../../lib/utils"
 
 export default function EditAccount() {
   const image = useRef(null)

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import { auth } from "./clientApp"
+import { auth } from "../lib/clientApp"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { fetchData } from "./utils"
+import { fetchData } from "../lib/utils"
 
 const AuthContext = createContext(null)
 
@@ -54,7 +54,7 @@ export default function AuthProvider({ children }) {
             setUser({ uid: null, loading: false })
           }
         } else {
-          setUser((u) => u)
+          setUser(defaultUser)
           const userData = await fetchData(
             `/api/user/getuser?username=${u.uid}`,
             { method: "GET" },

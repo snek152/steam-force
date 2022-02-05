@@ -2,10 +2,10 @@
 import { FormEvent, useRef, useState } from "react"
 import Layout from "../components/layout"
 import { createUserWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../components/clientApp"
+import { auth } from "../lib/clientApp"
 import Router from "next/router"
 import Link from "next/link"
-import { fetchData } from "../components/utils"
+import { fetchData } from "../lib/utils"
 
 export default function Signup() {
   const email = useRef(null)

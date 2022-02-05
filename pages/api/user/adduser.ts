@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next"
-import db from "../../../components/serverApp"
+import db from "../../../lib/serverApp"
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method !== "POST") {

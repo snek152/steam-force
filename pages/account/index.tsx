@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
-import { fetchData } from "../../components/utils"
+import { fetchData } from "../../lib/utils"
 
 const AccountHeader = dynamic(() => import("../../components/accountHeader"))
 

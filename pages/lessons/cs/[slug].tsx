@@ -1,5 +1,5 @@
-import { getPostBySlug, getAllPosts } from "../../../components/courses"
-import markdownToHtml from "../../../components/markdown"
+import { getPostBySlug, getAllPosts } from "../../../lib/courses"
+import markdownToHtml from "../../../lib/markdown"
 import matter from "gray-matter"
 import Layout from "../../../components/layout"
 import fs from "fs"
@@ -8,7 +8,7 @@ import Link from "next/link"
 import { FormEvent, useEffect } from "react"
 import { useRouter } from "next/router"
 import { useAuth } from "../../../components/userContext"
-import { fetchData, LessonProps } from "../../../components/utils"
+import { fetchData, LessonProps } from "../../../lib/utils"
 import { GetStaticPaths, GetStaticProps } from "next"
 import dynamic from "next/dynamic"
 
@@ -248,10 +248,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const slugs = fs.readdirSync(join(process.cwd(), "courses/cs"))
-  const posts = slugs.slice(0, 100).map((slug) => {
+  const posts = slugs.slice(0, 1).map((slug) => {
     return { slug: slug.replace(/\.md$/, "") }
   })
-  console.log(posts)
   const paths = []
   posts.forEach((post) => {
     paths.push({

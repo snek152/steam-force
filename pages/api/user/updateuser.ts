@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next"
-import db from "../../../components/serverApp"
+import db from "../../../lib/serverApp"
 import admin from "firebase-admin"
 
 const handler: NextApiHandler = async (req, res) => {

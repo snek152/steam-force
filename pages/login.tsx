@@ -2,7 +2,7 @@
 import { FormEvent, useRef, useState } from "react"
 import Layout from "../components/layout"
 import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../components/clientApp"
+import { auth } from "../lib/clientApp"
 import Router from "next/router"
 import Link from "next/link"
 

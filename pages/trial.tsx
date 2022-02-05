@@ -1,9 +1,9 @@
 import { signOut } from "@firebase/auth"
-import { auth } from "../components/clientApp"
+import { auth } from "../lib/clientApp"
 import Router from "next/router"
 import Layout from "../components/layout"
-import { getPostBySlug } from "../components/courses"
-import markdownToHtml from "../components/markdown"
+import { getPostBySlug } from "../lib/courses"
+import markdownToHtml from "../lib/markdown"
 import matter from "gray-matter"
 import { GetStaticProps } from "next"
 export default function Trial({ content }) {

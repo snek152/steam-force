@@ -6,8 +6,8 @@ import { useRouter } from "next/router"
 import { FormEvent, Fragment, useEffect, useRef, useState } from "react"
 import Sticky from "react-stickynode"
 import InputField from "./inputField"
-import { auth } from "./clientApp"
-import { fetchData } from "./utils"
+import { auth } from "../lib/clientApp"
+import { fetchData } from "../lib/utils"
 const units = {
   cs: {
     cp: "Computer Programming",
