@@ -226,9 +226,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const cont = await markdownToHtml(content)
   const postMap = (
     type: string,
-  ): { title: string; slug: string; type: string }[] => {
+  ): { title: string; slug: string; type: string; desc: string }[] => {
     return getAllPosts(type).map((value) => {
-      return { title: value.title, slug: value.slug, type: type }
+      return {
+        title: value.title,
+        slug: value.slug,
+        type: type,
+        desc: value.desc,
+      }
     })
   }
   return {

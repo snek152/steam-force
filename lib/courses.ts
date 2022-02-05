@@ -19,6 +19,7 @@ export function getAllPosts(type) {
         lesson: data.lesson,
         slug: data.slug,
         unit: data.unit,
+        desc: data.desc,
       }
     })
     .sort((a, b) => {

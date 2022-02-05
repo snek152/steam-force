@@ -4,15 +4,17 @@ import { useRef, useState } from "react"
 import { useAuth } from "./userContext"
 
 interface AccountHeaderProps {
-  searches?: { title: string; slug: string; type: string }[]
+  searches?: { title: string; slug: string; type: string; desc: string }[]
 }
 export default function AccountHeader(props: AccountHeaderProps) {
   const [user] = useAuth()
   const router = useRouter()
   const [search, setSearch] = useState("")
   const re = useRef<HTMLInputElement>(null)
-  const sortedList = props.searches?.filter((item) =>
-    item.title.toLowerCase().includes(search.toLowerCase()),
+  const sortedList = props.searches?.filter(
+    (item) =>
+      item.title.toLowerCase().includes(search.toLowerCase()) ||
+      item.desc.toLowerCase().includes(search.toLowerCase()),
   )
   return (
     <header className="bg-white shadow dark:bg-black dark:shadow-white/30">
@@ -68,6 +70,7 @@ export default function AccountHeader(props: AccountHeaderProps) {
                       >
                         <a className="block rounded-md p-1 px-2 hover:bg-gray-100 dark:hover:bg-other-700">
                           <li>{item.title}</li>
+                          <p className="text-xs font-normal">{item.desc}</p>
                         </a>
                       </Link>
                     ))}
