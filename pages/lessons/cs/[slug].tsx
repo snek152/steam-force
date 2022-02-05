@@ -248,7 +248,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const slugs = fs.readdirSync(join(process.cwd(), "courses/cs"))
-  const posts = slugs.slice(0, 2).map((slug) => {
+  const posts = slugs.slice(0, 100).map((slug) => {
     return { slug: slug.replace(/\.md$/, "") }
   })
   console.log(posts)
