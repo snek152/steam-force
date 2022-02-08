@@ -6,7 +6,8 @@
     "start": "next dev",
     "build": "next build",
     "serve": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prebuild": "node scripts"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.2",

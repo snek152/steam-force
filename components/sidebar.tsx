@@ -8,12 +8,7 @@ import Sticky from "react-stickynode"
 import InputField from "./inputField"
 import { auth } from "../lib/clientApp"
 import { fetchData } from "../lib/utils"
-const units = {
-  cs: {
-    cp: "Computer Programming",
-    cs: "Computer Science",
-  },
-}
+import units from "../courses/units.json"
 
 interface SidebarProps {
   lessons: {
@@ -21,7 +16,6 @@ interface SidebarProps {
     math: { title: string; lesson: string; slug: string; unit: string }[]
     science: { title: string; lesson: string; slug: string; unit: string }[]
   }
-  type: string
   currentTitle: string
 }
 export default function Sidebar(props: SidebarProps) {
@@ -128,22 +122,58 @@ export default function Sidebar(props: SidebarProps) {
                     leaveTo="transform scale-95 opacity-0"
                   >
                     <Disclosure.Panel className="relative px-4 pt-1 pb-1 text-sm text-gray-600">
-                      <ul className="ml-4 list-outside text-left">
-                        {props.lessons.science.map((lesson) => (
-                          <li
-                            key={lesson.slug}
-                            className={`p-1 ${
-                              router.query.slug == lesson.slug && "font-bold"
-                            }`}
-                          >
-                            <Link
-                              href={`/lessons/${props.type}/${lesson.slug}`}
+                      {units.science.map((unit, key) => (
+                        <Disclosure key={key}>
+                          <Disclosure.Button className="mb-2 w-full rounded-lg border border-gray-200 bg-gray-200 p-1 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
+                            <h1 className="inline-block text-sm">{unit}</h1>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className={`${
+                                open ? "rotate-180 transform" : ""
+                              } inline-block h-5 w-5`}
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
                             >
-                              <a>{lesson.title}</a>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+                              <path
+                                fillRule="evenodd"
+                                d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </Disclosure.Button>
+                          <Transition
+                            enter="transition duration-100 ease-out"
+                            enterFrom="transform scale-95 opacity-0"
+                            enterTo="transform scale-100 opacity-100"
+                            leave="transition duration-75 ease-out"
+                            leaveFrom="transform scale-100 opacity-100"
+                            leaveTo="transform scale-95 opacity-0"
+                          >
+                            <Disclosure.Panel>
+                              <ul className="ml-4 mb-2 list-outside text-left ">
+                                {props.lessons.science.map(
+                                  (lesson) =>
+                                    lesson.unit == unit && (
+                                      <li
+                                        key={lesson.slug}
+                                        className={`p-1 text-sm dark:text-white ${
+                                          router.query.slug == lesson.slug &&
+                                          "font-bold"
+                                        }`}
+                                      >
+                                        <Link
+                                          href={`/lessons/science/${lesson.slug}`}
+                                        >
+                                          <a>{lesson.title}</a>
+                                        </Link>
+                                      </li>
+                                    ),
+                                )}
+                              </ul>
+                            </Disclosure.Panel>
+                          </Transition>
+                        </Disclosure>
+                      ))}
                     </Disclosure.Panel>
                   </Transition>
                 </>
@@ -188,12 +218,10 @@ export default function Sidebar(props: SidebarProps) {
                     leaveTo="transform scale-95 opacity-0"
                   >
                     <Disclosure.Panel className="relative px-4 pt-1 pb-1 text-sm text-gray-600">
-                      {Object.keys(units.cs).map((key) => (
+                      {units.cs.map((unit, key) => (
                         <Disclosure key={key}>
                           <Disclosure.Button className="mb-2 w-full rounded-lg border border-gray-200 bg-gray-200 p-1 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
-                            <h1 className="inline-block text-sm">
-                              {units.cs[key]}
-                            </h1>
+                            <h1 className="inline-block text-sm">{unit}</h1>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               className={`${
@@ -221,7 +249,7 @@ export default function Sidebar(props: SidebarProps) {
                               <ul className="ml-4 mb-2 list-outside text-left ">
                                 {props.lessons.cs.map(
                                   (lesson) =>
-                                    lesson.unit == units.cs[key] && (
+                                    lesson.unit == unit && (
                                       <li
                                         key={lesson.slug}
                                         className={`p-1 text-sm dark:text-white ${
@@ -230,7 +258,7 @@ export default function Sidebar(props: SidebarProps) {
                                         }`}
                                       >
                                         <Link
-                                          href={`/lessons/${props.type}/${lesson.slug}`}
+                                          href={`/lessons/cs/${lesson.slug}`}
                                         >
                                           <a>{lesson.title}</a>
                                         </Link>
@@ -286,22 +314,58 @@ export default function Sidebar(props: SidebarProps) {
                     leaveTo="transform scale-95 opacity-0"
                   >
                     <Disclosure.Panel className="relative px-4 pt-1 pb-1 text-sm text-gray-600">
-                      <ul className="ml-4 list-outside text-left ">
-                        {props.lessons.math.map((lesson) => (
-                          <li
-                            key={lesson.slug}
-                            className={`p-1 ${
-                              router.query.slug == lesson.slug && "font-bold"
-                            }`}
-                          >
-                            <Link
-                              href={`/lessons/${props.type}/${lesson.slug}`}
+                      {units.math.map((unit, key) => (
+                        <Disclosure key={key}>
+                          <Disclosure.Button className="mb-2 w-full rounded-lg border border-gray-200 bg-gray-200 p-1 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
+                            <h1 className="inline-block text-sm">{unit}</h1>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className={`${
+                                open ? "rotate-180 transform" : ""
+                              } inline-block h-5 w-5`}
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
                             >
-                              <a>{lesson.title}</a>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+                              <path
+                                fillRule="evenodd"
+                                d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </Disclosure.Button>
+                          <Transition
+                            enter="transition duration-100 ease-out"
+                            enterFrom="transform scale-95 opacity-0"
+                            enterTo="transform scale-100 opacity-100"
+                            leave="transition duration-75 ease-out"
+                            leaveFrom="transform scale-100 opacity-100"
+                            leaveTo="transform scale-95 opacity-0"
+                          >
+                            <Disclosure.Panel>
+                              <ul className="ml-4 mb-2 list-outside text-left ">
+                                {props.lessons.math.map(
+                                  (lesson) =>
+                                    lesson.unit == unit && (
+                                      <li
+                                        key={lesson.slug}
+                                        className={`p-1 text-sm dark:text-white ${
+                                          router.query.slug == lesson.slug &&
+                                          "font-bold"
+                                        }`}
+                                      >
+                                        <Link
+                                          href={`/lessons/math/${lesson.slug}`}
+                                        >
+                                          <a>{lesson.title}</a>
+                                        </Link>
+                                      </li>
+                                    ),
+                                )}
+                              </ul>
+                            </Disclosure.Panel>
+                          </Transition>
+                        </Disclosure>
+                      ))}
                     </Disclosure.Panel>
                   </Transition>
                 </>
