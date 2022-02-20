@@ -26,10 +26,10 @@ export default function Sidebar(props: SidebarProps) {
   const science = useRef<HTMLButtonElement>(null)
   const cs = useRef<HTMLButtonElement>(null)
   const math = useRef<HTMLButtonElement>(null)
+
   const openModal = () => {
     setOpen(true)
   }
-
   const closeModal = () => {
     setOpen(false)
   }

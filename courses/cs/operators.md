@@ -7,7 +7,7 @@ correct: "=="
 heading: "Computer Programming - Operators"
 lesson: 7
 prev: "keywords"
-# next: "decisions"
+next: "decisions"
 desc: "In this section you will learn about arithmetic and relational operators"
 unit: "Computer Programming"
 ---

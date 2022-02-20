@@ -8,10 +8,10 @@ import stringify from "rehype-stringify"
 export default async function markdownToHtml(markdown: string) {
   const result = await unified()
     .use(parse)
-    .use(rehype)
+    .use(rehype, { allowDangerousHtml: true })
     .use(remarkGfm)
     .use(highlight)
-    .use(stringify)
+    .use(stringify, { allowDangerousHtml: true })
     .process(markdown)
   return result.toString()
 }
