@@ -18,7 +18,7 @@ export default function Login() {
     )
       .then((userCredential) => {
         setError(null)
-        Router.push("/account")
+        Router.push("/dashboard")
       })
       .catch((error) => {
         let code = error.code.substring(5).replace(/-/g, " ")

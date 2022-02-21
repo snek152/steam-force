@@ -86,7 +86,7 @@ export default function AccountHeader(props: AccountHeaderProps) {
           )}
           <span
             className="cursor-pointer space-x-1 hover:underline"
-            onClick={() => router.push("/account/contribute")}
+            onClick={() => router.push("/dashboard/contribute")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

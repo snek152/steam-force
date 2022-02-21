@@ -85,14 +85,17 @@ export default function Layout(props: LayoutProps) {
       user.uid !== null &&
       !user.anonymous
     ) {
-      Router.push("/account")
+      Router.push("/dashboard")
     } else if (
-      router.pathname == "/account" &&
+      router.pathname.includes("/dashboard") &&
       user.uid === null &&
       user.loading === false
     ) {
       Router.push("/")
-    } else if (router.pathname == "/account" && user.anonymous === true) {
+    } else if (
+      router.pathname.includes("/dashboard") &&
+      user.anonymous === true
+    ) {
       Router.push("/trial")
     } else if (
       router.pathname == "/trial" &&
@@ -100,7 +103,7 @@ export default function Layout(props: LayoutProps) {
       !user.loading &&
       !user.anonymous
     ) {
-      Router.push("/account")
+      Router.push("/dashboard")
     }
   }, [router.pathname, user.uid, user.loading, user.anonymous])
 
@@ -541,20 +544,20 @@ function LoggedInUser({ user }) {
               <Menu.Item>
                 {({ active }) => (
                   <DropdownLink
-                    href="/account"
+                    href="/dashboard"
                     className={classNames(
                       active ? "bg-gray-100 dark:bg-other-700" : "",
                       "block px-4 py-2 text-sm text-gray-700 dark:text-gray-200",
                     )}
                   >
-                    Account
+                    Dashboard
                   </DropdownLink>
                 )}
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
                   <DropdownLink
-                    href="/account/edit"
+                    href="/dashboard/edit"
                     className={classNames(
                       active ? "bg-gray-100 dark:bg-other-700" : "",
                       "block px-4 py-2 text-sm text-gray-700 dark:text-gray-200",

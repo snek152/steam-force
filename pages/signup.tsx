@@ -34,7 +34,7 @@ export default function Signup() {
               uid: userCredential.user.uid,
             }),
           })
-          Router.push("/account")
+          Router.push("/dashboard")
         })
         .catch((error) => {
           let code = error.code.substring(5).replace(/-/g, " ")

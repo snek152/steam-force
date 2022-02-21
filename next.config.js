@@ -19,6 +19,7 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  swcMinify: true,
 }
 
 module.exports = withBundle(withPWA(config))
