@@ -16,6 +16,7 @@ const handler: NextApiHandler = async (req, res) => {
           math: null,
           science: null,
           cs: null,
+          art: null,
         },
         points: 0,
         current: null,

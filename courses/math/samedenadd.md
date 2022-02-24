@@ -1,6 +1,6 @@
 ---
-title: "Variables - Computer Programming"
-slug: "variables"
+title: "Same Denominator Adding - Adding Fractions"
+slug: "samedenadd"
 question: "What variable rule do C and Java force that Python doesn't require?"
 answerchoices:
   [
@@ -11,9 +11,9 @@ answerchoices:
   ]
 correct: "Each variable must have a set type"
 heading: "Computer Programming - Variables"
-lesson: 5
+lesson: 1
 prev: "datatypes"
 next: "keywords"
 desc: "learn about storing data"
-unit: "Computer Programmin"
+unit: "Adding Fractions"
 ---

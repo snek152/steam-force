@@ -15,7 +15,7 @@ import dynamic from "next/dynamic"
 const Sidebar = dynamic(() => import("../../../components/sidebar"))
 const AccountHeader = dynamic(() => import("../../../components/accountHeader"))
 
-export default function ScienceLesson(props: LessonProps) {
+export default function ArtLesson(props: LessonProps) {
   const router = useRouter()
   const [user, dispatch] = useAuth()
   const answerchoices = [...props.data.answerchoices]
@@ -100,7 +100,7 @@ export default function ScienceLesson(props: LessonProps) {
             method: "PATCH",
             body: JSON.stringify({
               uid: user.uid,
-              field: "courses.science",
+              field: "courses.art",
               update: props.data.slug,
             }),
           }),
@@ -180,7 +180,7 @@ export default function ScienceLesson(props: LessonProps) {
             </div>
           </div>
           <div className="flex h-10 justify-between">
-            <Link href={`/lessons/science/${props.data.prev}`}>
+            <Link href={`/lessons/art/${props.data.prev}`}>
               <a
                 className={`rounded-md bg-gray-300 px-3 pt-[0.4rem] font-normal no-underline shadow-md dark:bg-gray-500 ${
                   props.data.prev
@@ -191,7 +191,7 @@ export default function ScienceLesson(props: LessonProps) {
                 Previous
               </a>
             </Link>
-            <Link href={`/lessons/science/${props.data.next}`}>
+            <Link href={`/lessons/art/${props.data.next}`}>
               <a
                 className={`rounded-md bg-blue-500 px-3 pt-[0.4rem] font-normal text-white no-underline shadow-md ${
                   props.data.next
@@ -210,7 +210,7 @@ export default function ScienceLesson(props: LessonProps) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const fileContents = getPostBySlug(params.slug as string, "science")
+  const fileContents = getPostBySlug(params.slug as string, "art")
   const { data, content } = matter(fileContents)
   const cont = await markdownToHtml(content)
   const postMap = (
@@ -247,7 +247,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = fs.readdirSync(join(process.cwd(), "courses/science"))
+  const slugs = fs.readdirSync(join(process.cwd(), "courses/art"))
   const posts = slugs.slice(0, 100).map((slug) => {
     return { slug: slug.replace(/\.md$/, "") }
   })

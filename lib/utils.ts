@@ -17,6 +17,7 @@ export interface LessonProps {
     cs: { title: string; lesson: string; slug: string; unit: string }[]
     math: { title: string; lesson: string; slug: string; unit: string }[]
     science: { title: string; lesson: string; slug: string; unit: string }[]
+    art: { title: string; lesson: string; slug: string; unit: string }[]
   }
   searches: { title: string; slug: string; type: string; desc: string }[]
 }

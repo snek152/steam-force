@@ -108,14 +108,7 @@ export default function CSLesson(props: LessonProps) {
       } catch (e) {}
     }
     fn()
-  }, [
-    props.data.heading,
-    props.data.slug,
-    router.asPath,
-    user.courses?.math,
-    user.courses?.science,
-    user?.uid,
-  ])
+  }, [props.data.heading, props.data.slug, router.asPath, user?.uid])
   return (
     <Layout title={props.data.title} container={false}>
       <AccountHeader searches={props.searches} />
@@ -240,8 +233,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         cs: getAllPosts("cs"),
         math: getAllPosts("math"),
         science: getAllPosts("science"),
+        art: getAllPosts("art"),
       },
-      searches: [...postMap("cs"), ...postMap("math"), ...postMap("science")],
+      searches: [
+        ...postMap("cs"),
+        ...postMap("math"),
+        ...postMap("science"),
+        ...postMap("art"),
+      ],
     },
     revalidate: 60,
   }

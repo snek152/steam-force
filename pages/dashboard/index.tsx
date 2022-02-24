@@ -14,6 +14,7 @@ export default function Account() {
     cs: user.courses?.cs,
     math: user.courses?.math,
     science: user.courses?.science,
+    art: user.courses?.art,
   })
   const [latest, setLatest] = useState({
     current: user.current,
@@ -49,17 +50,19 @@ export default function Account() {
         </div>
         <h1 className="pb-5 text-center text-4xl font-semibold">Courses</h1>
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <div className="flex h-64 w-full cursor-pointer flex-col justify-center rounded-md border border-gray-200 border-opacity-50 bg-green-200 shadow-xl dark:bg-green-300 dark:shadow-white/10 sm:w-64">
-            <h1 className="text-center text-3xl dark:text-black">Science</h1>
-            <Image
-              src="/science.svg"
-              height={150}
-              width={150}
-              priority
-              className="m-auto select-none"
-              alt="Science logo"
-            />
-          </div>
+          <Link href={`/lessons/science/${courses.science || "whatisbio"}`}>
+            <a className="flex h-64 w-full cursor-pointer flex-col justify-center rounded-md border border-gray-200 border-opacity-50 bg-green-200 shadow-xl dark:bg-green-300 dark:shadow-white/10 sm:w-64">
+              <h1 className="text-center text-3xl dark:text-black">Science</h1>
+              <Image
+                src="/science.svg"
+                height={150}
+                width={150}
+                priority
+                className="m-auto select-none"
+                alt="Science logo"
+              />
+            </a>
+          </Link>
           <Link href={`/lessons/cs/${courses.cs || "intro-cp"}`}>
             <a className="flex h-64 w-full cursor-pointer flex-col justify-center rounded-md border border-gray-200 border-opacity-50 bg-blue-200 shadow-xl dark:bg-blue-300 dark:shadow-white/10 sm:w-64">
               <h1 className="text-center text-3xl dark:text-black">
@@ -74,18 +77,32 @@ export default function Account() {
               />
             </a>
           </Link>
-          <div className="flex h-64 w-full cursor-pointer flex-col justify-center rounded-md border border-gray-200 border-opacity-50 bg-red-200 shadow-xl dark:bg-red-300 dark:shadow-white/10 sm:w-64">
-            <h1 className="text-center text-3xl dark:text-black">
-              Mathematics
-            </h1>
-            <Image
-              src="/math.svg"
-              height={150}
-              width={150}
-              className="m-auto select-none"
-              alt="Math logo"
-            />
-          </div>
+          <Link href={`/lessons/math/${courses.math || "samedenadd"}`}>
+            <a className="flex h-64 w-full cursor-pointer flex-col justify-center rounded-md border border-gray-200 border-opacity-50 bg-red-200 shadow-xl dark:bg-red-300 dark:shadow-white/10 sm:w-64">
+              <h1 className="text-center text-3xl dark:text-black">
+                Mathematics
+              </h1>
+              <Image
+                src="/math.svg"
+                height={150}
+                width={150}
+                className="m-auto select-none"
+                alt="Math logo"
+              />
+            </a>
+          </Link>
+          <Link href={`/lessons/art/${courses.art || "tools"}`}>
+            <a className="flex h-64 w-full cursor-pointer flex-col justify-center rounded-md border border-gray-200 border-opacity-50 bg-yellow-200 shadow-xl dark:bg-yellow-300 dark:shadow-white/10 sm:w-64">
+              <h1 className="text-center text-3xl dark:text-black">Art</h1>
+              <Image
+                src="/art.svg"
+                height={150}
+                width={150}
+                className="m-auto select-none !p-3"
+                alt="Art logo"
+              />
+            </a>
+          </Link>
         </div>
       </div>
     </Layout>

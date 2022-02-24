@@ -5,6 +5,7 @@ const units = {
   cs: [],
   math: [],
   science: [],
+  art: [],
 }
 function cs() {
   const dirs = fs.readdirSync("courses/cs")
@@ -27,12 +28,20 @@ function science() {
   for (const i of dirs) {
     const file = fs.readFileSync(`courses/science/${i}`)
     const { data } = matter(file.toString())
-    const key = Math.random()
     if (!units.science.includes(data.unit)) units.science.push(data.unit)
+  }
+}
+function art() {
+  const dirs = fs.readdirSync("courses/art")
+  for (const i of dirs) {
+    const file = fs.readFileSync(`courses/art/${i}`)
+    const { data } = matter(file.toString())
+    if (!units.art.includes(data.unit)) units.art.push(data.unit)
   }
 }
 
 cs()
 math()
 science()
+art()
 fs.writeFileSync("courses/units.json", JSON.stringify(units))

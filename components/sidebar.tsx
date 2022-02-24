@@ -8,13 +8,15 @@ import Sticky from "react-stickynode"
 import InputField from "./inputField"
 import { auth } from "../lib/clientApp"
 import { fetchData } from "../lib/utils"
-import units from "../courses/units.json"
+
+const units = require("../courses/units.json")
 
 interface SidebarProps {
   lessons: {
     cs: { title: string; lesson: string; slug: string; unit: string }[]
     math: { title: string; lesson: string; slug: string; unit: string }[]
     science: { title: string; lesson: string; slug: string; unit: string }[]
+    art: { title: string; lesson: string; slug: string; unit: string }[]
   }
   currentTitle: string
 }
@@ -26,6 +28,7 @@ export default function Sidebar(props: SidebarProps) {
   const science = useRef<HTMLButtonElement>(null)
   const cs = useRef<HTMLButtonElement>(null)
   const math = useRef<HTMLButtonElement>(null)
+  const art = useRef<HTMLButtonElement>(null)
 
   const openModal = () => {
     setOpen(true)
@@ -42,6 +45,9 @@ export default function Sidebar(props: SidebarProps) {
     }
     if (router.pathname.includes("math")) {
       math.current.click()
+    }
+    if (router.pathname.includes("art")) {
+      art.current.click()
     }
   }, [router.pathname])
   useEffect(() => {
@@ -355,6 +361,102 @@ export default function Sidebar(props: SidebarProps) {
                                       >
                                         <Link
                                           href={`/lessons/math/${lesson.slug}`}
+                                        >
+                                          <a>{lesson.title}</a>
+                                        </Link>
+                                      </li>
+                                    ),
+                                )}
+                              </ul>
+                            </Disclosure.Panel>
+                          </Transition>
+                        </Disclosure>
+                      ))}
+                    </Disclosure.Panel>
+                  </Transition>
+                </>
+              )}
+            </Disclosure>
+            <Disclosure>
+              {({ open }) => (
+                <>
+                  <Disclosure.Button
+                    ref={art}
+                    className="my-2 flex w-full justify-between rounded-lg bg-yellow-100 px-4 py-2 text-left text-sm font-medium text-black hover:bg-yellow-200 focus:outline-none focus-visible:ring focus-visible:ring-yellow-500 focus-visible:ring-opacity-75 dark:bg-yellow-300 dark:hover:bg-yellow-400"
+                  >
+                    <span>
+                      <img
+                        src="/art.svg"
+                        className="inline-block h-4 w-4 p-[1px] align-text-bottom"
+                        alt="Science logo"
+                      />
+                      <h1 className="inline-block">Art</h1>
+                    </span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className={`${
+                        open ? "rotate-180 transform" : ""
+                      } inline-block h-5 w-5`}
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </Disclosure.Button>
+                  <Transition
+                    enter="transition duration-100 ease-out"
+                    enterFrom="transform scale-95 opacity-0"
+                    enterTo="transform scale-100 opacity-100"
+                    leave="transition duration-75 ease-out"
+                    leaveFrom="transform scale-100 opacity-100"
+                    leaveTo="transform scale-95 opacity-0"
+                  >
+                    <Disclosure.Panel className="relative px-4 pt-1 pb-1 text-sm text-gray-600">
+                      {units.art.map((unit, key) => (
+                        <Disclosure key={key}>
+                          <Disclosure.Button className="mb-2 w-full rounded-lg border border-gray-200 bg-gray-200 p-1 dark:border-gray-700 dark:bg-gray-700 dark:text-white">
+                            <h1 className="inline-block text-sm">{unit}</h1>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className={`${
+                                open ? "rotate-180 transform" : ""
+                              } inline-block h-5 w-5`}
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </Disclosure.Button>
+                          <Transition
+                            enter="transition duration-100 ease-out"
+                            enterFrom="transform scale-95 opacity-0"
+                            enterTo="transform scale-100 opacity-100"
+                            leave="transition duration-75 ease-out"
+                            leaveFrom="transform scale-100 opacity-100"
+                            leaveTo="transform scale-95 opacity-0"
+                          >
+                            <Disclosure.Panel>
+                              <ul className="ml-4 mb-2 list-outside text-left ">
+                                {props.lessons.art.map(
+                                  (lesson) =>
+                                    lesson.unit == unit && (
+                                      <li
+                                        key={lesson.slug}
+                                        className={`p-1 text-sm dark:text-white ${
+                                          router.query.slug == lesson.slug &&
+                                          "font-bold"
+                                        }`}
+                                      >
+                                        <Link
+                                          href={`/lessons/art/${lesson.slug}`}
                                         >
                                           <a>{lesson.title}</a>
                                         </Link>

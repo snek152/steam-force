@@ -23,6 +23,7 @@ type UserCourse = {
   cs: string | null
   math: string | null
   science: string | null
+  art: string | null
 }
 const defaultUser: User = {
   uid: null,
@@ -34,7 +35,7 @@ const defaultUser: User = {
   username: "",
   points: 0,
   currentTitle: "",
-  courses: { cs: null, math: null, science: null },
+  courses: { cs: null, math: null, science: null, art: null },
   completed: [],
 }
 export default function AuthProvider({ children }) {
