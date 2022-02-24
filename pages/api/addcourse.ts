@@ -44,7 +44,8 @@ desc: ${body.description}
 unit: ${body.unit}
 
 ${body.content}`
-    const file = btoa(fileContents)
+    const contents = Buffer.from(fileContents, "base64")
+    const file = contents.toString("base64")
     try {
       const resp = await octokit.request(
         "GET /repos/{owner}/{repo}/commits/{ref}",
