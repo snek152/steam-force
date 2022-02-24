@@ -44,7 +44,7 @@ desc: ${body.description}
 unit: ${body.unit}
 
 ${body.content}`
-    const contents = Buffer.from(fileContents, "base64")
+    const contents = Buffer.from(fileContents)
     const file = contents.toString("base64")
     try {
       const resp = await octokit.request(
