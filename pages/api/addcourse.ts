@@ -66,7 +66,7 @@ ${body.content}`
       await octokit.request("PUT /repos/{owner}/{repo}/contents/{path}", {
         owner: "SneK152",
         repo: "steam-force",
-        path: `courses/${req.body.course}/lessonForReview.md`,
+        path: `courses/${body.course}/lessonForReview.md`,
         message: "Adding file for review",
         content: file,
         branch: branchName,
