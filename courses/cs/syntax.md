@@ -1,5 +1,5 @@
 ---
-title: "Syntax - Computer Programming"
+title: "Syntax"
 slug: "syntax"
 question: "What is a syntax error?"
 answerchoices:

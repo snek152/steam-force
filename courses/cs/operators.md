@@ -1,5 +1,5 @@
 ---
-title: "Operators - Computer Programming"
+title: "Operators"
 slug: "operators"
 question: "What operator would you use to check if 20 divided by 10 is equal to 2?"
 answerchoices: ["==", "!=", "<", ">"]

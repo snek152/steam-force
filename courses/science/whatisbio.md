@@ -1,5 +1,5 @@
 ---
-title: "What is Biology? - Intro to Biology"
+title: "What is Biology?"
 slug: "whatisbio"
 question: "What variable rule do C and Java force that Python doesn't require?"
 answerchoices:

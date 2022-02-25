@@ -1,5 +1,5 @@
 ---
-title: "Keywords - Computer Programming"
+title: "Keywords"
 slug: "keywords"
 question: "Which of the following is NOT a reserved keyword?"
 answerchoices: ["char", "int", "class", "then"]

@@ -1,5 +1,5 @@
 ---
-title: "Data Types - Computer Programming"
+title: "Data Types"
 slug: "datatypes"
 question: "What datatype would you use to represent a single character in Java or C?"
 answerchoices: ["int", "short", "string", "char"]

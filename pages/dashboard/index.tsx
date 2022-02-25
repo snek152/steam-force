@@ -77,7 +77,7 @@ export default function Account() {
               />
             </a>
           </Link>
-          <Link href={`/lessons/math/${courses.math || "samedenadd"}`}>
+          <Link href={`/lessons/math/${courses.math || "add-subtract-same"}`}>
             <a className="flex h-64 w-full cursor-pointer flex-col justify-center rounded-md border border-gray-200 border-opacity-50 bg-red-200 shadow-xl dark:bg-red-300 dark:shadow-white/10 sm:w-64">
               <h1 className="text-center text-3xl dark:text-black">
                 Mathematics

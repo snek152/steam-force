@@ -1,5 +1,5 @@
 ---
-title: "Tools of the Trade - How to Draw"
+title: "Tools of the Trade"
 slug: "tools"
 question: "What variable rule do C and Java force that Python doesn't require?"
 answerchoices:

@@ -1,5 +1,5 @@
 ---
-title: "Environment - Computer Programming"
+title: "Environment"
 slug: "env"
 question: "What's the difference between compiler and interpreter?"
 answerchoices:

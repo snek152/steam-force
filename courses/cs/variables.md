@@ -1,5 +1,5 @@
 ---
-title: "Variables - Computer Programming"
+title: "Variables"
 slug: "variables"
 question: "What variable rule do C and Java force that Python doesn't require?"
 answerchoices:
