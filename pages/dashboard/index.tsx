@@ -50,7 +50,9 @@ export default function Account() {
         </div>
         <h1 className="pb-5 text-center text-4xl font-semibold">Courses</h1>
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <Link href={`/lessons/science/${courses.science || "whatisbio"}`}>
+          <Link
+            href={`/lessons/science/${courses.science || "bacteria-culture"}`}
+          >
             <a className="flex h-64 w-full cursor-pointer flex-col justify-center rounded-md border border-gray-200 border-opacity-50 bg-green-200 shadow-xl dark:bg-green-300 dark:shadow-white/10 sm:w-64">
               <h1 className="text-center text-3xl dark:text-black">Science</h1>
               <Image
@@ -91,7 +93,7 @@ export default function Account() {
               />
             </a>
           </Link>
-          <Link href={`/lessons/art/${courses.art || "tools"}`}>
+          <Link href={`/lessons/art/${courses.art || "pop-art"}`}>
             <a className="flex h-64 w-full cursor-pointer flex-col justify-center rounded-md border border-gray-200 border-opacity-50 bg-yellow-200 shadow-xl dark:bg-yellow-300 dark:shadow-white/10 sm:w-64">
               <h1 className="text-center text-3xl dark:text-black">Art</h1>
               <Image
