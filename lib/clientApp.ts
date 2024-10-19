@@ -2,6 +2,7 @@ import { getAuth } from "firebase/auth"
 import { initializeApp } from "firebase/app"
 import { getStorage } from "firebase/storage"
 import { getApps } from "firebase/app"
+import { getURL } from "next/dist/shared/lib/utils"
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,

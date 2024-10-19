@@ -1,3 +1,5 @@
+import { getLocationOrigin } from "next/dist/shared/lib/utils"
+
 export interface LessonProps {
   data: {
     answerchoices: string[]
@@ -25,9 +27,10 @@ export interface LessonProps {
 export const fetchData = async (url: string, options?: RequestInit) => {
   const res = await fetch(
     `${
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:3000"
-        : "https://steam-force.vercel.app"
+      getLocationOrigin()
+      // process.env.NODE_ENV === "development"
+      //   ? "http://localhost:3000"
+      //   : "https://steamforce.snehilkakani.me"
     }${url}`,
     options,
   )
