@@ -10,7 +10,7 @@ const handler: NextApiHandler = async (req, res) => {
       .collection("users")
       .doc(body.uid)
       .set({
-        username: req.body.username,
+        username: body.username,
         profileUrl: null,
         courses: {
           math: null,

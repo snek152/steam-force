@@ -17,7 +17,7 @@ export default function Signup() {
       `/api/username?username=${username.current.value}`,
       { method: "GET" },
     )
-    if (!data.exists) {
+    if (data.exists) {
       setError("Username already exists")
     } else {
       createUserWithEmailAndPassword(
