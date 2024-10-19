@@ -39,22 +39,23 @@ function LeftNavLinks(props: LeftNavLinksProps) {
   }, [theme])
   return (
     <>
-      <a
-        href="#"
-        className={`nav-link ${props.mobile ? "mobile-nav" : ""} ${
-          router.pathname == "/" ? "active" : "inactive"
-        }`}
-      >
-        Home
-      </a>
-      <a
+      <Link href="/">
+        <a
+          className={`nav-link ${props.mobile ? "mobile-nav" : ""} ${
+            router.pathname == "/" ? "active" : "inactive"
+          }`}
+        >
+          Home
+        </a>
+      </Link>
+      {/* <a
         href="#"
         className={`nav-link ${props.mobile ? "mobile-nav" : ""} ${
           router.pathname == "/about" ? "active" : "inactive"
         }`}
       >
         About
-      </a>
+      </a> */}
       <Switch
         checked={darkMode}
         onChange={() =>
